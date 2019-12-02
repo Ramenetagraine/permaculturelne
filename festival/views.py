@@ -9,12 +9,9 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group, User
 from django.core.mail import mail_admins, send_mail, BadHeaderError
-from .forms import ProfilCreationForm, ContactForm, AdresseForm, SignerForm, ProfilChangeForm, MessageForm,CommentaireForm
-from .models import Profil, Adresse, Message, Domaine_charte, Proposition_charte, Commentaire_charte, Vote
+from .forms import ProfilCreationForm, ContactForm, AdresseForm, SignerForm, ProfilChangeForm, MessageForm
+from .models import Profil, Adresse, Message
 from django.views.generic import ListView, UpdateView, DeleteView
-from django.db.models import F
-from django.http import HttpResponse
-
 CharField.register_lookup(Lower, "lower")
 
 
@@ -39,7 +36,7 @@ def handler400(request, template_name="400.html"):   #requete invalide
     return response
 
 def bienvenue(request):
-    commentaires = Message.objects.filter(type_article="5").order_by("date_creation")
+    commentaires = Message.objects.all().order_by("date_creation")
     form = MessageForm(request.POST or None)
     if form.is_valid():
         if not request.user.is_authenticated:
@@ -62,9 +59,12 @@ def merci(request):
 def faq(request):
     return render(request, 'faq.html')
 
-def statuts(request):
-    return render(request, 'statuts.html')
+def cgu(request):
+    return render(request, 'cgu.html')
 
+
+def fairedon(request):
+    return render(request, 'fairedon.html', )
 
 
 @sensitive_variables('user', 'password1', 'password2')
@@ -189,47 +189,20 @@ def contact_admins(request):
         form = ContactForm()
     return render(request, 'contact.html', {'form': form, "isContactProducteur":False})
 
-def cgu(request):
-    return render(request, 'cgu.html', )
-
-def fairedon(request):
-    return render(request, 'fairedon.html', )
-
-@login_required
-def statistiques(request):
-    nb_inscrits = Profil.objects.all().count()
-    return render(request, 'statistiques.html', {"nb_inscrits":nb_inscrits})
-
-
-@login_required
-def signataires(request):
-    signataires = Profil.objects.filter(a_signe=True, accepter_annuaire=True)
-    nb_total_signe = Profil.objects.filter(a_signe=True,).count()
-    nb_total = Profil.objects.all().count()
-    return render(request, 'signataires.html', {"signataires":signataires, "nb_total_signe":nb_total_signe, "nb_total":nb_total})
 
 def liens(request):
     liens = [
-        'https://jancovici.com/',
         'https://alternatiba.eu/alternatiba66/',
-        'https://www.colibris-lemouvement.org/',
-        'https://colibris-universite.org/mooc-permaculture/wakka.php?wiki=PagePrincipale',
-        'https://ponteillanature.wixsite.com/eco-nature',
-        'https://cce-66.wixsite.com/mysite',
-        'https://jardindenat.wixsite.com/website',
-        'https://www.permapat.com',
         'http://sel66.free.fr',
         'http://www.perma.cat',
         'http://soudaqui.cat/wordpress/',
         'https://framasoft.org',
-        'http://www.le-message.org/?lang=fr',
         'https://reporterre.net/',
         'https://cerclecataladelrossello.wordpress.com/',
         'https://www.la-clau.net/',
         'https://www.monnaielibreoccitanie.org/',
         'http://lejeu.org/',
     ]
-    #commentaires = Message.objects.filter(type_article="4", valide=True).order_by("date_creation")
     commentaires = Message.objects.filter(type_article="4").order_by("date_creation")
     form = MessageForm(request.POST or None)
     if form.is_valid():
@@ -258,133 +231,6 @@ def introduction(request):
         return redirect(request.path)
 
     return render(request, '1_introduction.html', {'form': form, 'commentaires': commentaires}, )
-
-def risques(request):
-    dico_risques = [
-        ("Ressources en berne :", "<ol><li>l'eau en danger: nappes phréatiques en net recul, pollués et salinisées, précipitations en forte diminution, assèchement des cours d'eau et des sols, </li><li> les sols pollués/détruits par l'agro-industrie, </li><li> l'approvisionnement énergétique en danger (principalement le pétrole), </li><li> approvisionnement en nourriture en danger (perte du secteur agricole local, diminution des rendements) </li><li> matériaux de construction importés, sans filières locales écologiques efficientes (bois, paille, briques, sable de construction, matériel électrique comme le cuivre qui s'épuise, etc)</li></ol>"),
-        ("Risques naturels importants", "<ol> <li> érosion des sols, </li>  <li> érosion du trait de cote, </li><li> inondations, </li><li> sécheresses,  </li><li>canicules,  </li><li>incendies. </li></ol>" \
-                              "<p>Tous ces risquent augmentent considérablement et de façon non-linéaire (par paliers et donc 'crises') à cause du changement climatique</p>"),
-        ("Agriculture en danger ", "disparition des terres agricoles, perte de rendements, disparition/pollution/salinisation de l'eau, sécheresses répétitives, perte des pollinisateurs de la biodiversité qui est nécessaire à l'agriculture. Modèle économique mondialisé, polluant, émetteur de CO2, dépendant du pétrole, appauvrissant la grande majorité des agriculteurs, et proche du krach."),
-        ("Economie malade ", "seul le tourisme de masse et 'l'économie résidentielle' semblent être mis en valeur, détruisant ainsi nos nappes, folklorisant notre identité, ne créant que peu d'emplois et souvent saisonniers, à faible valeur ajoutée. Un fort trafic (encore du pétrole) dû à la métropolisation de Perpignan et l’éloignement des zones d'habitation avec les zones commerciales. Chômage massif, et travail au noir généralisé sont le lot de notre département."),
-        ("Aménagement du territoire inapproprié", " nos paysages sont modifiés par l'Homme de façon désordonnée, irresponsable et inadaptée aux futures crises, par <ol><li> l’appât du gain à court terme (champs d’éoliennes qui défigurent nos paysages sans être une réelle solution écologique, construction sur des terres agricoles fertiles, extension des grands centres commerciaux totalement inadaptés en cas de crise pétrolière, etc), sans parler de la corruption de nos 'élites locales', </li><li> la démographie excessive, sans contrôle du foncier </li><li> Un réseau de transport entièrement pensé avec un pétrole abondant, donc très vulnérable et polluant."),
-        ("Identité effacée", " perte de notre culture catalane, de notre patrimoine culturel, artistique et linguistique. Ainsi c'est toute la cohésion du territoire qui est mise à mal. Sans reconnaissance de notre identité, il ne peut y avoir de solidarité, de projet commun et in fine d'organisation politique démocratique locale. Sans identité collective propre, point de salut collectif."),
-        ("Dépendance vis-à-vis de l’extérieur ", " approvisionnement en ressources (pétrole, matériaux de construction, etc), monnaie sous contrôle des banques et des industries polluantes et émettrices de CO2, décisions politiques centralisées hors de nos frontières et de notre contrôle, etc."),
-    ]
-    commentaires = Message.objects.filter(type_article="1").order_by("date_creation")
-    form = MessageForm(request.POST or None)
-    if form.is_valid():
-        if not request.user.is_authenticated:
-            return redirect('login')
-        comment = form.save(commit=False)
-        comment.auteur = request.user
-        comment.type_article = "1"
-        comment.save()
-        return redirect(request.path)
-
-    return render(request, '2_risques.html', {"dico_risques":dico_risques, 'form': form, 'commentaires': commentaires})
-
-def preconisations(request):
-    dico_risques = [ ("Soutien à l'agriculture (biologique et permacole) ",
-                      " tous les agriculteurs doivent a minima passer en bio, et les collectivités doivent aider à la mise en place de fermes agro-écologiques. Ce sont des lieux individualisés ou collectifs de production (agricole et artisanale) qui peuvent : <ol><li> fournir de la nourriture locale et saine </li><li> gérer l'eau de façon durable </li><li> fournir du travail aux gens d'ici </li><li> gérer les stock de bois (énergie renouvelable et construction), </li><li> maintenir la biodiversité indispensable à notre survie, </li><li>créer du lien social, </li><li> optimiser l'usage des ressources, </li><li> être des lieux d'éducation, de formation et de citoyenneté.</li></ol>Il est aussi nécessaire de lutter contre tous les pesticides et engrais chimiques (qui dépendent aussi du pétrole, et qui polluent durablement nos sols et notre eau), et cela passe obligatoirement par des fermes agro-écologiques qui par leur multiples activités (élevage, maraichage, foresterie, etc) sont plus résilientes et peuvent amener des solutions alternatives aux pesticides et engrais."),
-
-    ("Reforestation",
-        "La reforestation du territoire doit être commencée au plus vite, en restaurant toutes les haies, les corridors écologiques (trame verte et bleue, etc), et en plantant des forets mixtes (fruitiers et non-fruitiers), y compris en zones urbaines. Les arbres sont un atout majeur et indispensable : ils apportent des fruits, du fourrage, de l'énergie renouvelable, stockent du carbone, créent des milieux favorables pour la faune et la flore (protection des oiseaux, des insectes, et de toute la chaine alimentaire), protègent les champignons, apportent de l'humus, protègent de l'évaporation et donc de la sécheresse mais aussi des inondations, apportent de l'ombre, et font remonter les minéraux et l'eau du sous-sol par leur système racinaire. Par ailleurs, il faut repenser la place des animaux dans notre société, dont une partie doit être traitée éthiquement (l'élevage non intensif) et une partie doit rester sauvage (protection renforcée des réserves naturelles) pour que le système agro-écologique soit résilient. Les races endémiques de notre région doivent être protégées (chèvre et vach de l'Albère, âne des pyrenées, etc.)"),
-     ("Economie",
-      "Le développement économique doit être re-pensé en incluant des limites : limites d'usage du sol, d'usage du pétrole, limite de la démographie. Refonder l'économie autour de l'agriculture est une solution possible. Le développement d'alternatives à la monnaie-dette 'euro' doit être encouragé et progressivement développé, pour se protéger d'une crise économique majeure de la zone euro (qui ne saurait tarder selon toute vraisemblance). La solution passe par l'utilisation croissante du Soudaqui (monnaie locale adossée à l'euro, pour l'instant) ou de la Monnaie Libre (monnaie sur internet basée sur la technologie de la 'blockchain''), dans une économie locale circulaire et équitable, notamment en payant une partie des salaires des fonctionnaires et élus locaux en monnaie alternative. Mais aussi en les utilisant dans les coopératives agricoles et les différentes filières restaurées ou crées ad hoc  (bois/énergie, paille/fourrage/construction, briques/construction. etc.)" ),
-     ("Création d'assemblées citoyennes ", "pour informer, débattre, créer du lien, s'organiser localement sans attendre que les autres le fassent pour nous. Pour résoudre aussi les conflits qui vont se multiplier entre nous (la justice française n'est plus à la hauteur, et de plus en plus débordée et inefficace). Chaque commune doit pouvoir créer à sa façon des assemblées régulières et ayant un certain pouvoir sur les prises de décision au nom de la commune. Il est nécessaire d'impliquer toutes les bonnes volontés, et la population dans son ensemble doit pouvoir participer. Il s'agit d'inventer de nouvelles formes de gouvernance qui tiennent compte des enjeux et aspirations de notre époque. Cela va de pair avec la formation et l'éducation de la jeunesse, et de la population en général, aux enjeux écologiques, économiques, politiques et sociaux."),
-     ("Créer des médias/réseaux sociaux locaux ", " Des plateformes open-source et libres comme www.perma.cat, ou bien des médias locaux (par exemple 'La Clau') peuvent être des exemples ou une base, qui permettent de s'affranchir des GAFA (Google Amazon Facebook, Apple), immenses pollueurs, et outils puissants de contrôle de la population à notre insu, et d'avoir une information locale plurielle, démocratique et utile à notre cohésion."),
-     ("Formation ", " partage des savoirs autour de  'low technologies' (techniques non-industrielles et bas carbone que chacun peut se réapproprier car nécessitant peu de pétrole et peu de connaissances spécialisées : four solaire, compostage, velorution, etc)"),
-     ("Gestion de l'eau", "réduction drastique de l'usage de l'eau pour préserver nos nappes phréatiques : toilettes sèches et récupération des eaux grises et des eaux de pluie. restauration des canaux historiques pour l'agriculture, création de retenues collinaires pour stocker les pluies, contrôle des forages, interdiction d'arroser les pelouses et limitation des piscines."),
-     ("Gestion des ressources", "limitation prévisionnelle des usages  (industries, transport, domestique) de l'énergie notamment, afin d'anticiper leur diminution d'approvisionnement.")
-    ]
-
-    commentaires = Message.objects.filter(type_article="2").order_by("date_creation")
-    form = MessageForm(request.POST or None)
-    if form.is_valid():
-        if not request.user.is_authenticated:
-            return redirect('login')
-        comment = form.save(commit=False)
-        comment.auteur = request.user
-        comment.type_article = "2"
-        comment.save()
-        return redirect(request.path)
-
-    return render(request, '3_preconisations.html', {"dico_risques":dico_risques, 'form': form, 'commentaires': commentaires})
-
-
-dico_charte =[
-    ("Promouvoir l'agriculture",
-  ("Aider à la création de fermes agro-ecologiques",
-   "Interdire tous les pesticides dans la commune",
-   "Replanter les haies et créer des espaces arborés",
-   "Que les cantines scolaires soient fournies de plus en plus par l'agriculture locale biologique ou permacole",
-   "Faire un jardin potager au sein des établissements scolaires en lien avec les maraichers locaux",
-   "Favoriser l'agriculture biologique et la permaculture dans ma commune",
-   "Soutenir ou aider à la création de jardins partagés, ou jardins familiaux",
-   "Soutenir ou aider à la création de coopératives agricoles",
-  ),),
-
-  ("Préserver les ressources",
-   ("Limiter l'usage de l'eau au strict minimum",
-    "Penser les transports du futur pour économiser l'energie: <ol><li> mobilité douce (vélo, traction animale, bateaux),</li><li>transports en commun (bus, taxi collectifs, espaces dédiés au covoiturage au sein de la commune, etc).</li><li>nouvelles technologies : bornes de rechargement pour les véhicules électriques, à partir d'énergie renouvelable et locale. Usine d'hydrogène, centrales solaires (thermiques et électriques), etc.</li></ol>",
-    "Encourager la création d'une filière bois/énergie locale et durable",
-    "Encourager la création d'une filière solaire et d'énergies renouvelables locale et durable",
-    "Arrêter toute artificialisation des terres (n'accepter aucun nouveaux projet de construction qui ne soit pas vraiment eco-responsable)"
-    "Limiter l'éclairage urbain pendant la nuit (pollution lumineuse, dépense énergétique peu utile)"
-    ),),
-
- ("Développer l'économie locale en tenant compte de l'environnement en priorité",
-  ("Préserver et valoriser notre patrimoine culturel, foncier et historique",
-   "Aider au déploiement des monnaies alternatives",
-   "Participer à la création de filières locales, en créant de l'économie circulaire",
-   "Aider à la création de syndicats et coopératives agricoles citoyennes",
-   "Créer une caisse de solidarité pour indemniser les victimes des futures catastrophes naturelles (pourquoi pas en monnaie alternative ?)",
-   "Encourager le tourisme éco-responsable, et limiter les activités touristiques polluantes ou consommatrices  d'eau (golf, piscine privées, etc)",
-   ),),
-
- ("Urbaniser intelligemment",
- ("Préserver notre identité paysagère, respecter notre patrimoine architectural",
-  "Végétaliser, reboiser, replanter les haies", "préserver les canaux d'arrosage",
-  "Intégrer les activités agricoles dans la vie des villes et villages",
-  "Utiliser des espaces pour organiser des lieux de vie et des assemblées collectifs",
-  "Contrôler le foncier en n'oubliant pas d'intégrer les logements sociaux aux activités économiques",
-  "Limiter l'étalement urbain", " favoriser les habitats légers, ou eco-responsables", "aménager des voies cyclables et de covoiturage",
-  "Laisser de la place pour la faune et la flore sauvage",
-  "Prendre soin des cours d'eau, et des canaux d'irrigation"),
-  ),
-  ("Contrôler la démographie ",
-  ( "Limiter le tourisme de masse à basse valeur ajoutée en imposant des normes écologiques (par exemple taxer les ordures au delà d'un certain seuil, ou imposer un 'visa touristique' qui permette de traiter les dégats écologiques du tourisme)",
-    "Contrôler le foncier",
-    "Densifier les zones d'habitat",
-    "Intégrer les nouveaux arrivants en les sensibilisant aux questions écologiques, politiques, économiques et identitaire.",
-    "Inclure les personnes âgées dans les activités de la commune, notamment pour animer les assemblées locales.",
-    "Accueillir dignement les migrants, du nord ou du sud, en les faisant participer à la vie des communes, notammant dans les activités des fermes agro-écologiques", ),
-   ),
- ("Respecter notre identité et encourager la  citoyenneté",
- ("Adopter la signalétique de la commune (nom des voies, monuments, affiches, etc) en catalan",
-  "Respecter les traditions séculaires catalanes",
-  "Favoriser le bilinguisme au sein des établissements scolaires",
-  "Favoriser le bilinguisme au sein de la mairie et des actes publics",
-  "Créer des assemblées locales citoyennes pour informer et débattre autour des enjeux du changement climatique et de la fin du pétrole.",
-  "Proposer des salles pour développer le domaine associatif local",
-  "Créer du lien et de la solidarité entre catalans (habitants et sympathisants du Pays Catalan)",
-  ),)
-]
-
-def charte(request):
-    commentaires = Message.objects.filter(type_article="3").order_by("date_creation")
-    form = MessageForm(request.POST or None)
-    if form.is_valid():
-        if not request.user.is_authenticated:
-            return redirect('login')
-        comment = form.save(commit=False)
-        comment.auteur = request.user
-        comment.type_article="3"
-        comment.save()
-        return redirect(request.path)
-    dico_charte = ((domaine, (prop for prop in Proposition_charte.objects.filter(domaine=domaine).order_by("id"))) for domaine in Domaine_charte.objects.all())
-    return render(request, 'charte.html', {"dico_charte":dico_charte, 'form': form, 'commentaires': commentaires})
-
 
 
 @login_required
@@ -421,67 +267,3 @@ def signer(request):
 
     return render(request, 'signer.html', {"form_signer": form_signer, })
 
-
-def ajouterPointsCharte(request):
-    for domaine in dico_charte:
-        domaine_obj, created = Domaine_charte.objects.get_or_create(titre=domaine[0])
-        for message in domaine[1]:
-            proposition, created = Proposition_charte.objects.get_or_create(titre=message, domaine=domaine_obj)
-    return render(request, 'merci.html')
-
-def voirPropositionCharte(request, slug):
-    proposition = Proposition_charte.objects.get(slug=slug)
-    commentaires = Commentaire_charte.objects.filter(proposition=proposition)
-    if request.user.is_authenticated:
-        vote, created = Vote.objects.get_or_create(auteur=request.user, proposition=proposition)
-    else:
-        vote = None
-    form = CommentaireForm(request.POST or None)
-    if form.is_valid():
-        if not request.user.is_authenticated:
-            return redirect('login')
-        comment = form.save(commit=False)
-        comment.auteur = request.user
-        comment.proposition = proposition
-        comment.save()
-        return redirect(request.path)
-    return render(request, 'voir_pointcharte.html', {'form': form, 'proposition':proposition, 'commentaires':commentaires, 'vote':vote})
-
-def ajouterVote_plus(request, slug):
-    if not request.user.is_authenticated:
-        return redirect('login')
-    proposition = Proposition_charte.objects.get(slug=slug)
-    vote, created = Vote.objects.get_or_create(auteur=request.user, proposition=proposition)
-    if vote.type_vote == "0" :
-        vote.type_vote = "1"
-        proposition.compteur_plus=proposition.compteur_plus + 1
-    elif vote.type_vote == "1":
-        vote.type_vote = "0"
-        proposition.compteur_plus=proposition.compteur_plus - 1
-    elif vote.type_vote == "2":
-        vote.type_vote = "1"
-        proposition.compteur_plus=proposition.compteur_plus + 1
-        proposition.compteur_moins=proposition.compteur_moins - 1
-    proposition.save()
-    vote.save()
-    return redirect(request.GET['next'])
-
-
-def ajouterVote_moins(request, slug):
-    if not request.user.is_authenticated:
-        return redirect('login')
-    proposition = Proposition_charte.objects.get(slug=slug)
-    vote, created = Vote.objects.get_or_create(auteur=request.user, proposition=proposition)
-    if vote.type_vote == "0":
-        vote.type_vote = "2"
-        proposition.compteur_moins=proposition.compteur_moins + 1
-    elif vote.type_vote == "1":
-        vote.type_vote = "2"
-        proposition.compteur_plus=proposition.compteur_plus - 1
-        proposition.compteur_moins=proposition.compteur_moins + 1
-    elif vote.type_vote == "2":
-        vote.type_vote = "0"
-        proposition.compteur_moins=proposition.compteur_moins- 1
-    proposition.save()
-    vote.save()
-    return redirect(request.GET['next'])
