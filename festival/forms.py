@@ -38,7 +38,7 @@ class ProfilCreationForm(UserCreationForm):
 
     class Meta(UserCreationForm):
         model = Profil
-        fields = ['username', 'password1',  'password2', 'first_name', 'last_name', 'email',  'description', 'inscrit_newsletter', 'accepter_annuaire', 'accepter_conditions']
+        fields = ['username', 'password1',  'password2', 'first_name', 'last_name', 'email',  'description', 'inscrit_newsletter', 'accepter_conditions']
         exclude = ['slug', ]
 
     def save(self, commit = True, is_active=False):
@@ -55,13 +55,12 @@ class ProfilChangeForm(UserChangeForm):
     email = forms.EmailField(label="Email")
     username = forms.CharField(label="Pseudonyme", validators=[no_space_validator,])
     description = forms.CharField(label="Description", help_text="Une description de vous-même", required=False)
-    inscrit_newsletter = forms.BooleanField(required=False, label="J'accepte de recevoir des emails")
-    accepter_annuaire = forms.BooleanField(required=False, label="J'accepte d'apparaitre dans l'annuaire du site et la carte et rend mon profil visible par tous")
+    inscrit_newsletter = forms.BooleanField(required=False, label="J'accepte de recevoir la newsletter")
     password=None
 
     class Meta:
         model = Profil
-        fields = ['username', 'first_name', 'last_name', 'email',  'description', 'accepter_annuaire', 'inscrit_newsletter', 'a_signe']
+        fields = ['username', 'first_name', 'last_name', 'email',  'description', 'inscrit_newsletter']
 
 
 class ProfilChangeForm_admin(UserChangeForm):

@@ -387,10 +387,12 @@
                     <div class="footer-distributed">
                         <div class="footer-left">
                             <p class="footer-links">
-                                <a href="#">Acceuil</a>
-                                <a href="#">forum</a>
-                                <a href="#">Faq</a>
-                                <a href="#">Contact</a>
+                                <a href="{% url 'bienvenue' %}">Acceuil</a>
+                                <a href="{% url 'forum' %}">Forum</a>
+                                <a href="{% url 'faq' %}">FAQ</a>
+                                <a href="{% url 'faq' %}">CGU</a>
+                                <a href="{% url 'liens' %}">Liens</a>
+                                <a href="{% url 'bienvenue' %}">Contact</a>
                             </p>
                             <p class="footer-company-name">Tous droits réservés. &copy; 2019 <a href="#">RameneTaGraine</a> Design By : <a href="https://html.design/">html design</a></p>
                         </div>

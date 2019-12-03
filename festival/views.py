@@ -80,7 +80,7 @@ def register(request):
         profil_courant.save()
         return render(request, 'userenattente.html')
 
-    return render(request, 'register.html', {"form_adresse": form_adresse, "form_profil": form_profil, })
+    return render(request, 'registration/register.html', {"form_adresse": form_adresse, "form_profil": form_profil, })
 
 
 @login_required
@@ -162,7 +162,7 @@ def contact(request):
             return render(request, 'erreur.html', {'msg':"Désolé, une ereur s'est produite"})
     else:
         form = ContactForm()
-    return render(request, 'contact2.html', {'form': form, "isContactProfil":False})
+    return render(request, 'contact.html', {'form': form, "isContactProfil":False})
 
 
 def contact_admins(request):
@@ -203,7 +203,7 @@ def liens(request):
         'http://lejeu.org/',
     ]
 
-    return render(request, 'liens.html', {'liens':liens, 'form': form, 'commentaires': commentaires})
+    return render(request, 'liens.html', {'liens':liens, })
 
 
 @login_required
@@ -215,15 +215,13 @@ def forum(request, ):
         message.auteur = request.user
         message.save()
         return redirect(request.path)
-    return render(request, 'agora.html', {'form': form, 'messages_echanges': messages})
+    return render(request, 'forum.html', {'form': form, 'messages_echanges': messages})
 
-def organisation(request, ):
-    return render(request, 'organisation.html')
 
 
 @login_required
 def profil_courant(request, ):
-    return render(request, 'profil.html', {'user': request.user})
+    return render(request, 'registration/profil.html', {'user': request.user})
 
 
 @login_required
@@ -231,28 +229,30 @@ def profil(request, user_id):
     try:
         user = Profil.objects.get(id=user_id)
         distance = user.getDistance(request.user)
-        return render(request, 'profil.html', {'user': user, 'distance':distance})
+        return render(request, 'registration/profil.html', {'user': user, 'distance':distance})
     except User.DoesNotExist:
-            return render(request, 'profil_inconnu.html', {'userid': user_id})
+            return render(request, 'registration/profil_inconnu.html', {'userid': user_id})
 
 @login_required
 def profil_nom(request, user_username):
     try:
         user = Profil.objects.get(username=user_username)
         distance = user.getDistance(request.user)
-        return render(request, 'profil.html', {'user': user, 'distance':distance})
+        return render(request, 'registration/profil.html', {'user': user, 'distance':distance})
     except User.DoesNotExist:
-        return render(request, 'profil_inconnu.html', {'userid': user_username})
+        return render(request, 'registration/profil_inconnu.html', {'userid': user_username})
 
 
 def benevoles(request):
-    return render(request, 'services.html', )
-    return render(request, 'benevoles.html', )
+    return render(request, 'festival/benevoles.html', )
 
 
 def exposants(request):
-    return render(request, 'contact.html', )
-    return render(request, 'exposants.html', )
+    return render(request, 'festival/exposants.html', )
+
+
+def organisation(request, ):
+    return render(request, 'festival/organisation.html')
 
 
 def inscriptionBenevole(request):

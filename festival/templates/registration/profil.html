@@ -28,35 +28,6 @@
         <div class="row-sm-12" data-aos="fade-up" data-aos-delay="500">
           <div class="col-md-12" data-aos="fade-up" data-aos-delay="500">
 
-{% if user == request.user %}
-<div class="row justify-content-center">
-  <div class="col-sm-12 col-md-10 mb-5 text-center">
-          {%if request.user.a_signe %}
-            <button type="button" class="btn btn-lg btn-success" disabled>
-                j'ai signé et j'approuve la charte
-            </button>
-          {%else%}
-            <a href="{%url 'signer'%}"><button type="button" class="btn btn-lg btn-warning" >
-                 je n'approuve pas la charte et je n'ai pas encore signé
-  </button></a>
-          {%endif%}
-  </div>
-</div>
-{% else %}
-<div class="row justify-content-center">
-  <div class="col-sm-12 col-md-10 mb-5 text-center">
-          {%if user.a_signe %}
-            <button type="button" class="btn btn-lg btn-success" disabled>
-                a signé et approuve la charte
-            </button>
-          {%else%}
-            <a href="#"><button type="button" class="btn btn-lg btn-warning" >
-                n'a pas encore signé la charte
-  </button></a>
-          {%endif%}
-  </div>
-</div>
-{% endif %}
 
 <div class="row justify-content-center">
   <div class="col-sm-12 col-md-10">

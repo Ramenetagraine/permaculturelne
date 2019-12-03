@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load app_filters %}
 {% block content %}
+    {% comment %}
 <div class="section wb">
                 <div class="container-fluid">
                     <div class="row">
@@ -171,6 +172,9 @@
                 </div><!-- end container -->
             </div><!-- end section -->
 
+    {% endcomment %}
+<div class="section wb">
+                <div class="container-fluid">
 <div class="contenu conversation" id="idConversation">
 {% for mess in messages_echanges %}
     {% ifchanged %}
@@ -206,6 +210,8 @@
     <input type="hidden" name="Nouveau Message" value="{{ message_defaut }}">
     {% include 'form_template3.html' with boutonAnnuler=False %}
 </form>
+</div>
+</div>
 </div>
 
 

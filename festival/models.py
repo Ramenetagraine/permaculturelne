@@ -77,8 +77,6 @@ class Profil(AbstractUser):
     date_registration = models.DateTimeField(verbose_name="Date de création", editable=False)
     inscrit_newsletter = models.BooleanField(verbose_name="J'accepte de recevoir des emails", default=False)
     accepter_conditions = models.BooleanField(verbose_name="J'ai lu et j'accepte les conditions d'utilisation du site", default=False, null=False)
-    accepter_annuaire = models.BooleanField(verbose_name="J'accepte d'apparaitre dans l'annuaire du site et la carte et rend mon profil visible par tous", default=True)
-    a_signe = models.BooleanField(verbose_name="J'ai signé la charte", default=False)
 
     def __str__(self):
         return self.username
