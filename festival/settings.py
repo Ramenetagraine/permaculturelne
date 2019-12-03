@@ -29,9 +29,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: don't run with debug turned on in production!
 try:
     LOCALL = False
-    DEBUG = True
+    DEBUG = False
     SECRET_KEY = os.environ['SECRET_KEY']
-    ALLOWED_HOSTS = ['festival.herokuapp.com']
+    ALLOWED_HOSTS = ['permaculturelne.herokuapp.com']
 except:
     LOCALL  = True
     SECRET_KEY = 'aersd68fgsfdgsdvcbvcb563873gbgfthhfhdjd'

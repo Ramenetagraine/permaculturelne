@@ -47,7 +47,7 @@ def bienvenue(request):
         comment.save()
         return redirect(request.path)
 
-    return render(request, 'bienvenue.html', { 'form': form, 'commentaires': commentaires})
+    return render(request, 'index.html', { 'form': form, 'commentaires': commentaires})
 
 
 def presentation_site(request):
