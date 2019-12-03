@@ -1,7 +1,7 @@
 from django import forms
 from django.core.validators import RegexValidator
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from .models import Adresse, Profil, Message, Choix
+from .models import Adresse, Profil, Message, InscriptionBenevole, InscriptionExposant
 from captcha.fields import CaptchaField
 from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 
@@ -110,10 +110,29 @@ class MessageForm(forms.ModelForm):
            self.fields['message'].initial = message
 
 
+class InscriptionBenevoleForm(forms.ModelForm):
+
+    class Meta:
+        model = InscriptionBenevole
+        exclude = ['domaine_benevole', 'description']
+        widgets = {'description': SummernoteWidget()}
+
+    def __init__(self, request, message=None, *args, **kwargs):
+        super(MessageForm, self).__init__(request, *args, **kwargs)
+        if message:
+           self.fields['description'].initial = message
 
 
-class SignerForm(forms.Form):
-    renvoi = forms.BooleanField(label="J'ai lu la charte", required=True
-                                 )
-    accepter = forms.BooleanField(label="J'accepte les termes de la charte, et je m'engage à les appliquer", required=True
-                                 )
+
+class InscriptionExposantForm(forms.ModelForm):
+
+    class Meta:
+        model = InscriptionExposant
+        exclude = ['domaine_exposant', 'description']
+        widgets = {'description': SummernoteWidget()}
+
+    def __init__(self, request, message=None, *args, **kwargs):
+        super(MessageForm, self).__init__(request, *args, **kwargs)
+        if message:
+           self.fields['description'].initial = message
+

@@ -9,7 +9,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group, User
 from django.core.mail import mail_admins, send_mail, BadHeaderError
-from .forms import ProfilCreationForm, ContactForm, AdresseForm, SignerForm, ProfilChangeForm, MessageForm
+from .forms import ProfilCreationForm, ContactForm, AdresseForm, ProfilChangeForm, MessageForm, InscriptionBenevoleForm, InscriptionExposantForm
 from .models import Profil, Adresse, Message
 from django.views.generic import ListView, UpdateView, DeleteView
 CharField.register_lookup(Lower, "lower")
@@ -43,11 +43,10 @@ def bienvenue(request):
             return redirect('login')
         comment = form.save(commit=False)
         comment.auteur = request.user
-        comment.type_article="5"
         comment.save()
         return redirect(request.path)
 
-    return render(request, 'index.html', { 'form': form, 'commentaires': commentaires})
+    return render(request, 'bienvenue.html', { 'form': form, 'commentaires': commentaires})
 
 
 def presentation_site(request):
@@ -163,7 +162,7 @@ def contact(request):
             return render(request, 'erreur.html', {'msg':"Désolé, une ereur s'est produite"})
     else:
         form = ContactForm()
-    return render(request, 'contact.html', {'form': form, "isContactProfil":False})
+    return render(request, 'contact2.html', {'form': form, "isContactProfil":False})
 
 
 def contact_admins(request):
@@ -203,34 +202,23 @@ def liens(request):
         'https://www.monnaielibreoccitanie.org/',
         'http://lejeu.org/',
     ]
-    commentaires = Message.objects.filter(type_article="4").order_by("date_creation")
-    form = MessageForm(request.POST or None)
-    if form.is_valid():
-        if not request.user.is_authenticated:
-            return redirect('login')
-        comment = form.save(commit=False)
-        comment.auteur = request.user
-        comment.type_article="4"
-        comment.save()
-        return redirect(request.path)
 
     return render(request, 'liens.html', {'liens':liens, 'form': form, 'commentaires': commentaires})
 
 
-
-def introduction(request):
-    commentaires = Message.objects.filter(type_article="0").order_by("date_creation")
+@login_required
+def forum(request, ):
+    messages = Message.objects.all().order_by("date_creation")
     form = MessageForm(request.POST or None)
     if form.is_valid():
-        if not request.user.is_authenticated:
-            return redirect('login')
-        comment = form.save(commit=False)
-        comment.auteur = request.user
-        comment.type_article="0"
-        comment.save()
+        message = form.save(commit=False)
+        message.auteur = request.user
+        message.save()
         return redirect(request.path)
+    return render(request, 'agora.html', {'form': form, 'messages_echanges': messages})
 
-    return render(request, '1_introduction.html', {'form': form, 'commentaires': commentaires}, )
+def organisation(request, ):
+    return render(request, 'organisation.html')
 
 
 @login_required
@@ -256,14 +244,35 @@ def profil_nom(request, user_username):
     except User.DoesNotExist:
         return render(request, 'profil_inconnu.html', {'userid': user_username})
 
-@login_required
-def signer(request):
-    form_signer = SignerForm(request.POST or None)
-    if form_signer.is_valid():
-        profil_courant = Profil.objects.get(username=request.user.username)
-        profil_courant.a_signe = True
-        profil_courant.save()
-        return render(request, 'merci.html')
 
-    return render(request, 'signer.html', {"form_signer": form_signer, })
+def benevoles(request):
+    return render(request, 'services.html', )
+    return render(request, 'benevoles.html', )
 
+
+def exposants(request):
+    return render(request, 'contact.html', )
+    return render(request, 'exposants.html', )
+
+
+def inscriptionBenevole(request):
+    form = InscriptionBenevoleForm(request.POST or None)
+    if form.is_valid():
+        if not request.user.is_authenticated:
+            return redirect('login')
+        inscription = form.save(commit=False)
+        inscription.user = request.user
+        inscription.save()
+        return render(request, 'ajouter_benevole_ok.html', )
+    return render(request, 'ajouter_benevole.html', )
+
+def ajouterexposant(request):
+    form = InscriptionExposantForm(request.POST or None)
+    if form.is_valid():
+        if not request.user.is_authenticated:
+            return redirect('login')
+        inscription = form.save(commit=False)
+        inscription.user = request.user
+        inscription.save()
+        return render(request, 'ajouter_exposant_ok.html', )
+    return render(request, 'ajouter_exposant.html', )

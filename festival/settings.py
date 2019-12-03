@@ -194,7 +194,7 @@ ADMINS = (
     ('Asso_admin', 'festival.cat@gmail.com'),
 )
 MANAGERS = ADMINS
-BASE_URL = "https://festival.herokuapp.com"
+BASE_URL = "https://permaculturelne.herokuapp.com"
 ########################
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/

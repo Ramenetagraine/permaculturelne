@@ -36,10 +36,10 @@ urlpatterns = [
     url(r'^captcha/', include('captcha.urls')),
     url('^', include('django.contrib.auth.urls')),
     url(r'^$', views.bienvenue, name='bienvenue'),
-    url(r'^introduction/$', views.introduction, name='introduction'),
     url(r'^faq/$', views.faq, name='faq'),
     url(r'^contact/$', views.contact, name='contact', ),
-    url(r'^signer/$', views.signer, name='signer', ),
+    url(r'^cgu/$', views.cgu, name='cgu', ),
+    url(r'^liens/$', views.liens, name='liens', ),
 
     url(r'^accounts/profil/(?P<user_id>[0-9]+)/$', login_required(views.profil), name='profil', ),
     url(r'^accounts/profil/(?P<user_username>[-\w.]+)/$', login_required(views.profil_nom), name='profil_nom', ),
@@ -48,13 +48,17 @@ urlpatterns = [
     url(r'^accounts/profil_supprimer/$', login_required(views.profil_supprimer.as_view()), name='profil_supprimer',),
     url(r'^accounts/profil_modifier_adresse/$', login_required(views.profil_modifier_adresse.as_view()), name='profil_modifier_adresse',),
 
+    url(r'^benevoles/$', views.benevoles, name='benevoles', ),
+    url(r'^exposants/$', views.exposants, name='exposants', ),
+    url(r'^contact/$', views.contact, name='contact', ),
+    url(r'^organisation/$', views.organisation, name='organisation', ),
+    url(r'^forum/$', views.forum, name='forum', ),
+
+
     url(r'^merci/$', views.merci, name='merci'),
     url(r'^register/$', views.register, name='senregistrer', ),
     url(r'^password/change/$', views.change_password, name='change_password'),
     path('auth/', include('django.contrib.auth.urls')),
-    url(r'^cgu/$', views.cgu, name='cgu', ),
-    url(r'^liens/$', views.liens, name='liens', ),
-    url(r'^fairedon/$', views.fairedon, name='fairedon', ),
     url(r'^contact_admins/$', views.contact_admins, name='contact_admins',),
 
 ]

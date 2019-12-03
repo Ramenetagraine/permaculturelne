@@ -17,6 +17,8 @@ LONGITUDE_DEFAUT = '2.8954'
 class Choix():
     type_message = ('0','Commentaire'), ("1","Coquille"), ('2','Réflexion')
     type_article = ('0','intro'), ("1","constat"), ('2','preconisations'), ('3','charte'), ('4','liens'), ('5','accueil')
+    type_benevole = ('0','accueil'), ("1","bar"), ('2','internet'), ('3','logistique'), ('4','concert'), ('5', 'Sécurité'), ('6',"N'importe...")
+    type_exposant = ('0','association'), ("1","particulier"), ('2','institution'), ('3','commerçant'), ('4','nourriture sur place'), ('5','autre')
 
 class Adresse(models.Model):
     code_postal = models.CharField(max_length=5, blank=True, null=True, default="66000")
@@ -116,9 +118,6 @@ class Message(models.Model):
     message = models.TextField(null=False, blank=False)
     auteur = models.ForeignKey(Profil, on_delete=models.CASCADE)
     date_creation = models.DateTimeField(auto_now_add=True)
-    type_article = models.CharField(max_length=10,
-        choices=(Choix.type_article),
-        default='0', verbose_name="reaction à")
     valide = models.BooleanField(verbose_name="validé", default=False)
 
     def __unicode__(self):
@@ -126,4 +125,34 @@ class Message(models.Model):
 
     def __str__(self):
         return "(" + str(self.id) + ") " + str(self.auteur) + " " + str(self.date_creation)
+
+
+class InscriptionBenevole(models.Model):
+    user = models.ForeignKey(Profil, on_delete=models.CASCADE)
+    domaine_benevole = models.CharField(max_length=10,
+        choices=(Choix.type_benevole),
+        default='0', verbose_name="domaine")
+    description = models.TextField(null=False, blank=False, verbose_name="Vous pouvez expliciter ici ce que vous préféreriez faire")
+    date_inscription = models.DateTimeField(verbose_name="Date d'inscritpion", editable=False)
+
+    def __unicode__(self):
+        return self.__str()
+
+    def __str__(self):
+        return "(" + str(self.id) + ") " + str(self.user) + " " + str(self.date_creation)
+
+class InscriptionExposant(models.Model):
+    user = models.ForeignKey(Profil, on_delete=models.CASCADE)
+    domaine_exposant = models.CharField(max_length=10,
+        choices=(Choix.type_benevole),
+        default='0', verbose_name="domaine")
+    description = models.TextField(null=False, blank=False, verbose_name="Donnez nous quelques informations a propos du stand que vous voulez tenir")
+    date_inscription = models.DateTimeField(verbose_name="Date d'inscritpion", editable=False)
+
+    def __unicode__(self):
+        return self.__str()
+
+    def __str__(self):
+        return "(" + str(self.id) + ") " + str(self.user) + " " + str(self.date_creation)
+
 
