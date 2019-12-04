@@ -92,7 +92,7 @@ class ContactAnonymeForm(forms.Form):
                                  )
 
 class MessageForm(forms.ModelForm):
-    message = forms.CharField(max_length=100, label="Laisser un commentaire...",)
+    message = forms.CharField(label="Laisser un commentaire...",)
 
     class Meta:
         model = Message

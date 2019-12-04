@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from .models import  Message, InscriptionExposant, InscriptionBenevole
+from .models import  Message, InscriptionExposant, InscriptionBenevole, InscriptionNewsletter
 
 
 from django.contrib import admin
@@ -31,3 +31,4 @@ admin.site.register(Profil, CustomUserAdmin)
 admin.site.register(Message)
 admin.site.register(InscriptionBenevole)
 admin.site.register(InscriptionExposant)
+admin.site.register(InscriptionNewsletter)
