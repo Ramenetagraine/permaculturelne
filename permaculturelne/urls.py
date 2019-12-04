@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.urls import path
-from festival import views
+from permaculturelne import views
 from django.views.generic import TemplateView
 #from fcm_django.api.rest_framework import FCMDeviceAuthorizedViewSet
 
@@ -66,7 +66,7 @@ urlpatterns = [
 
 ]
 urlpatterns += [
-    url(r'^robots\.txt$', TemplateView.as_view(template_name="festival/robots.txt", content_type='text/plain')),
+    url(r'^robots\.txt$', TemplateView.as_view(template_name="permaculturelne/robots.txt", content_type='text/plain')),
 ]
 
 from django.conf import settings
@@ -74,10 +74,10 @@ if settings.DEBUG:
     from django.conf.urls.static import static
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-handler404 = 'festival.views.handler404'
-handler500 = 'festival.views.handler500'
-handler400 = 'festival.views.handler400'
-handler403 = 'festival.views.handler403'
+handler404 = 'permaculturelne.views.handler404'
+handler500 = 'permaculturelne.views.handler500'
+handler400 = 'permaculturelne.views.handler400'
+handler403 = 'permaculturelne.views.handler403'
 
 if settings.LOCALL:
     import debug_toolbar

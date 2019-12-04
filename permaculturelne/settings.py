@@ -57,7 +57,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admindocs',
     'django.contrib.sites',
-    'festival',
+    'permaculturelne',
     'bootstrap','fontawesome','cookielaw',
     'model_utils',
     'django_extensions',
@@ -84,7 +84,7 @@ MIDDLEWARE = [
 ]
 
 
-ROOT_URLCONF = 'festival.urls'
+ROOT_URLCONF = 'permaculturelne.urls'
 
 TEMPLATES = [
     {
@@ -107,7 +107,7 @@ TEMPLATES = [
 ]
 
 
-WSGI_APPLICATION = 'festival.wsgi.application'
+WSGI_APPLICATION = 'permaculturelne.wsgi.application'
 # Database
 if LOCALL:
     DATABASES = {
@@ -130,7 +130,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-AUTH_USER_MODEL = 'festival.Profil'
+AUTH_USER_MODEL = 'permaculturelne.Profil'
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
@@ -230,7 +230,7 @@ STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'festival/static_files'),
+    os.path.join(BASE_DIR, 'permaculturelne/static_files'),
 )
 
 MEDIA_URL = '/media/'

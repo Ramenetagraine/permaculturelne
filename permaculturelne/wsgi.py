@@ -1,5 +1,5 @@
 """
-WSGI config for festival project.
+WSGI config for permaculturelne project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -12,9 +12,9 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 from whitenoise import WhiteNoise
-from festival import settings
+from permaculturelne import settings
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "festival.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "permaculturelne.settings")
 
 application = get_wsgi_application()
 application = WhiteNoise(application, root=settings.STATIC_ROOT)
