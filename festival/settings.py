@@ -58,15 +58,14 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'django.contrib.sites',
     'festival',
-    #'bootstrap','fontawesome','cookielaw',
+    'bootstrap','fontawesome','cookielaw',
     'model_utils',
     'django_extensions',
     'django_filters',
     'widget_tweaks',
     #'leaflet',
     'captcha',
-    #'django_summernote',
-   # "visits",
+    'django_summernote',
 )
 
 
