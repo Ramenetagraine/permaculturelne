@@ -18,7 +18,6 @@ python manage.py migrate --run-syncdb
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
@@ -41,6 +40,7 @@ except:
 
 if not LOCALL:
     import dj_database_url
+    import django_heroku
 
 
 
@@ -367,11 +367,6 @@ SUMMERNOTE_CONFIG = {
 #},
 }
 
-
-#if not LOCALL:
-#    import django_heroku
-#    django_heroku.settings(locals())
-
 if not LOCALL:
     SECURE_HSTS_SECONDS = 518400
     SECURE_CONTENT_TYPE_NOSNIFF = True
@@ -381,3 +376,9 @@ if not LOCALL:
     CSRF_COOKIE_SECURE = True
     X_FRAME_OPTIONS = 'DENY'
     SESSION_EXPIRE_AT_BROWSER_CLOSE=True
+
+    django_heroku.settings(locals())
+
+#if not LOCALL:
+#    import django_heroku
+#    django_heroku.settings(locals())
