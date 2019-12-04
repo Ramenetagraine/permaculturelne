@@ -8,33 +8,33 @@
 
 
 {% block content %}
-            <div id="home" class="parallax first-section" data-stellar-background-ratio="0.4" style="background-image:url('uploads/barber_slider.jpg');">
+            <div id="home" class="parallax first-section" data-stellar-background-ratio="0.4" style="background-image:url('images/foret.jpg');">
                 <div class="container-fluid">
                     <div class="row">
 						<div id="full-width" class="owl-carousel owl-theme">
 							<div class="text-center item">
-								<div class="col-md-12 col-md-offset-2 col-sm-12">
+								<div class="col-md-8 col-md-offset-2 col-sm-12">
 									<div class="big-tagline text-center">
-										<h2><strong>Festival permacultur'Elne</strong></h2>
+										<h2><strong>Festival permacultur'Elne</strong> <br>édition 2020</h2>
 										<p class="lead">Le festival de permaculture en pays catalan</p>
 									</div>
 								</div>
 							</div>
 							<div class="text-center item">
-								<div class="col-md-12 col-md-offset-2 col-sm-12">
+								<div class="col-md-8 col-md-offset-2 col-sm-12">
 									<div class="big-tagline text-center">
 										<h2><strong>Devenez bénévole</strong><br></h2>
 										<p class="lead">rejoignez l'équipe de Ramene Ta Graine pour nous aider à fair un super festival</p>
-										<a href="#" class="btn btn-light btn-radius btn-brd grd1 effect-1 butn">Je veux être bénévole</a>
+										<a href="{% url 'inscription_benevole' %}" class="btn btn-light btn-radius btn-brd grd1 effect-1 butn">Je veux être bénévole</a>
 									</div>
 								</div>
 							</div>
 							<div class="text-center item">
-								<div class="col-md-12 col-md-offset-2 col-sm-12">
+								<div class="col-md-8 col-md-offset-2 col-sm-12">
 									<div class="big-tagline text-center">
 										<h2><strong>Devenez exposant</strong><br></h2>
 										<p class="lead">réservez votre stand en ligne pour une meilleure organisation</p>
-										<a href="#" class="btn btn-light btn-radius btn-brd grd1 effect-1 butn">Je m'inscris en tant qu'exposant</a>
+										<a href="{% url 'inscription_exposant' %}" class="btn btn-light btn-radius btn-brd grd1 effect-1 butn">Je m'inscris en tant qu'exposant</a>
 									</div>
 								</div>
 							</div>

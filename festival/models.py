@@ -17,8 +17,8 @@ LONGITUDE_DEFAUT = '2.8954'
 class Choix():
     type_message = ('0','Commentaire'), ("1","Coquille"), ('2','Réflexion')
     type_article = ('0','intro'), ("1","constat"), ('2','preconisations'), ('3','charte'), ('4','liens'), ('5','accueil')
-    type_benevole = ('0','accueil'), ("1","bar"), ('2','internet'), ('3','logistique'), ('4','concert'), ('5', 'Sécurité'), ('6',"N'importe...")
-    type_exposant = ('0','association'), ("1","particulier"), ('2','institution'), ('3','commerçant'), ('4','nourriture sur place'), ('5','autre')
+    type_benevole = ('0','Accueil'), ("1","Bar"), ('2','Internet'), ('3','Logistique'), ('4','Concert'), ('5', 'Sécurité'), ('6',"N'importe...")
+    type_exposant = ('0','Association'), ("1","Particulier"), ('2','Institution'), ('3','Commerçant'), ('4','Nourriture sur place'), ('5','Conférence'), ('6', 'Atelier'), ('7', "autre")
 
 class Adresse(models.Model):
     code_postal = models.CharField(max_length=5, blank=True, null=True, default="66000")
@@ -73,6 +73,8 @@ class Adresse(models.Model):
 
 class Profil(AbstractUser):
     description = models.TextField(null=True, blank=True)
+    nom = models.CharField('Nom', max_length=30, blank=True)
+    prenom = models.CharField('Prénom', max_length=150, blank=True)
     adresse = models.OneToOneField(Adresse, on_delete=models.CASCADE)
     date_registration = models.DateTimeField(verbose_name="Date de création", editable=False)
     inscrit_newsletter = models.BooleanField(verbose_name="J'accepte de recevoir des emails", default=False)
@@ -129,9 +131,9 @@ class InscriptionBenevole(models.Model):
     user = models.ForeignKey(Profil, on_delete=models.CASCADE)
     domaine_benevole = models.CharField(max_length=10,
         choices=(Choix.type_benevole),
-        default='0', verbose_name="domaine")
+        default='0', verbose_name="Domaine préférentiel du bénévolat")
     description = models.TextField(null=False, blank=False, verbose_name="Vous pouvez expliciter ici ce que vous préféreriez faire")
-    date_inscription = models.DateTimeField(verbose_name="Date d'inscritpion", editable=False)
+    date_inscription = models.DateTimeField(verbose_name="Date d'inscritpion", editable=False, auto_now_add=True)
 
     def __unicode__(self):
         return self.__str()
@@ -142,10 +144,10 @@ class InscriptionBenevole(models.Model):
 class InscriptionExposant(models.Model):
     user = models.ForeignKey(Profil, on_delete=models.CASCADE)
     domaine_exposant = models.CharField(max_length=10,
-        choices=(Choix.type_benevole),
-        default='0', verbose_name="domaine")
+        choices=(Choix.type_exposant),
+        default='0', verbose_name="Type du stand")
     description = models.TextField(null=False, blank=False, verbose_name="Donnez nous quelques informations a propos du stand que vous voulez tenir")
-    date_inscription = models.DateTimeField(verbose_name="Date d'inscritpion", editable=False)
+    date_inscription = models.DateTimeField(verbose_name="Date d'inscritpion", editable=False, auto_now_add=True)
 
     def __unicode__(self):
         return self.__str()

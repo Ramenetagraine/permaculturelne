@@ -50,6 +50,8 @@ urlpatterns = [
 
     url(r'^benevoles/$', views.benevoles, name='benevoles', ),
     url(r'^exposants/$', views.exposants, name='exposants', ),
+    url(r'^benevoles/inscription_benevole/$', views.inscription_benevole, name='inscription_benevole', ),
+    url(r'^exposants/inscription_exposant/$', views.inscription_exposant, name='inscription_exposant', ),
     url(r'^contact/$', views.contact, name='contact', ),
     url(r'^organisation/$', views.organisation, name='organisation', ),
     url(r'^forum/$', views.forum, name='forum', ),

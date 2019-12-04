@@ -9,7 +9,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group, User
 from django.core.mail import mail_admins, send_mail, BadHeaderError
-from .forms import ProfilCreationForm, ContactForm, AdresseForm, ProfilChangeForm, MessageForm, InscriptionBenevoleForm, InscriptionExposantForm
+from .forms import ProfilCreationForm, ContactForm, AdresseForm, ProfilChangeForm, MessageForm, InscriptionBenevoleForm, InscriptionExposantForm, ContactAnonymeForm
 from .models import Profil, Adresse, Message
 from django.views.generic import ListView, UpdateView, DeleteView
 CharField.register_lookup(Lower, "lower")
@@ -143,18 +143,33 @@ def change_password(request):
 
 def contact(request):
     if request.method == 'POST':
-        form = ContactForm(request.POST or None, )
+        if request.user.is_authenticated:
+            form = ContactForm(request.POST or None, )
+        else:
+            form = ContactAnonymeForm(request.POST or None, )
         if form.is_valid():
             sujet = form.cleaned_data['sujet']
-            message_txt = request.user.username + " a envoyé le message suivant : "
-            message_html = form.cleaned_data['msg']
+
+            if request.user.is_authenticated:
+                message_txt = request.user.username + " a envoyé le message suivant : "
+                message_html = form.cleaned_data['msg']
+                email = request.user.email
+                nom = request.user.username
+            else:
+                message_txt = form.cleaned_data['nom'] + " a envoyé le message suivant : "
+                message_html = "(nom : " + form.cleaned_data['nom'] + "; email : " + form.cleaned_data['email'] + ")\\n"
+                message_html += form.cleaned_data['msg']
+                email = form.cleaned_data['email']
+                nom = form.cleaned_data['nom']
+
             try:
                 mail_admins(sujet, message_txt, html_message=message_html)
                 if form.cleaned_data['renvoi']:
-                    send_mail(sujet, message_txt, request.user.email, request.user.email, fail_silently=False, html_message=message_html)
+                    send_mail(sujet, message_txt, email, email, fail_silently=False, html_message=message_html)
+
 
                 return render(request, 'message_envoye.html', {'sujet': sujet, 'msg': message_html,
-                                                       'envoyeur': request.user.username + " (" + request.user.email + ")",
+                                                       'envoyeur': nom + " (" + email + ")",
                                                        "destinataire": "administrateurs "})
             except BadHeaderError:
                 return render(request, 'erreur.html', {'msg':'Invalid header found.'})
@@ -162,7 +177,9 @@ def contact(request):
             return render(request, 'erreur.html', {'msg':"Désolé, une ereur s'est produite"})
     else:
         form = ContactForm()
-    return render(request, 'contact.html', {'form': form, "isContactProfil":False})
+    return render(request, 'contact.html', {'form': form})
+
+
 
 
 def contact_admins(request):
@@ -192,15 +209,9 @@ def contact_admins(request):
 def liens(request):
     liens = [
         'https://alternatiba.eu/alternatiba66/',
-        'http://sel66.free.fr',
         'http://www.perma.cat',
         'http://soudaqui.cat/wordpress/',
-        'https://framasoft.org',
-        'https://reporterre.net/',
-        'https://cerclecataladelrossello.wordpress.com/',
-        'https://www.la-clau.net/',
-        'https://www.monnaielibreoccitanie.org/',
-        'http://lejeu.org/',
+
     ]
 
     return render(request, 'liens.html', {'liens':liens, })
@@ -247,9 +258,31 @@ def benevoles(request):
     return render(request, 'festival/benevoles.html', )
 
 
+@login_required
+def inscription_benevole(request):
+    form = InscriptionBenevoleForm(request.POST or None)
+    if form.is_valid():
+        inscription = form.save(commit=False)
+        inscription.user = request.user
+        inscription.save()
+        return render(request, 'merci.html')
+
+    return render(request, 'festival/inscription_benevole.html', {'form':form})
+
+
 def exposants(request):
     return render(request, 'festival/exposants.html', )
 
+
+@login_required
+def inscription_exposant(request):
+    form = InscriptionExposantForm(request.POST or None)
+    if form.is_valid():
+        inscription = form.save(commit=False)
+        inscription.user = request.user
+        inscription.save()
+        return render(request, 'merci.html')
+    return render(request, 'festival/inscription_exposant.html', {'form':form})
 
 def organisation(request, ):
     return render(request, 'festival/organisation.html')

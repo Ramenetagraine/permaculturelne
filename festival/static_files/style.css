@@ -561,6 +561,9 @@ body.barber_version .sidebar-nav li a.active{
 .nopad {
     padding: 0;
 }
+.smallpad {
+    padding: 20px;
+}
 
 .nopadtop {
     padding-top: 0;
@@ -1944,9 +1947,13 @@ select.mobile-device {
     margin: 0;
     font-weight: 400;
     font-size: 20px;
-    text-transform: capitalize;
+    text-transform: none;
     line-height: !important;
+    background-color: #1f1f1f;
 }
+.paddingbot{
+    margin-bottom:100px;
+    }
 
 .footer {
     padding: 90px 0 80px !important;
@@ -2407,11 +2414,40 @@ body.barber_version .dev-list .widget:hover .hover-br .social-up-hover .footer-s
 
 
 
+.panneau-content{
+    min-height:500px;
+}
 
 
 
+.conversation{
+	width: 100%;
+	height: 400px;
+}
+.msg-destinataire{
+    /*indent:30px;*/
+    background-color:GhostWhite ;
+    }
 
 
+.msg-auteur {
+    background-color:#e6e6ff ;
+    }
+
+.msg-agora {
+    background-color:GhostWhite ;
+    }
+
+.msg-date {
+    background-color:#e6e6e6 ;
+    }
+
+.infos{
+    font-size:small;
+}
+.textcenter{
+    text-align: center;
+}
 
 
 

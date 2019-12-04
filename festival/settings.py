@@ -65,7 +65,7 @@ INSTALLED_APPS = (
     'widget_tweaks',
     'leaflet',
     'captcha',
-   # 'django_summernote',
+    'django_summernote',
    # "visits",
 )
 

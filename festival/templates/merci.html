@@ -1,28 +1,13 @@
-{% extends 'base_sanscommentaire.html' %}
+{% extends 'base.html' %}
 
 
  {% block content %}
-<div class="site-section">
-      <div class="container">
-
-        <div class="row mb-5 justify-content-center">
-          <div class="col-lg-10 mb-5">
-            <div class="site-section-heading" data-aos="fade-up">
-                <h2 class="text-center">Merci d'avoir signé !  </h2>
-            </div>
-          </div>
+<div id="testimonials" class="parallax section wb">
+    <div class="container-fluid">
+        <div class="section-title row text-center">
+        <h2 class="text-center">Merci, votre inscription a bien été enregistrée. Vous serez contacté dès que possible. Vous pouvez aussi régulièrement consulter le <a href="{% url 'forum' %}">forum</a> pour avoir des nuovelles... </h2>
         </div>
-        <div class="row" data-aos="fade-up" data-aos-delay="500">
-          <div class="col-md-7" data-aos="fade-up" data-aos-delay="500">
-              <h4>Vous pouvez collaborer au site en postant vos commentaires... </h4>
-        </div>
-        </div>
-        <div class="row" data-aos="fade-up" data-aos-delay="500">
-          <div class="col-md-7" data-aos="fade-up" data-aos-delay="500">
-              <h4>et faire passer le message ;)  </h4>
-        </div>
-      </div>
     </div>
-    </div>
+</div>
 
 {% endblock %}

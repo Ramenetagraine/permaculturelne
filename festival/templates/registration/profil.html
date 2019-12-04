@@ -45,6 +45,14 @@
             <td style="width:250px">Pseudo :</td>
             <td>{{ user.username }}</td>
         </tr>
+        <tr>
+            <td style="width:250px">Nom :</td>
+            <td>{{ user.nom }}</td>
+        </tr>
+        <tr>
+            <td style="width:250px">Prénom :</td>
+            <td>{{ user.prenom }}</td>
+        </tr>
         {%if user.accepter_annuaire  or request.user == user %}
               {% if user.get_full_name %}
                 <tr>
@@ -78,7 +86,6 @@
       </div>
 </div>
 <div class="row justify-content-center">
-
   <div class="col-sm-12 col-md-10">
       {%if request.user.id == user.id %}
         <a href="{% url 'profil_modifier_adresse' %}">
@@ -108,40 +115,13 @@
     </table>
   </div>
   </div>
-
 <div class="row justify-content-center">
+  <div class="col-sm-12 col-md-10 textcenter">
 
-  <div class="col-md-6">
-              <style>
+            <a href="{% url 'logout' %}" class="btn btn-light btn-radius btn-brd grd1 effect-1 butn">Se déconnecter</a>
+        </div>
+        </div>
 
-            .leaflet-container {  /* all maps */
-                width:  100%;
-                height: 100%;
-            }
-            </style>
-              <script type="text/javascript">
-                function map_init_basic (map, options) {
-
-          var greenIcon = L.icon({
-            iconUrl: '{% static 'img/leafgreen.png' %}',
-            shadowUrl: '{% static 'img/leafshadow.png' %}',
-
-            iconSize:     [38, 95], // size of the icon
-            shadowSize:   [50, 64], // size of the shadow
-            iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-            shadowAnchor: [4, 62],  // the same for the shadow
-            popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-        });
-
-                var lat = {{user.adresse.get_latitude}};
-                var lon = {{user.adresse.get_longitude}};
-                L.marker([lat, lon], {icon: greenIcon}).addTo(map);
-                map.panTo(new L.LatLng(lat, lon));
-            }
-        </script>
-        {% leaflet_map "yourmap" callback="window.map_init_basic" %}
-</div>
-</div>
         </div>
         </div>
     </div>

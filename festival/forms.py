@@ -91,6 +91,14 @@ class ContactForm(forms.Form):
                                      help_text="Cochez si vous souhaitez obtenir une copie du mail envoyé.", required=False
                                  )
 
+class ContactAnonymeForm(forms.Form):
+    nom = forms.CharField(max_length=100, label="Nom Prénom",)
+    email = forms.EmailField(required=True)
+    sujet = forms.CharField(max_length=100, label="Sujet",)
+    msg = forms.CharField(label="Message", widget=forms.Textarea)
+    renvoi = forms.BooleanField(label="recevoir une copie",
+                                     help_text="Cochez si vous souhaitez obtenir une copie du mail envoyé.", required=False
+                                 )
 
 class MessageForm(forms.ModelForm):
     message = forms.CharField(max_length=100, label="Laisser un commentaire...",)
@@ -113,11 +121,11 @@ class InscriptionBenevoleForm(forms.ModelForm):
 
     class Meta:
         model = InscriptionBenevole
-        exclude = ['domaine_benevole', 'description']
+        fields = ['domaine_benevole', 'description']
         widgets = {'description': SummernoteWidget()}
 
     def __init__(self, request, message=None, *args, **kwargs):
-        super(MessageForm, self).__init__(request, *args, **kwargs)
+        super(InscriptionBenevoleForm, self).__init__(request, *args, **kwargs)
         if message:
            self.fields['description'].initial = message
 
@@ -127,11 +135,11 @@ class InscriptionExposantForm(forms.ModelForm):
 
     class Meta:
         model = InscriptionExposant
-        exclude = ['domaine_exposant', 'description']
+        fields = ['domaine_exposant', 'description']
         widgets = {'description': SummernoteWidget()}
 
     def __init__(self, request, message=None, *args, **kwargs):
-        super(MessageForm, self).__init__(request, *args, **kwargs)
+        super(InscriptionExposantForm, self).__init__(request, *args, **kwargs)
         if message:
            self.fields['description'].initial = message
 

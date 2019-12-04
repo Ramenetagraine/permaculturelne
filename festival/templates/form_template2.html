@@ -31,14 +31,7 @@
         {{field.label_tag}}
     {%endif%}
       {% if form.is_bound %}
-        {% if field.errors %}
-          {% render_field field class="form-control invalid" %}
-          {% for error in field.errors %}
-            <div class="invalid-feedback">
-              {{ error }}
-            </div>
-          {% endfor %}
-        {% else %}
+        {% if not field.errors %}
         {% if tyype != 'SummernoteWidget' %}
         {% if tyype == 'CheckboxInput' %}
           {{field}}{{field.label}}

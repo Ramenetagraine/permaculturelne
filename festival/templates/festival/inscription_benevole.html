@@ -15,17 +15,20 @@
         <div class="section-title row text-center">
             <div class="col-md-8 col-md-offset-2">
             <small></small>
-            <h3>Bénévoles</h3>
+            <h3>Bénévole </h3>
             <hr class="grd1">
+            <p class="lead">Inscrivez-vous ici pour devenir bénévole du festival (et recevoir notre gratitude éternelle)</p>
             </div>
         </div><!-- end title -->
     </div>
 </div>
 
-            <section class="section smallpad cac text-center paddingbot">
-                <a href="{% url 'inscription_benevole' %}"><h3>Je souhaite devenir bénévole, et je m'enregistre ici</h3></a>
-            </section>
-
+<div class="section wb">
+    <div class="container-fluid">
+        {% include 'form_template.html' with nomBouton="je m'inscris" %}
         <hr class="hr1">
+
+    </div><!-- end container -->
+</div><!-- end section -->
 
 {% endblock %}
