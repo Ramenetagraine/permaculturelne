@@ -40,9 +40,6 @@ except:
 
 if not LOCALL:
     import dj_database_url
-    import django_heroku
-
-
 
 # Application definition
 
@@ -377,7 +374,6 @@ if not LOCALL:
     X_FRAME_OPTIONS = 'DENY'
     SESSION_EXPIRE_AT_BROWSER_CLOSE=True
 
-    django_heroku.settings(locals())
 
 #if not LOCALL:
 #    import django_heroku
