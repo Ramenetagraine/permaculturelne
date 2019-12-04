@@ -94,3 +94,19 @@ class InscriptionExposant(models.Model):
         return "(" + str(self.id) + ") " + str(self.user) + " " + str(self.date_creation)
 
 
+
+class InscriptionNewsletter(models.Model):
+    email = models.EmailField()
+    date_inscription = models.DateTimeField(verbose_name="Date d'inscription", editable=False, auto_now_add=True)
+
+    def __unicode__(self):
+        return self.__str()
+
+    def __str__(self):
+        return "(" + str(self.email) + ") "
+
+    def save(self, *args, **kwargs):
+        ''' On save, update timestamps '''
+        if not self.id:
+            self.date_inscription = now()
+        return super(InscriptionNewsletter, self).save(*args, **kwargs)

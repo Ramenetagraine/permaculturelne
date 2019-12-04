@@ -1,7 +1,7 @@
 from django import forms
 from django.core.validators import RegexValidator
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from .models import Profil, Message, InscriptionBenevole, InscriptionExposant
+from .models import Profil, Message, InscriptionBenevole, InscriptionExposant, InscriptionNewsletter
 from captcha.fields import CaptchaField
 from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 
@@ -132,4 +132,12 @@ class InscriptionExposantForm(forms.ModelForm):
         super(InscriptionExposantForm, self).__init__(request, *args, **kwargs)
         if message:
            self.fields['description'].initial = message
+
+
+
+class InscriptionNewsletterForm(forms.ModelForm):
+
+    class Meta:
+        model = InscriptionNewsletter
+        fields = ['email']
 

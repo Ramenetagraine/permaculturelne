@@ -9,7 +9,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group, User
 from django.core.mail import mail_admins, send_mail, BadHeaderError
-from .forms import ProfilCreationForm, ContactForm, ProfilChangeForm, MessageForm, InscriptionBenevoleForm, InscriptionExposantForm, ContactAnonymeForm
+from .forms import ProfilCreationForm, ContactForm, ProfilChangeForm, MessageForm, InscriptionBenevoleForm, InscriptionExposantForm, ContactAnonymeForm, InscriptionNewsletterForm
 from .models import Profil, Message
 from django.views.generic import ListView, UpdateView, DeleteView
 CharField.register_lookup(Lower, "lower")
@@ -155,7 +155,10 @@ def contact(request):
 
             return render(request, 'erreur.html', {'msg':"Désolé, une ereur s'est produite"})
     else:
-        form = ContactForm()
+        if request.user.is_authenticated:
+            form = ContactForm(request.POST or None, )
+        else:
+            form = ContactAnonymeForm(request.POST or None, )
     return render(request, 'contact.html', {'form': form})
 
 
@@ -267,24 +270,10 @@ def organisation(request, ):
     return render(request, 'festival/organisation.html')
 
 
-def inscriptionBenevole(request):
-    form = InscriptionBenevoleForm(request.POST or None)
+def inscription_newsletter(request):
+    form = InscriptionNewsletterForm(request.POST or None)
     if form.is_valid():
-        if not request.user.is_authenticated:
-            return redirect('login')
         inscription = form.save(commit=False)
-        inscription.user = request.user
         inscription.save()
-        return render(request, 'ajouter_benevole_ok.html', )
-    return render(request, 'ajouter_benevole.html', )
-
-def ajouterexposant(request):
-    form = InscriptionExposantForm(request.POST or None)
-    if form.is_valid():
-        if not request.user.is_authenticated:
-            return redirect('login')
-        inscription = form.save(commit=False)
-        inscription.user = request.user
-        inscription.save()
-        return render(request, 'ajouter_exposant_ok.html', )
-    return render(request, 'ajouter_exposant.html', )
+        return render(request, 'merci.html', )
+    return render(request, 'ajouter_newsletter.html', )

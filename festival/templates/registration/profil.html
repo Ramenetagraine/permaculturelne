@@ -43,14 +43,7 @@
             <td style="width:250px">Pseudo :</td>
             <td>{{ user.username }}</td>
         </tr>
-        <tr>
-            <td style="width:250px">Nom :</td>
-            <td>{{ user.nom }}</td>
-        </tr>
-        <tr>
-            <td style="width:250px">Prénom :</td>
-            <td>{{ user.prenom }}</td>
-        </tr>
+
         {%if user.accepter_annuaire  or request.user == user %}
               {% if user.get_full_name %}
                 <tr>
@@ -95,7 +88,7 @@
 
       </div>
 </div>
-<
+
 <div class="row justify-content-center">
   <div class="col-sm-12 col-md-10 textcenter">
 
