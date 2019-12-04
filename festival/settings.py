@@ -58,21 +58,21 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'django.contrib.sites',
     'festival',
-    'bootstrap','fontawesome','cookielaw',
+    #'bootstrap','fontawesome','cookielaw',
     'model_utils',
     'django_extensions',
     'django_filters',
     'widget_tweaks',
-    'leaflet',
+    #'leaflet',
     'captcha',
-    'django_summernote',
+    #'django_summernote',
    # "visits",
 )
 
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    #'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -172,7 +172,7 @@ IGNORABLE_404_URLS = (
     re.compile('^/robots\.txt$'),
 )
 # Email settings
-SERVER_EMAIL = 'festival.cat@gmail.com'
+SERVER_EMAIL = 'festival.permaculturelne@gmail.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 try:
@@ -183,8 +183,8 @@ EMAIL_HOST_USER = SERVER_EMAIL
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-GMAIL_SMTP_USER = 'festival.cat@gmail.com'
-EMAIL_SUBJECT_PREFIX = "[festival.cat]"
+GMAIL_SMTP_USER = 'festival.permaculturelne@gmail.com'
+EMAIL_SUBJECT_PREFIX = "[permaculturelne]"
 try:
     GMAIL_SMTP_PASSWORD = os.environ['EMAIL_ADMIN_PWD']
 except:

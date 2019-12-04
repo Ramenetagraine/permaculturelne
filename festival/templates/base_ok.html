@@ -45,6 +45,16 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+
+<link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+
 {% block header %}
 
 {% endblock %}
@@ -72,19 +82,27 @@
         <div id="sidebar-wrapper">
 			<div class="side-top">
 				<div class="logo-sidebar">
-					<a href="index.html"><img src="images/logos/logo.png" alt="image"></a>
+					<a href="{% url 'bienvenue' %}"><img src="{% static 'images/logos/fest_petit.png' %}" alt="logo"></a>
 				</div>
 				<ul class="sidebar-nav">
-					<li><a class="active" href="{% url 'bienvenue' %}">Acceuil</a></li>
-					<li><a href="{% url 'organisation' %}">Organisation</a></li>
+        {% block sidebar %}
+					<li><a href="{% url 'organisation' %}">Informations</a></li>
 					<li><a href="{% url 'forum' %}">Forum</a></li>
 					<li><a href="{% url 'benevoles' %}">Bénévoles</a></li>
 					<li><a href="{% url 'exposants' %}">Exposants</a></li>
 					<li><a href="{% url 'contact' %}">Contact</a></li>
-					<li><a href="{% url 'profil_courant' %}">Profil</a></li>
+                    <li> <span class="nav-link divider" role="separator"></span></li>
+        {%endblock%}
+
+                     {% if request.user.is_authenticated %}
+					    <li><a href="{% url 'profil_courant' %}">{% fontawesome_icon 'user' %}  Mon profil</a></li>
+                    {% else %}
+					    <li><a href="https://permaculturelne.herokuapp.com/auth/login/">{% fontawesome_icon 'user' %} Connexion</a></li>
+                    {% endif %}
                      {% if request.user.is_superuser %}
                     {% load admin_urls %}
-                    <li><a class="nav-link" href="{% url 'admin:index' %}">admin</a></li>
+                    <li><a class="nav-link" href="{% url 'admin:index' %}">Admin</a></li>
+                    <li><a class="nav-link" href="{% url 'voir_inscrits' %}">Voir inscrits</a></li>
                     {% endif %}
 				</ul>
 			</div>
@@ -96,8 +114,9 @@
         <div id="page-content-wrapper">
             <a href="#menu-toggle" class="menuopener" id="menu-toggle"><i class="fa fa-bars"></i></a>
 
+<div class="panneau-content">
 {% block content %}
-            <div id="home" class="parallax first-section" data-stellar-background-ratio="0.4" style="background-image:url('uploads/barber_slider.jpg');">
+            <div id="home" class="parallax first-section" data-stellar-background-ratio="0.4" style="background-image:url('images/foret.jpg');">
                 <div class="container-fluid">
                     <div class="row">
 						<div id="full-width" class="owl-carousel owl-theme">
@@ -378,8 +397,9 @@
                 </div><!-- end container -->
             </div><!-- end section -->
 
-
             {%endblock%}
+
+        </div>
 
             {%block footer%}
             <div class="copyrights">
@@ -392,16 +412,14 @@
                                 <a href="{% url 'faq' %}">FAQ</a>
                                 <a href="{% url 'cgu' %}">CGU</a>
                                 <a href="{% url 'liens' %}">Liens</a>
-                                <a href="{% url 'bienvenue' %}">Contact</a>
+                                <a href="{% url 'contact' %}">Contact</a>
                             </p>
-                            <p class="footer-company-name">Tous droits réservés. &copy; 2019 <a href="#">RameneTaGraine</a> Design By : <a href="https://html.design/">html design</a></p>
+                            <p class="footer-company-name">Tous droits réservés. &copy; 2019 <a href="{% url 'contact' %}">RameneTaGraine</a> </p>
                         </div>
 
                         <div class="footer-right">
-                            <form method="get" action="#">
-                                <input placeholder="S'inscrire à la newsletter.." name="search">
-                                <i class="fa fa-envelope-o"></i>
-                            </form>
+                            <a href="{% url 'inscription_newsletter' %}" class="btn btn-light btn-radius btn-brd grd1 effect-1 butn"><i class="fa fa-envelope-o"></i> S'inscrire à la newsletter...</a>
+
                         </div>
                     </div>
                 </div><!-- end container -->
@@ -440,165 +458,5 @@
 
 </body>
 
-{% comment %}
-  <body>
-
-<a name="top"></a>
-
-  <div class="site-wrap">
-    <div class="site-mobile-menu">
-      <div class="site-mobile-menu-header">
-        <div class="site-mobile-menu-close mt-3">
-          <span class="icon-close2 js-menu-toggle"></span>
-        </div>
-      </div>
-      <div class="site-mobile-menu-body"></div>
-    </div>
-    <header class="site-navbar py-3" role="banner">
-      <div class="container-fluid">
-        <div class="row align-items-center">
-          <div class="col-11 col-xl-2">
-            <h1 class="mb-0"><a href="{% url 'bienvenue' %}" class="text-white h2 mb-0">Eco<span class="text-success">Charte</span> </a></h1>
-          </div>
-          <div class="col-12 col-md-10 d-none d-xl-block">
-            <nav class="site-navigation position-relative text-right" role="navigation">
-              <ul class="site-menu js-clone-nav mx-auto d-none d-lg-block">
-                <li class="active"><a href="{% url 'bienvenue' %}">Accueil</a></li>
-                    <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="dropdown1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">La démarche</a>
-              <div class="dropdown-menu" aria-labelledby="dropdown10">
-                <a class="dropdown-item" href="{% url 'introduction'%}">Introduction</a>
-              </div>
-            </li>
-            <li class="nav-item dropdown disabled ">
-              <a class="nav-link dropdown-toggle" href="#" id="dropdown2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Le site</a>
-              <div class="dropdown-menu disabled " aria-labelledby="dropdown10">
-                <a class="dropdown-item" href="{% url 'faq' %}">FAQ</a>
-                <a class="dropdown-item" href="{% url 'cgu' %}">CGU</a>
-                <a class="dropdown-item" href="{% url 'liens' %}">Liens</a>
-                <a class="dropdown-item" href="{% url 'contact' %}">Nous contacter</a>
-                <a class="dropdown-item" href="{% url 'fairedon' %}">Faire un don</a>
-              </div>
-            </li>
-                <li class="cta"><a href="">La charte</a></li>
-                <li class="nav-item dropdown">
-           <a data-toggle="dropdown" class="nav-link dropdown-toggle " href="{% url 'profil_courant' %}" aria-haspopup="true" aria-expanded="false"  >
-              {% fontawesome_icon 'user' %}  </a>
-            <ul class="dropdown-menu textcenter" aria-labelledby="navbarDropdownMenuLink">
-              {% if user.is_authenticated %}
-               <li> <a class="nav-link dropdown-item" href="{% url 'profil_courant' %}">Mon profil</a></li>
-                <li> <span class="nav-link divider" role="separator"></span></li>
-               <li> <a class="nav-link dropdown-item" href="{% url 'logout' %}">Déconnexion</a></li>
-              {%else%}
-               <li> <a class="nav-link dropdown-item" href="{% url 'login' %}">Me connecter</a></li>
-              {%endif%}
-            </ul>
-        </li>
-         {% if request.user.is_superuser %}
-        {% load admin_urls %}
-        <li class="nav-item"><a class="nav-link" href="{% url 'admin:index' %}">admin</a></li>
-        {% endif %}
-              </ul>
-            </nav>
-          </div>
-          <div class="d-inline-block d-xl-none ml-md-0 mr-auto py-3" style="position: relative; top: 3px;"><a href="#" class="site-menu-toggle js-menu-toggle text-white"><span class="icon-menu h3"></span></a></div>
-          </div>
-        </div>
-      </div>
-    </header>
-
-
- <div class="site-section">
-      <div class="container">
-        <div class="row mb-5  align-items-center">
-          <div class="col-lg-10 ">
- {% block subtitle %}
-  {% endblock %}
-            </div>
-          </div>
-        </div>
-        </div>
-        </div>
-
- {% block content %}
-  {% endblock %}
-
-        <div class="row">
-          <div class="col-md-12 text-center">
-  <a href="#top">  <h3>{% fontawesome_icon 'arrow-circle-up' %} </h3>  </a></a>
-          </div></div>
-
- {% block messages %}
-  <hr>
- <div class="site-section">
-  <div class="container">
-        <div class="row mb-5">
-          <div class="col-md-12">
-
-<div class="row text-center">
-    <h4>Commentaires</h4>
-</div>
-<div class="row text-center">
-    <p><small>Une remarque ? une suggestion ? Vous n'êtes pas d'accord ? N'hésitez pas à donner votre avis ci-dessous...</small></p>
-</div>
-
-<div class="site-comment commentaires" id="idConversation">
-{% for comment in commentaires %}
-    <div class="row {% if comment.auteur.id == request.user.id %} msg-auteur  {%else%} msg-destinataire{%endif%}">
-
-        <div class="col-sm-4 col-md-4 col-lg-3">
-           <p class="infos  textepetit">({{ comment.date_creation|date:"d/m/Y G:i" }}){% ifchanged %}, {{comment.auteur}}{% endifchanged %}</p>
-        </div>
-        <div class=" col-sm-8 col-md-8 col-lg-9 message ">
-                <div class="col">{{ comment.message|safe|url}}</div>
-        </div>
-    </div>
-{% endfor %}
-</div>
-    <script>
-    var messageBody = document.querySelector('#idConversation');
-    messageBody.scrollTop = idConversation.scrollHeight - idConversation.clientHeight;
-</script>
-
-<hr>
-
-{% if request.user.is_authenticated %}
-<div>
-    <input type="hidden" name="Nouveau Message" value="{{ message }}">
-<div>
-<form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <input type="hidden" name="Nouveau Message" value="{{ message_defaut }}">
-    {% include 'form_template3.html' %}
-</form>
-</div>
-{% else %}
-    <p>(Vous devez vous <a href="{% url 'login'%}">authentifier</a> pour laisser un commentaire, merci !)</p>
-{% endif %}
-    <script>
-    getElementById("id_commentaire_iframe").height = "150px"
-</script>
-          </div>
-        </div>
-      </div>
-</div>
-  </div>
-
-  {% endblock %}
-
-
-    <footer class="site-footer text-center ">
-        <small>
-  {% block compteur %}
-  {% endblock %}
-         {% if request.user.is_superuser %}
-          {%endif%}
-            <script>document.write(new Date().getFullYear());</script>
-        </small>
-    </footer>
-
-
-  </body>>
-{% endcomment %}
 </html>
 {% endspaceless %}
