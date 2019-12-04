@@ -234,7 +234,7 @@ def profil_nom(request, user_username):
 
 
 def benevoles(request):
-    return render(request, 'festival/benevoles.html', )
+    return render(request, 'permaculturelne/benevoles.html', )
 
 
 @login_required
@@ -246,11 +246,11 @@ def inscription_benevole(request):
         inscription.save()
         return render(request, 'merci.html', {'msg' :"Votre inscription en tant que bénévole a bien été enregistrée. Vous serez contacté dès que possible. "})
 
-    return render(request, 'festival/inscription_benevole.html', {'form':form})
+    return render(request, 'permaculturelne/inscription_benevole.html', {'form':form})
 
 
 def exposants(request):
-    return render(request, 'festival/exposants.html', )
+    return render(request, 'permaculturelne/exposants.html', )
 
 
 @login_required
@@ -261,10 +261,10 @@ def inscription_exposant(request):
         inscription.user = request.user
         inscription.save()
         return render(request, 'merci.html', {'msg' :"Votre inscription a bien été enregistrée. Vous serez contacté dès que possible. "})
-    return render(request, 'festival/inscription_exposant.html', {'form':form})
+    return render(request, 'permaculturelne/inscription_exposant.html', {'form':form})
 
 def organisation(request, ):
-    return render(request, 'festival/organisation.html')
+    return render(request, 'permaculturelne/organisation.html')
 
 
 def inscription_newsletter(request):
@@ -283,4 +283,4 @@ def voir_inscrits(request):
     inscription_benevole = InscriptionBenevole.objects.all()
 
 
-    return render(request, 'festival/voir_inscrits.html', {'newsletter':newsletter, 'news_inscrits':news_inscrits, 'benevoles':inscription_benevole, 'exposants':inscription_exposant})
+    return render(request, 'permaculturelne/voir_inscrits.html', {'newsletter':newsletter, 'news_inscrits':news_inscrits, 'benevoles':inscription_benevole, 'exposants':inscription_exposant})
