@@ -191,6 +191,7 @@ def liens(request):
         'https://www.facebook.com/permapat/',
         'https://www.permapat.com/',
         'http://www.perma.cat',
+        'https://framacarte.org/m/3427/ ',
         'https://alternatiba.eu/alternatiba66/',
     ]
 
