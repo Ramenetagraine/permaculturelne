@@ -191,7 +191,7 @@ except:
     GMAIL_SMTP_PASSWORD = 'test'
 
 ADMINS = (
-    ('Asso_admin', 'festival.cat@gmail.com'),
+    ('Asso_admin', 'festival.permaculturelne@gmail.com'),
 )
 MANAGERS = ADMINS
 BASE_URL = "https://permaculturelne.herokuapp.com"
@@ -237,7 +237,7 @@ STATICFILES_DIRS = (
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.normpath(os.path.join(BASE_DIR, '/media/'))
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # LOCATION_FIELD = {
 #     'map.provider': 'openstreetmap',
