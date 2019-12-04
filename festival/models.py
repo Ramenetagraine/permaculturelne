@@ -77,7 +77,7 @@ class InscriptionBenevole(models.Model):
         return self.__str()
 
     def __str__(self):
-        return "(" + str(self.id) + ") " + str(self.user) + " " + str(self.date_creation)
+        return "(" + str(self.id) + ") " + str(self.user) + " " + str(self.date_inscription) + " " + str(self.domaine_exposant) + " " + str(self.description)
 
 class InscriptionExposant(models.Model):
     user = models.ForeignKey(Profil, on_delete=models.CASCADE)
@@ -91,7 +91,7 @@ class InscriptionExposant(models.Model):
         return self.__str()
 
     def __str__(self):
-        return "(" + str(self.id) + ") " + str(self.user) + " " + str(self.date_creation)
+        return "(" + str(self.id) + ") " + str(self.user) + " " + str(self.date_inscription) + " " + str(self.domaine_exposant) + " " + str(self.description)
 
 
 
@@ -103,7 +103,7 @@ class InscriptionNewsletter(models.Model):
         return self.__str()
 
     def __str__(self):
-        return "(" + str(self.email) + ") "
+        return str(self.email)
 
     def save(self, *args, **kwargs):
         ''' On save, update timestamps '''

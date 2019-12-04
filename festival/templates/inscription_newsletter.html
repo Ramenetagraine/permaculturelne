@@ -7,29 +7,24 @@
 {%endblock%}
 
 
-{% block sidebar %}
-    <li><a href="{% url 'organisation' %}">Informations</a></li>
-    <li><a href="{% url 'forum' %}">Forum</a></li>
-    <li><a href="{% url 'benevoles' %}">Bénévoles</a></li>
-    <li><a class="active" href="{% url 'exposants' %}">Exposants</a></li>
-    <li><a href="{% url 'contact' %}">Contact</a></li>
-{%endblock%}
 
 {% block content %}
-
 
 <div id="titre" class="section lb">
     <div class="container-fluid">
         <div class="section-title row text-center">
             <div class="col-md-8 col-md-offset-2">
             <small></small>
-            <h3>Exposant</h3>
+            <h3>S'inscrire à la Newsletter</h3>
             <hr class="grd1">
-            <p class="lead">Inscrivez-vous ici pour participer au festival cette année</p>
+            <p class="lead">Recevez des emails de Ramene ta graine !</p>
+
+
             </div>
         </div><!-- end title -->
     </div>
 </div>
+
 
 <div class="section wb">
     <div class="container-fluid">
@@ -41,6 +36,3 @@
 </div><!-- end section -->
 
 {% endblock %}
-
-
-

@@ -2,6 +2,14 @@
 {% load static %}
 {% load i18n %}
 
+{% block sidebar %}
+    <li><a href="{% url 'organisation' %}">Informations</a></li>
+    <li><a href="{% url 'forum' %}">Forum</a></li>
+    <li><a href="{% url 'benevoles' %}">Bénévoles</a></li>
+    <li><a href="{% url 'exposants' %}">Exposants</a></li>
+    <li><a class="active" href="{% url 'contact' %}">Contact</a></li>
+{%endblock%}
+
 {% block content %}
 <!-- Page Content -->
 <div id="page-content-wrapper">
@@ -10,7 +18,7 @@
         <div class="container-fluid">
             <div class="section-title row text-center">
                 <div class="col-md-8 col-md-offset-2">
-                <small>LET'S MAKE AN CONTACT FOR YOUR LIFE</small>
+                <small></small>
                 <h3>Contact</h3>
                 <hr class="grd1">
                 <p class="lead">Pour toute question/suggestion/remarque/insulte, veuillez remplir le formulaire suivant</p>

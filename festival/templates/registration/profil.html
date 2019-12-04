@@ -11,24 +11,26 @@
 {% block title %}Profil de {{ user.username }} {% endblock %}
 
 {% block content %}
+
+<div id="titre" class="section lb">
+    <div class="container-fluid">
+        <div class="section-title row text-center">
+            <div class="col-md-8 col-md-offset-2">
+            <small></small>
+            <h3>{% if user == request.user %}Mon profil
+{% else %}
+                Profil de {{ user.username }}
+{% endif %}</h3>
+            <hr class="grd1">
+            </div>
+        </div><!-- end title -->
+    </div>
+</div>
+
 <div class="site-section">
       <div class="container">
-
-        <div class="row mb-5 justify-content-center">
-          <div class="col-lg-10 mb-5">
-            <div class="site-section-heading" data-aos="fade-up">
-{% if user == request.user %}
-                <h2 class="text-center">Mon profil </h2>
-{% else %}
-                <h2 class="text-center">Profil de {{ user.username }}</h2>
-{% endif %}
-            </div>
-          </div>
-        </div>
-
-
 <div class="row justify-content-center">
-  <div class="col-sm-12 col-md-10">
+  <div class="col-sm-12 col-md-10 col-md-offset-1">
       {%if request.user == user %}
         <a href="{% url 'profil_modifier' %}">
             <button type="button" class="btn btn-sm btn-warning">
@@ -80,6 +82,10 @@
                 <td>{{ user.code_postal }}</td>
             </tr>
             {% endif %}
+            <tr>
+                <td style="width:250px">Inscrit newsletter : </td>
+                <td>{{ user.inscrit_newsletter_str }}</td>
+            </tr>
             </tr>
 
         {% endif %}
@@ -89,6 +95,7 @@
       </div>
 </div>
 
+        <hr class="hr1">
 <div class="row justify-content-center">
   <div class="col-sm-12 col-md-10 textcenter">
 
@@ -99,7 +106,7 @@
 </div>
 
 
-
+        <hr class="hr1">
 {% endblock %}
 
     

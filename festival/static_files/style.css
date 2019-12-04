@@ -547,7 +547,7 @@ body.barber_version .sidebar-nav li a.active{
     display: block;
     position: relative;
     overflow: hidden;
-    padding: 70px 0;
+    padding: 50px 0;
 }
 
 .noover {
@@ -2296,7 +2296,7 @@ select.mobile-device {
 -------------------------------------------------------------------*/
 
 .all-page-bar{
-	background: url("uploads/barber_all.jpg") no-repeat center;
+	background: url("uploads/paysage.jpg") no-repeat center;
 	background-size: cover;
 	position: relative;
 }

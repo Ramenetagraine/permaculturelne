@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% load fontawesome %}
+{%block header %}
+ <script src="{% static 'js/cookielaw.js'%}" type="text/javascript"></script>
+{%endblock%}
+
+
+
+{% block content %}
+
+<div id="titre" class="section lb">
+    <div class="container-fluid">
+        <div class="section-title row text-center">
+            <div class="col-md-8 col-md-offset-2">
+            <small></small>
+            <h3>Inscrits</h3>
+            <hr class="grd1">
+            </div>
+        </div><!-- end title -->
+    </div>
+</div>
+
+
+<div class="section wb">
+    <div class="container-fluid">
+        <h3>newsletter</h3>
+        <ul>
+            {% for n in newsletter %}
+        <li> {{n}} </li>
+        {% endfor %}
+        </ul>
+        <ul>
+            {% for n in news_inscrits %}
+        <li> {{n.email}} </li>
+        {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<div class="section wb">
+    <div class="container-fluid">
+        <h3>Bénévoles</h3>
+        <ul>
+            {% for n in benevoles %}
+        <li> {{n}} </li>
+        {% endfor %}
+        </ul>
+    </div></div>
+
+<div class="section wb">
+    <div class="container-fluid">
+        <h3>Exposants</h3>
+        <ul>
+            {% for n in exposants %}
+        <li> {{n}} </li>
+        {% endfor %}
+        </ul>
+    </div></div>
+
+{% endblock %}

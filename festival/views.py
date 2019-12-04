@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group, User
 from django.core.mail import mail_admins, send_mail, BadHeaderError
 from .forms import ProfilCreationForm, ContactForm, ProfilChangeForm, MessageForm, InscriptionBenevoleForm, InscriptionExposantForm, ContactAnonymeForm, InscriptionNewsletterForm
-from .models import Profil, Message
+from .models import Profil, Message, InscriptionNewsletter, InscriptionBenevole, InscriptionExposant
 from django.views.generic import ListView, UpdateView, DeleteView
 CharField.register_lookup(Lower, "lower")
 
@@ -75,8 +75,7 @@ class profil_modifier_user(UpdateView):
     model = Profil
     form_class = ProfilChangeForm
     template_name_suffix = '_modifier'
-    fields = ['username', 'first_name', 'last_name', 'email','description', 'a_signe',
-              'accepter_annuaire', 'inscrit_newsletter']
+    fields = ['username', 'first_name', 'last_name', 'email','description', 'inscrit_newsletter']
 
     def get_object(self):
         return Profil.objects.get(id=self.request.user.id)
@@ -87,8 +86,6 @@ class profil_modifier(UpdateView):
     model = Profil
     form_class = ProfilChangeForm
     template_name_suffix = '_modifier'
-
-    fields = ['username','email','first_name','last_name', 'description', 'inscrit_newsletter']
 
     def get_object(self):
         return Profil.objects.get(id=self.request.user.id)
@@ -221,8 +218,7 @@ def profil_courant(request, ):
 def profil(request, user_id):
     try:
         user = Profil.objects.get(id=user_id)
-        distance = user.getDistance(request.user)
-        return render(request, 'registration/profil.html', {'user': user, 'distance':distance})
+        return render(request, 'registration/profil.html', {'user': user})
     except User.DoesNotExist:
             return render(request, 'registration/profil_inconnu.html', {'userid': user_id})
 
@@ -230,8 +226,7 @@ def profil(request, user_id):
 def profil_nom(request, user_username):
     try:
         user = Profil.objects.get(username=user_username)
-        distance = user.getDistance(request.user)
-        return render(request, 'registration/profil.html', {'user': user, 'distance':distance})
+        return render(request, 'registration/profil.html', {'user': user, })
     except User.DoesNotExist:
         return render(request, 'registration/profil_inconnu.html', {'userid': user_username})
 
@@ -247,7 +242,7 @@ def inscription_benevole(request):
         inscription = form.save(commit=False)
         inscription.user = request.user
         inscription.save()
-        return render(request, 'merci.html')
+        return render(request, 'merci.html', {'msg' :"Votre inscription en tant que bénévole a bien été enregistrée. Vous serez contacté dès que possible. "})
 
     return render(request, 'festival/inscription_benevole.html', {'form':form})
 
@@ -263,7 +258,7 @@ def inscription_exposant(request):
         inscription = form.save(commit=False)
         inscription.user = request.user
         inscription.save()
-        return render(request, 'merci.html')
+        return render(request, 'merci.html', {'msg' :"Votre inscription a bien été enregistrée. Vous serez contacté dès que possible. "})
     return render(request, 'festival/inscription_exposant.html', {'form':form})
 
 def organisation(request, ):
@@ -275,5 +270,15 @@ def inscription_newsletter(request):
     if form.is_valid():
         inscription = form.save(commit=False)
         inscription.save()
-        return render(request, 'merci.html', )
-    return render(request, 'ajouter_newsletter.html', )
+        return render(request, 'merci.html', {'msg' :"Vous êtes inscrits à la newsletter"})
+    return render(request, 'inscription_newsletter.html', {'form':form})
+
+
+def voir_inscrits(request):
+    newsletter = InscriptionNewsletter.objects.all()
+    news_inscrits = Profil.objects.filter(inscrit_newsletter=True)
+    inscription_exposant = InscriptionExposant.objects.all()
+    inscription_benevole = InscriptionBenevole.objects.all()
+
+
+    return render(request, 'festival/voir_inscrits.html', {'newsletter':newsletter, 'news_inscrits':news_inscrits, 'benevoles':inscription_benevole, 'exposants':inscription_exposant})

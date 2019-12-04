@@ -3,18 +3,26 @@
 {% load i18n %}
 {% load fontawesome %}
 
+{% block sidebar %}
+    <li><a class="active" href="{% url 'organisation' %}">Informations</a></li>
+    <li><a href="{% url 'forum' %}">Forum</a></li>
+    <li><a href="{% url 'benevoles' %}">Bénévoles</a></li>
+    <li><a href="{% url 'exposants' %}">Exposants</a></li>
+    <li><a href="{% url 'contact' %}">Contact</a></li>
+{%endblock%}
+
 {% block content %}
 
-            <div id="titre" class="section lb">
-                <div class="container-fluid">
-                    <div class="section-title row text-center">
-                        <div class="col-md-8 col-md-offset-2">
-                        <h3>Les infos pratiques</h3>
-                        <hr class="grd1">
-                        </div>
-                    </div><!-- end title -->
-                </div>
+<div id="titre" class="section lb">
+    <div class="container-fluid">
+        <div class="section-title row text-center">
+            <div class="col-md-8 col-md-offset-2">
+            <h3>Les infos pratiques</h3>
+            <hr class="grd1">
             </div>
+        </div><!-- end title -->
+    </div>
+</div>
 
 <div class="row ">
     <div class="col-md-12">
@@ -34,6 +42,10 @@
         </div>
     </div><!-- end col -->
 </div><!-- end row -->
+
+        <hr class="hr1">
+
+        <hr class="hr1">
 {% endblock %}
 
 

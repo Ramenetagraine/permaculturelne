@@ -55,6 +55,7 @@ urlpatterns = [
     url(r'^organisation/$', views.organisation, name='organisation', ),
     url(r'^forum/$', views.forum, name='forum', ),
     url(r'^inscription_newsletter/$', views.inscription_newsletter, name='inscription_newsletter', ),
+    url(r'^voir_inscrits/$', views.voir_inscrits, name='voir_inscrits', ),
 
 
     url(r'^merci/$', views.merci, name='merci'),
