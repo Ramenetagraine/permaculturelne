@@ -27,9 +27,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False
 try:
     LOCALL = False
-    DEBUG = True
     SECRET_KEY = os.environ['SECRET_KEY']
     ALLOWED_HOSTS = ['permaculturelne.herokuapp.com']
 except:
@@ -118,7 +118,7 @@ if LOCALL:
     }
 else:
     DATABASES = dict()
-    DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+    DATABASES['default'] = dj_database_url.config(conn_max_age=600)
 
 
 
