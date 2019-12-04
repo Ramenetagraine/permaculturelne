@@ -46,7 +46,6 @@ urlpatterns = [
     url(r'^accounts/profile/$', login_required(views.profil_courant), name='profil_courant', ),
     url(r'^accounts/profil_modifier/$', login_required(views.profil_modifier.as_view()), name='profil_modifier',),
     url(r'^accounts/profil_supprimer/$', login_required(views.profil_supprimer.as_view()), name='profil_supprimer',),
-    url(r'^accounts/profil_modifier_adresse/$', login_required(views.profil_modifier_adresse.as_view()), name='profil_modifier_adresse',),
 
     url(r'^benevoles/$', views.benevoles, name='benevoles', ),
     url(r'^exposants/$', views.exposants, name='exposants', ),

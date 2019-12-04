@@ -1,7 +1,7 @@
 from django import forms
 from django.core.validators import RegexValidator
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from .models import Adresse, Profil, Message, InscriptionBenevole, InscriptionExposant
+from .models import Profil, Message, InscriptionBenevole, InscriptionExposant
 from captcha.fields import CaptchaField
 from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 
@@ -12,29 +12,15 @@ no_space_validator = RegexValidator(
       code='invalid_tag',
   )
 
-class AdresseForm(forms.ModelForm):
-    code_postal = forms.CharField(label="Code postal*", )
-    commune = forms.CharField(label="Commune*", )
-    latitude = forms.FloatField(label="Latitude", initial="42", required=False,widget = forms.HiddenInput())
-    longitude = forms.FloatField(label="Longitude", initial="2", required=False,widget = forms.HiddenInput())
-
-    class Meta:
-        model = Adresse
-        exclude = ('latitude', 'longitude')
-
-    def save(self, *args, **kwargs):
-        adresse = super(AdresseForm, self).save(commit=False)
-        adresse.set_latlon_from_adresse()
-        adresse.save()
-        return adresse
 
 class ProfilCreationForm(UserCreationForm):
     username = forms.CharField(label="Pseudonyme*", help_text="Attention les majuscules sont importantes...", validators=[no_space_validator,])
     description = forms.CharField(label=None, help_text="Une description de vous même", required=False, widget=forms.Textarea)
-    captcha = CaptchaField()
+    code_postal = forms.CharField(label="Code postal*", )
+    commune = forms.CharField(label="Commune*", )
     email= forms.EmailField(label="Email*",)
-    accepter_annuaire = forms.BooleanField(required=False, label="J'accepte d'apparaitre dans l'annuaire du site et la carte et rend mon profil visible par tous les inscrits")
     accepter_conditions = forms.BooleanField(required=True, label="J'ai lu et j'accepte les Conditions Générales d'Utilisation du site",  )
+    captcha = CaptchaField()
 
     class Meta(UserCreationForm):
         model = Profil
@@ -55,6 +41,8 @@ class ProfilChangeForm(UserChangeForm):
     email = forms.EmailField(label="Email")
     username = forms.CharField(label="Pseudonyme", validators=[no_space_validator,])
     description = forms.CharField(label="Description", help_text="Une description de vous-même", required=False)
+    code_postal = forms.CharField(label="Code postal*", )
+    commune = forms.CharField(label="Commune*", )
     inscrit_newsletter = forms.BooleanField(required=False, label="J'accepte de recevoir la newsletter")
     password=None
 
@@ -71,6 +59,8 @@ class ProfilChangeForm_admin(UserChangeForm):
     email = forms.EmailField(label="Email")
     username = forms.CharField(label="Pseudonyme", validators=[no_space_validator,])
     description = forms.CharField(label="Description", initial="Une description de vous même (facultatif)", widget=forms.Textarea)
+    code_postal = forms.CharField(label="Code postal*", )
+    commune = forms.CharField(label="Commune*", )
     inscrit_newsletter = forms.BooleanField(required=False)
     accepter_annuaire = forms.BooleanField(required=False)
     a_signe = forms.BooleanField(required=False)

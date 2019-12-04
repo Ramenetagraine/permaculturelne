@@ -9,8 +9,8 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group, User
 from django.core.mail import mail_admins, send_mail, BadHeaderError
-from .forms import ProfilCreationForm, ContactForm, AdresseForm, ProfilChangeForm, MessageForm, InscriptionBenevoleForm, InscriptionExposantForm, ContactAnonymeForm
-from .models import Profil, Adresse, Message
+from .forms import ProfilCreationForm, ContactForm, ProfilChangeForm, MessageForm, InscriptionBenevoleForm, InscriptionExposantForm, ContactAnonymeForm
+from .models import Profil, Message
 from django.views.generic import ListView, UpdateView, DeleteView
 CharField.register_lookup(Lower, "lower")
 
@@ -36,17 +36,7 @@ def handler400(request, template_name="400.html"):   #requete invalide
     return response
 
 def bienvenue(request):
-    commentaires = Message.objects.all().order_by("date_creation")
-    form = MessageForm(request.POST or None)
-    if form.is_valid():
-        if not request.user.is_authenticated:
-            return redirect('login')
-        comment = form.save(commit=False)
-        comment.auteur = request.user
-        comment.save()
-        return redirect(request.path)
-
-    return render(request, 'bienvenue.html', { 'form': form, 'commentaires': commentaires})
+    return render(request, 'index.html',)
 
 
 def presentation_site(request):
@@ -71,16 +61,13 @@ def register(request):
     if request.user.is_authenticated:
         return render(request, "erreur.html", {"msg": "Vous êtes déjà inscrit et connecté !"})
 
-    form_adresse = AdresseForm(request.POST or None)
     form_profil = ProfilCreationForm(request.POST or None)
-    if form_adresse.is_valid() and form_profil.is_valid():
-        adresse = form_adresse.save()
+    if form_profil.is_valid():
         profil_courant = form_profil.save(commit=False, is_active=False)
-        profil_courant.adresse = adresse
         profil_courant.save()
         return render(request, 'userenattente.html')
 
-    return render(request, 'registration/register.html', {"form_adresse": form_adresse, "form_profil": form_profil, })
+    return render(request, 'registration/register.html', { "form_profil": form_profil, })
 
 
 @login_required
@@ -95,21 +82,13 @@ class profil_modifier_user(UpdateView):
         return Profil.objects.get(id=self.request.user.id)
 
 
-class profil_modifier_adresse(UpdateView):
-    model = Adresse
-    form_class = AdresseForm
-    template_name_suffix = '_modifier'
-
-    def get_object(self):
-        return Adresse.objects.get(id=self.request.user.id)
-
 
 class profil_modifier(UpdateView):
     model = Profil
     form_class = ProfilChangeForm
     template_name_suffix = '_modifier'
 
-    # fields = ['username','email','first_name','last_name', 'site_web','description', 'competences', 'inscrit_newsletter']
+    fields = ['username','email','first_name','last_name', 'description', 'inscrit_newsletter']
 
     def get_object(self):
         return Profil.objects.get(id=self.request.user.id)

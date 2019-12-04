@@ -72,11 +72,10 @@
         <div id="sidebar-wrapper">
 			<div class="side-top">
 				<div class="logo-sidebar">
-					<a href="index.html"><img src="images/logos/logo.png" alt="image"></a>
+					<a href="{% url 'bienvenue' %}"><img src="images/logos/fest_petit.png" alt="logo"></a>
 				</div>
 				<ul class="sidebar-nav">
-					<li><a class="active" href="{% url 'bienvenue' %}">Acceuil</a></li>
-					<li><a href="{% url 'organisation' %}">Organisation</a></li>
+					<li><a href="{% url 'organisation' %}">Informations</a></li>
 					<li><a href="{% url 'forum' %}">Forum</a></li>
 					<li><a href="{% url 'benevoles' %}">Bénévoles</a></li>
 					<li><a href="{% url 'exposants' %}">Exposants</a></li>
@@ -86,7 +85,7 @@
                      {% if request.user.is_authenticated %}
 					    <li><a href="{% url 'profil_courant' %}">{% fontawesome_icon 'user' %}  Mon profil</a></li>
                     {% else %}
-					    <li><a href="https://permaculturelne.herokuapp.com/auth/login/">C{% fontawesome_icon 'user' %} onnexion</a></li>
+					    <li><a href="https://permaculturelne.herokuapp.com/auth/login/">{% fontawesome_icon 'user' %} Connexion</a></li>
                     {% endif %}
                      {% if request.user.is_superuser %}
                     {% load admin_urls %}

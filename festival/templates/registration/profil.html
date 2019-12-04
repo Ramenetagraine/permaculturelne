@@ -25,8 +25,6 @@
             </div>
           </div>
         </div>
-        <div class="row-sm-12" data-aos="fade-up" data-aos-delay="500">
-          <div class="col-md-12" data-aos="fade-up" data-aos-delay="500">
 
 
 <div class="row justify-content-center">
@@ -77,6 +75,18 @@
                         <td>{{ user.description|safe }}</td>
                     </tr>
               {% endif %}
+        {%if user.commune %}
+            <tr>
+                <td style="width:250px">Commune :</td>
+                <td>{{ user.commune }}</td>
+            </tr>
+            {% endif %}
+            {%if user.code_postal %}
+            <tr>
+                <td style="width:250px">Code postal :</td>
+                <td>{{ user.code_postal }}</td>
+            </tr>
+            {% endif %}
             </tr>
 
         {% endif %}
@@ -85,45 +95,13 @@
 
       </div>
 </div>
-<div class="row justify-content-center">
-  <div class="col-sm-12 col-md-10">
-      {%if request.user.id == user.id %}
-        <a href="{% url 'profil_modifier_adresse' %}">
-            <button type="button" class="btn btn-sm btn-warning">
-                <span class="glyphicon glyphicon-plus"></span>&nbsp;Modifier
-            </button>
-        </a>
-      {%endif%}
-    <table class="table table-condensed tablepanier table-striped">
-    <tbody>
-      {%if user.accepter_annuaire  or request.user == user %}
-
-            {%if user.adresse.commune %}
-            <tr>
-                <td style="width:250px">Commune :</td>
-                <td>{{ user.adresse.commune }}</td>
-            </tr>
-            {% endif %}
-            {%if user.adresse.code_postal %}
-            <tr>
-                <td style="width:250px">Code postal :</td>
-                <td>{{ user.adresse.code_postal }}</td>
-            </tr>
-            {% endif %}
-        {% endif %}
-    </tbody>
-    </table>
-  </div>
-  </div>
+<
 <div class="row justify-content-center">
   <div class="col-sm-12 col-md-10 textcenter">
 
             <a href="{% url 'logout' %}" class="btn btn-light btn-radius btn-brd grd1 effect-1 butn">Se déconnecter</a>
-        </div>
-        </div>
-
-        </div>
-        </div>
+    </div>
+</div>
     </div>
 </div>
 

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from .models import  Adresse, Message
+from .models import  Message, InscriptionExposant, InscriptionBenevole
 
 
 from django.contrib import admin
@@ -17,10 +17,10 @@ class CustomUserAdmin(UserAdmin):
     list_display = ['email', 'username', 'date_registration', 'last_login',
                     'inscrit_newsletter']
 
-    readonly_fields = ('date_registration','last_login','adresse')
+    readonly_fields = ('date_registration','last_login','code_postal')
 
     fieldsets = (
-        (None, {'fields': ('username','description','adresse', 'inscrit_newsletter', 'a_signe')}),
+        (None, {'fields': ('username','description','commune', 'code_postal', 'inscrit_newsletter')}),
         (_('Personal info'), {'fields': ('first_name', 'last_name', 'email')}),
         (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
                                        'groups', 'user_permissions')}),
@@ -28,6 +28,6 @@ class CustomUserAdmin(UserAdmin):
         )
 
 admin.site.register(Profil, CustomUserAdmin)
-
-admin.site.register(Adresse)
 admin.site.register(Message)
+admin.site.register(InscriptionBenevole)
+admin.site.register(InscriptionExposant)
