@@ -187,10 +187,11 @@ def contact_admins(request):
 
 def liens(request):
     liens = [
-        'https://alternatiba.eu/alternatiba66/',
+        'https://www.facebook.com/ramenetagraine/',
+        'https://www.facebook.com/permapat/',
+        'https://www.permapat.com/',
         'http://www.perma.cat',
-        'http://soudaqui.cat/wordpress/',
-
+        'https://alternatiba.eu/alternatiba66/',
     ]
 
     return render(request, 'liens.html', {'liens':liens, })
