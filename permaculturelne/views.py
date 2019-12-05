@@ -141,7 +141,7 @@ def contact(request):
             try:
                 mail_admins(sujet, message_txt, html_message=message_html)
                 if form.cleaned_data['renvoi']:
-                    send_mail(sujet, message_txt, email, email, fail_silently=False, html_message=message_html)
+                    send_mail(sujet, message_txt, email, [email, ], fail_silently=False, html_message=message_html)
 
 
                 return render(request, 'message_envoye.html', {'sujet': sujet, 'msg': message_html,
