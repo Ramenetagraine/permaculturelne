@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load cookielaw_tags %}
 {% load i18n %}
 {% load fontawesome %}
 {%block header %}
@@ -66,8 +67,13 @@
 {% endblock %}
 
 
-{%block place_cookielaw %}.
-    {% load cookielaw_tags %}
+{%block place_cookielaw %}
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2 text-center">
     {% cookielaw_banner %}
+    </div>
+</div>
+		
 {%endblock %}
 
