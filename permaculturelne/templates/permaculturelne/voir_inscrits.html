@@ -28,7 +28,7 @@
         <h3>newsletter</h3>
         <ul>
             {% for n in newsletter %}
-        <li> {{n}} </li>
+         <li> <a href="{{n.get_absolute_url}}> {{n|safe}}</a> </li>
         {% endfor %}
         </ul>
         <ul>
@@ -44,7 +44,7 @@
         <h3>Bénévoles</h3>
         <ul>
             {% for n in benevoles %}
-        <li> {{n}} </li>
+        <li> <a href="{{n.get_absolute_url}}>{{n|safe}}</a>  </li>
         {% endfor %}
         </ul>
     </div></div>
@@ -54,7 +54,7 @@
         <h3>Exposants</h3>
         <ul>
             {% for n in exposants %}
-        <li> {{n}} </li>
+        <li> <a href="{{n.get_absolute_url}}>{{n|safe}}</a>  </li>
         {% endfor %}
         </ul>
     </div></div>
