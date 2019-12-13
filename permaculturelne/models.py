@@ -79,6 +79,10 @@ class InscriptionBenevole(models.Model):
     def __str__(self):
         return "(" + str(self.id) + ") " + str(self.user) + " " + str(self.date_inscription) + " " + str(self.domaine_exposant) + " " + str(self.description)
 
+    @property
+    def get_absolute_url(self):
+        return reverse('profil', kwargs={'user_id':self.user.id})
+    
 class InscriptionExposant(models.Model):
     user = models.ForeignKey(Profil, on_delete=models.CASCADE)
     domaine_exposant = models.CharField(max_length=10,
@@ -94,6 +98,9 @@ class InscriptionExposant(models.Model):
         return "(" + str(self.id) + ") " + str(self.user) + " " + str(self.date_inscription) + " " + str(self.domaine_exposant) + " " + str(self.description)
 
 
+    @property
+    def get_absolute_url(self):
+        return reverse('profil', kwargs={'user_id':self.user.id})
 
 class InscriptionNewsletter(models.Model):
     email = models.EmailField()
