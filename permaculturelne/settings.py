@@ -31,6 +31,7 @@ try:
     LOCALL = False
     SECRET_KEY = os.environ['SECRET_KEY']
     ALLOWED_HOSTS = ['permaculturelne.herokuapp.com']
+    DEBUG=False
 except:
     LOCALL  = True
     SECRET_KEY = 'aersd68fgsfdgsdvcbvcb563873gbgfthhfhdjd'
