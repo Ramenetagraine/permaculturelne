@@ -71,13 +71,13 @@ class InscriptionBenevole(models.Model):
         choices=(Choix.type_benevole),
         default='0', verbose_name="Domaine préférentiel du bénévolat")
     description = models.TextField(null=False, blank=False, verbose_name="Vous pouvez expliciter ici ce que vous préféreriez faire")
-    date_inscription = models.DateTimeField(verbose_name="Date d'inscritpion", editable=False, auto_now_add=True)
+    date_inscription = models.DateTimeField(verbose_name="Date d'inscription", editable=False, auto_now_add=True)
 
     def __unicode__(self):
         return self.__str()
 
     def __str__(self):
-        return "(" + str(self.id) + ") " + str(self.user) + " " + str(self.date_inscription) + " " + str(self.domaine_exposant) + " " + str(self.description)
+        return "(" + str(self.id) + ") " + str(self.user) + " " + str(self.date_inscription) + " " + str(self.domaine_benevole) + " " + str(self.description)
 
     @property
     def get_absolute_url(self):
