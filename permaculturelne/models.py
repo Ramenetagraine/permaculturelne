@@ -88,8 +88,8 @@ class InscriptionExposant(models.Model):
     domaine_exposant = models.CharField(max_length=10,
         choices=(Choix.type_exposant),
         default='0', verbose_name="Type du stand")
-    description = models.TextField(null=False, blank=False, verbose_name="Donnez nous quelques informations a propos du stand que vous voulez tenir")
-    date_inscription = models.DateTimeField(verbose_name="Date d'inscritpion", editable=False, auto_now_add=True)
+    description = models.TextField(null=False, blank=True, verbose_name="Donnez nous quelques informations a propos du stand que vous voulez tenir")
+    date_inscription = models.DateTimeField(verbose_name="Date d'inscrition", editable=False, auto_now_add=True)
 
     def __unicode__(self):
         return self.__str()
