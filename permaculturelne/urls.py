@@ -24,7 +24,7 @@ from django.contrib.auth.decorators import login_required
 
 # admin.autodiscover()
 from django.contrib import admin
-
+from django.contrib.auth import views as auth_views
 
 admin.sites.site_header ="Admin "
 admin.sites.site_title ="Admin Permacat"
@@ -34,7 +34,6 @@ urlpatterns = [
     path('gestion/', admin.site.urls),
     url(r'^summernote/', include('django_summernote.urls')),
     url(r'^captcha/', include('captcha.urls')),
-    url('^', include('django.contrib.auth.urls')),
     url(r'^$', views.bienvenue, name='bienvenue'),
     url(r'^faq/$', views.faq, name='faq'),
     url(r'^contact/$', views.contact, name='contact', ),
@@ -60,8 +59,9 @@ urlpatterns = [
 
     url(r'^merci/$', views.merci, name='merci'),
     url(r'^register/$', views.register, name='senregistrer', ),
+    #path('login/', auth_views.LoginView.as_view(template_name='permaculturelne/registration/login.html'), 'login'),
     url(r'^password/change/$', views.change_password, name='change_password'),
-    path('auth/', include('django.contrib.auth.urls')),
+    path('', include('django.contrib.auth.urls')),
     url(r'^contact_admins/$', views.contact_admins, name='contact_admins',),
 
 ]
@@ -74,10 +74,10 @@ if settings.DEBUG:
     from django.conf.urls.static import static
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-handler404 = 'permaculturelne.views.handler404'
-handler500 = 'permaculturelne.views.handler500'
-handler400 = 'permaculturelne.views.handler400'
-handler403 = 'permaculturelne.views.handler403'
+handler404 = views.handler404
+handler500 = views.handler500
+handler400 = views.handler400
+handler403 = views.handler403
 
 if settings.LOCALL:
     import debug_toolbar

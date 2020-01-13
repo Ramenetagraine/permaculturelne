@@ -30,9 +30,13 @@
     </div>
 </div>
 
-            <section class="section smallpad cac text-center paddingbot">
-                <a href="{% url 'inscription_benevole' %}"><h3>Je souhaite devenir bénévole, et je m'enregistre ici</h3></a>
-            </section>
+<section class="section smallpad cac text-center paddingbot">
+    {% if not user.is_authenticated %}
+    <a href="{% url 'senregistrer' %}?next={% url 'inscription_benevole' %}"><h3>Je souhaite devenir bénévole : je crée mon compte et je m'enregistre ici</h3></a>
+    {% else %}
+    <a href="{% url 'inscription_benevole' %}"><h3>Je souhaite devenir bénévole : je m'enregistre ici</h3></a>
+    {% endif %}
+</section>
 
         <hr class="hr1">
 

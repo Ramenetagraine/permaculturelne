@@ -5,28 +5,26 @@
 
 {% block content %}
 
-<div class="site-section">
-      <div class="container">
-        <div class="row mb-5 justify-content-center">
-          <div class="col-lg-12 ">
-    <div class="row justify-content-sm-center">
-        <h4>Renseignez les informations suivantes pour vous inscrire (les champs avec (*) sont obligatoires)</h4>
-    </div>
-    <div class="row justify-content-sm-center">
-        <div class="col-sm-12 col-md-10 col-lg-8 ">
-            <form role="form" action="" method="post" enctype="multipart/form-data">
-          {% csrf_token %}
-                {%include 'form_template2.html' with form=form_profil%}
+<div class="section wb">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2 text-center">
+                            <div class="message-box">
+                                <h4>Créez votre compte</h4>
+                                <h2>Renseignez les informations suivantes pour vous inscrire </h2>
+                                <p>(les champs avec (*) sont obligatoires)</p>
+                                <form role="form" action="" method="post" enctype="multipart/form-data">
+                              {% csrf_token %}
+                                    {%include 'form_template2.html' with form=form_profil%}
 
-          <button type="submit" class="btn btn-success">S'enregistrer</button>
-        </form>
-        </div>
-    </div>
-</div>
-</div>
-</div>
-</div>
+                              <button type="submit" class="btn btn-success">S'enregistrer</button>
+                            </form>
+                            </div><!-- end messagebox -->
+                        </div><!-- end col -->
+                    </div><!-- end row -->
 
+
+        <hr class="hr1">
 
     {% endblock %}
 

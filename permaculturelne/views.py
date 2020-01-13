@@ -63,7 +63,7 @@ def register(request):
 
     form_profil = ProfilCreationForm(request.POST or None)
     if form_profil.is_valid():
-        profil_courant = form_profil.save(commit=False, is_active=False)
+        profil_courant = form_profil.save(commit=False, is_active=True)
         profil_courant.save()
         return render(request, 'userenattente.html')
 

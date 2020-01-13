@@ -15,7 +15,6 @@ no_space_validator = RegexValidator(
 
 class ProfilCreationForm(UserCreationForm):
     username = forms.CharField(label="Pseudonyme*", help_text="Attention les majuscules sont importantes...", validators=[no_space_validator,])
-    description = forms.CharField(label=None, help_text="Une description de vous même", required=False, widget=forms.Textarea)
     code_postal = forms.CharField(label="Code postal*", )
     commune = forms.CharField(label="Commune*", )
     email= forms.EmailField(label="Email*",)
@@ -24,7 +23,7 @@ class ProfilCreationForm(UserCreationForm):
 
     class Meta(UserCreationForm):
         model = Profil
-        fields = ['username', 'email', 'password1',  'password2', 'first_name', 'last_name',  'description', 'code_postal', 'commune', 'inscrit_newsletter', 'accepter_conditions']
+        fields = ['username', 'email', 'password1',  'password2', 'first_name', 'last_name', 'code_postal', 'commune', 'inscrit_newsletter', 'accepter_conditions']
         exclude = ['slug', ]
 
     def save(self, commit = True, is_active=False):
