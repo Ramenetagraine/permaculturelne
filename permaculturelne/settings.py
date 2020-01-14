@@ -116,7 +116,7 @@ if LOCALL:
     }
 else:
     DATABASES = dict()
-    DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+    DATABASES['default'] = dj_database_url.config(conn_max_age=600)
 
 
 
@@ -223,30 +223,18 @@ BASE_URL = "https://permaculturelne.herokuapp.com"
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static_files/')
-#STATICFILES_DIRS = (os.path.join(BASE_DIR, 'staticfiles'), )
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-#STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
-#STATICFILES_DIRS = (
-#    os.path.join(BASE_DIR, 'permaculturelne/static_files'),
-#)
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'permaculturelne/static_files'),
+)
 
-#MEDIA_URL = '/media/'
-#MEDIA_ROOT = os.path.normpath(os.path.join(BASE_DIR, '/media/'))
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.normpath(os.path.join(BASE_DIR, '/media/'))
 
-#
-#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 #STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 # LOCATION_FIELD = {
