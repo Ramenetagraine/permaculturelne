@@ -91,13 +91,12 @@
 					<li><a href="{% url 'benevoles' %}">Bénévoles</a></li>
 					<li><a href="{% url 'exposants' %}">Exposants</a></li>
 					<li><a href="{% url 'contact' %}">Contact</a></li>
-                    <li> <span class="nav-link divider" role="separator"></span></li>
         {%endblock%}
 
                      {% if request.user.is_authenticated %}
 					    <li><a href="{% url 'profil_courant' %}">{% fontawesome_icon 'user' %}  Mon profil</a></li>
                     {% else %}
-					    <li><a href="https://permaculturelne.herokuapp.com/auth/login/">{% fontawesome_icon 'user' %} Connexion</a></li>
+					    <li><a href="https://permaculturelne.herokuapp.com/login/">{% fontawesome_icon 'user' %} Connexion</a></li>
                     {% endif %}
                      {% if request.user.is_superuser %}
                     {% load admin_urls %}
