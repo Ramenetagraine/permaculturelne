@@ -40,11 +40,11 @@ urlpatterns = [
     url(r'^cgu/$', views.cgu, name='cgu', ),
     url(r'^liens/$', views.liens, name='liens', ),
 
-    url(r'^accounts/profil/(?P<user_id>[0-9]+)/$', login_required(views.profil), name='profil', ),
-    url(r'^accounts/profil/(?P<user_username>[-\w.]+)/$', login_required(views.profil_nom), name='profil_nom', ),
-    url(r'^accounts/profile/$', login_required(views.profil_courant), name='profil_courant', ),
-    url(r'^accounts/profil_modifier/$', login_required(views.profil_modifier.as_view()), name='profil_modifier',),
-    url(r'^accounts/profil_supprimer/$', login_required(views.profil_supprimer.as_view()), name='profil_supprimer',),
+    url(r'^profil/(?P<user_id>[0-9]+)/$', login_required(views.profil), name='profil', ),
+    url(r'^profil/(?P<user_username>[-\w.]+)/$', login_required(views.profil_nom), name='profil_nom', ),
+    url(r'^profile/$', login_required(views.profil_courant), name='profil_courant', ),
+    url(r'^profil_modifier/$', login_required(views.profil_modifier.as_view()), name='profil_modifier',),
+    url(r'^profil_supprimer/$', login_required(views.profil_supprimer.as_view()), name='profil_supprimer',),
 
     url(r'^benevoles/$', views.benevoles, name='benevoles', ),
     url(r'^exposants/$', views.exposants, name='exposants', ),
