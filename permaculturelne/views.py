@@ -213,7 +213,9 @@ def forum(request, ):
 
 @login_required
 def profil_courant(request, ):
-    return render(request, 'registration/profil.html', {'user': request.user})
+    inscriptions_benevole = InscriptionBenevole.objects.filter(user=request.user)
+    inscriptions_exposants = InscriptionExposant.objects.filter(user=request.user)
+    return render(request, 'registration/profil.html', {'user': request.user, 'inscriptions_benevole':inscriptions_benevole, 'inscriptions_exposants':inscriptions_exposants})
 
 
 @login_required

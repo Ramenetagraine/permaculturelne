@@ -19,6 +19,7 @@
     </div>
 </div>
 
+        <hr class="hr1">
 <div class="site-section">
       <div class="container">
 <div class="row justify-content-center">
@@ -87,15 +88,198 @@
       </div>
 </div>
 
+      {%if request.user == user %}
+<div class="site-section">
+      <div class="container">
+<div class="row justify-content-center">
+  <div class="col-sm-12 col-md-10 col-md-offset-1">
+
         <hr class="hr1">
 <div class="row justify-content-center">
   <div class="col-sm-12 col-md-10 textcenter">
+{% for i in inscriptions_benevole %}
+<table class="table table-condensed">
+			<thead>
+				 <th colspan="2">Inscription en tant que bénévole
+        <a href="{{i.get_update_url}}">
+            <button type="button" class="btn btn-sm btn-warning">
+                &nbsp;Modifier
+            </button>
+        </a>
+                 </th>
+			</thead>
+			<tbody  class="textleft">
+				<tr>
+					<td class="nomProprieteProduit">
+						Date d'inscription :
+					</td>
+					<td class="proprieteProduit">
+						{{i.date_inscription|date:"DATE_FORMAT"}}
+					</td>
+				</tr>
+				<tr>
+					<td class="nomProprieteProduit">
+                        Domaine préférentiel
+					</td>
+					<td class="proprieteProduit">
+                        {{i.get_domaine_benevole_display}}
+					</td>
+				</tr>
+				<tr>
+					<td class="nomProprieteProduit">
+                        Journées de disponibilités pendant le festival
+					</td>
+					<td class="proprieteProduit">
+                        {{i.get_jours_festival_display}}
+					</td>
+				</tr>
+				<tr>
+					<td class="nomProprieteProduit">
+                        Disponibilité pendant les journées du festival
+					</td>
+					<td class="proprieteProduit">
+{{i.get_heures_festival_display}}
+					</td>
+				</tr>
+				<tr>
+					<td class="nomProprieteProduit">
+Disponibilité avant le festival
+					</td>
+					<td class="proprieteProduit">
+{{i.dispo_avantfestival}}
+					</td>
+				</tr>
+				<tr>
+					<td class="nomProprieteProduit">
+Informations complémentaires
+					</td>
+					<td class="proprieteProduit">
+{{i.description|safe}}
+					</td>
+				</tr>
+			</tbody>
+		</table>
 
+
+      {% endfor%}
+
+        <hr class="hr1">
+{% for i in inscriptions_exposants %}
+<table class="table table-condensed textleft">
+			<thead>
+				 <th colspan="2">Inscription d'un stand
+        <a href="{{ i.get_update_url }}">
+            <button type="button" class="btn btn-sm btn-warning">
+                &nbsp;Modifier
+            </button>
+        </a>
+                 </th>
+			</thead>
+			<tbody  class="textleft">
+				<tr>
+					<td class="nomProprieteProduit">
+						Date d'inscription :
+					</td>
+					<td class="proprieteProduit">
+						{{i.date_inscription|date:"DATE_FORMAT"}}
+					</td>
+				</tr>
+				<tr>
+					<td class="nomProprieteProduit">
+                        Nom de la structure
+					</td>
+					<td class="proprieteProduit">
+                        {{i.nom_structure}}
+					</td>
+				</tr>
+				<tr>
+					<td class="nomProprieteProduit">
+                        Type de la structure
+					</td>
+					<td class="proprieteProduit">
+                        {{i.get_type_exposant_display}}
+					</td>
+				</tr>
+				<tr>
+					<td class="nomProprieteProduit">
+                        Domaine du stand
+					</td>
+					<td class="proprieteProduit">
+{{i.get_domaine_exposant_display}}
+					</td>
+				</tr>
+				<tr>
+					<td class="nomProprieteProduit">
+Téléphone (joignable pendant le festival)
+					</td>
+					<td class="proprieteProduit">
+{{i.telephone}}
+					</td>
+				</tr>
+				<tr>
+					<td class="nomProprieteProduit">
+Plaque minéralogique pour l'accès du matériel du stand au festival
+					</td>
+					<td class="proprieteProduit">
+{{i.plaque}}
+					</td>
+				</tr>
+				<tr>
+					<td class="nomProprieteProduit">
+Description du stand
+					</td>
+					<td class="proprieteProduit">
+{{i.description|safe}}
+					</td>
+				</tr>
+				<tr>
+					<td class="nomProprieteProduit">
+Nombre de tables nécessaires
+					</td>
+					<td class="proprieteProduit">
+{{i.get_nombre_tables_display}}
+					</td>
+				</tr>
+				<tr>
+					<td class="nomProprieteProduit">
+Plaque minéralogique pour l'accès du matériel du stand au festival
+					</td>
+					<td class="proprieteProduit">
+{{i.plaque}}
+					</td>
+				</tr>
+
+				<tr>
+					<td class="nomProprieteProduit">
+Participe à la tombola
+                    </td>
+					<td class="proprieteProduit">
+{{i.is_tombola}}
+					</td>
+				</tr>
+
+{% if i.is_tombola %}
+				<tr>
+					<td class="nomProprieteProduit">
+Lot(s) pour la tombola
+                    </td>
+					<td class="proprieteProduit">
+{{i.lot_tombola}}
+					</td>
+				</tr>
+{% endif %}
+
+
+			</tbody>
+		</table>
+
+      {% endfor%}
             <a href="{% url 'logout' %}" class="btn btn-light btn-radius btn-brd grd1 effect-1 butn">Se déconnecter</a>
     </div>
 </div>
     </div>
 </div>
+      {%endif%}
 
 
         <hr class="hr1">

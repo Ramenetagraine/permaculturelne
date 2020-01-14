@@ -72,10 +72,10 @@ class InscriptionBenevole(models.Model):
         choices=(Choix.type_benevole),
         default='0', verbose_name="Domaine préférentiel du bénévolat")
     jours_festival =models.CharField(max_length=10,
-        choices=((0, 'Samedi'), (1, "Dimanche"), (2, "Samedi et dimanche")),
+        choices=(('0', '----------'), ('1', 'Samedi'), ('2', "Dimanche"), ('3', "Samedi et dimanche"), ('4', "Pas de bénévolat pendant le festival (mais avant ou après)")),
         default='0', verbose_name="Quel(s) jour(s) du festival seriez-vous disponible")
     heures_festival =models.CharField(max_length=10,
-        choices=((0, "2h dans la journée"), (3, "Le matin"), (4, "L'après midi"), (5, "Toute la journée")),
+        choices=(('0', '----------'),('1', "2h dans la journée"), ('2', "Le matin"), ('3', "L'après midi"), ('4', "Toute la journée")),
         default='0', verbose_name="Combien d'heures")
     dispo_avantfestival = models.TextField(null=False, blank=True, verbose_name="Quelle est votre disponibilité pour venir aider à la mise en place du festival (les jours précédant le festival) ?")
     description = models.TextField(null=False, blank=True, verbose_name="Vous pouvez expliciter ici ce que vous préférez faire, vos disponibilités, etc")
@@ -86,6 +86,10 @@ class InscriptionBenevole(models.Model):
 
     def __str__(self):
         return "(" + str(self.id) + ") " + str(self.user) + " " + str(self.date_inscription) + " " + str(self.domaine_benevole) + " " + str(self.description)
+
+    @property
+    def get_update_url(self):
+        return reverse('benevoles')
 
     @property
     def get_absolute_url(self):
@@ -107,12 +111,12 @@ class InscriptionExposant(models.Model):
     domaine_exposant = models.CharField(max_length=10,
         choices=(Choix.type_domaine_exposant),
         default='0', verbose_name="Domaine principal")
-    description = models.TextField(null=False, blank=True, verbose_name="Vous pouvez préciser le stand que vous voulez tenir")
+    description = models.TextField(null=False, blank=True, verbose_name="Description (brève) du stand que vous voulez tenir")
     nombre_tables =models.CharField(max_length=10,
-        choices=((0, 'pas de table'), (1, "1 table"), (2, "2 tables")),
+        choices=((0, '----------'), ('1', 'pas de table'), ('2', "1 table"), ('3', "2 tables")),
         default='0', verbose_name="Combien de tables voulez vous réserver ?")
     is_tombola = models.BooleanField(verbose_name="Je souhaite offrir un lot pour la tombola", default=False)
-    lot_tombola = models.TextField(null=True, blank=True, verbose_name="Quel lot proposez vous pour la tombola?")
+    lot_tombola = models.TextField(null=True, blank=True, verbose_name="Quel(s) lot(s) proposez vous pour la tombola?")
 
     date_inscription = models.DateTimeField(verbose_name="Date d'inscrition", editable=False, auto_now_add=True)
 
@@ -122,6 +126,9 @@ class InscriptionExposant(models.Model):
     def __str__(self):
         return "(" + str(self.id) + ") " + str(self.user) + " " + str(self.date_inscription) + " " + str(self.domaine_exposant) + " " + str(self.description)
 
+    @property
+    def get_update_url(self):
+        return reverse('benevoles')
 
     @property
     def get_absolute_url(self):
