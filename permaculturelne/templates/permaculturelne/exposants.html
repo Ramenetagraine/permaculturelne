@@ -35,8 +35,8 @@
             {% if not user.is_exposant %}
             <a href="{% url 'inscription_exposant' %}"><h3>Je souhaite participer en tant qu'exposant, je m'enregistre ici</h3></a>
         {% else %}
-            <h3>Vous avez déjà une demande de stand.
-    <p>Vous pouvez <a href="{%url 'profil_courant' %}">la modfier sur votre profil</a> ou bien <a href="{% url 'inscription_exposant' %}">demander un autre stand</a></p></h3>
+            <h3 class="textblanc">Vous avez déjà une demande de stand.
+    <p class="textblanc">Vous pouvez <a href="{%url 'profil_courant' %}">la modifier sur votre profil</a> ou bien <a href="{% url 'inscription_exposant' %}">demander un autre stand</a></p></h3>
         {% endif %}
     {% endif %}
 </section>

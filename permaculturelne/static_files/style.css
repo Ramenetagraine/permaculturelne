@@ -2450,34 +2450,12 @@ body.barber_version .dev-list .widget:hover .hover-br .social-up-hover .footer-s
 }
 
 
-
-#global-nav {
+.textblanc{
+    color:white;
+    line-height: 2;
 }
-
-#global-subnav {
-}
-
-#global-nav a {
-}
-
-#global-nav ul{
-}
-
-#global-subnav ul{
-}
-
-#global-nav li{
-}
-
-#global-nav ul ul li{
-    //display:none;
-}
-
-#global-nav li:hover {
-}
-
-#global-nav li:hover ul li{
-    //display:block;
+.textblanc a{
+    color:lightblue;
 }
 
 .textleft{

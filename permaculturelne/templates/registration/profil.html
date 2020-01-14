@@ -73,6 +73,10 @@
                 <td>{{ user.code_postal }}</td>
             </tr>
             {% endif %}
+                <tr>
+                    <td style="width:250px">Statut  :</td>
+                    <td>{{ user.get_statut_adhesion_display }}</td>
+                </tr>
             <tr>
                 <td style="width:250px">Inscrit newsletter : </td>
                 <td>{{ user.inscrit_newsletter_str }}</td>

@@ -21,6 +21,12 @@ class Choix():
     type_exposant = ('0','Association'), ("1","Particulier"), ('2','Institution'), ('3','Commerçant'), ('4','Nourriture sur place'), ('5','Conférence'), ('6', 'Atelier'), ('7', "autre")
     type_domaine_exposant = ('0','Agriculture'), ("1","Alimentaire"), ('2','Artisanat'), ('3','Bien être'), ('4','Habitat'), ('5','Informations'), ('6', 'Jeux'), ('7', "autre")
 
+    statut_adhesion = (('', '-----------'),
+                     (0, ("Je ne suis pas (ou plus) membre de l'asso 'Ramene Ta Graine'")),
+                     (1, ("Je suis déjà adhérent de l'asso 'Ramene Ta graine', ma cotisation est à jour")),
+                    (2, ("Je suis déjà adhérent et 'membre équipe' de l'asso 'Ramene Ta graine'"))
+                       )
+
 
 
 class Profil(AbstractUser):
@@ -30,6 +36,8 @@ class Profil(AbstractUser):
     date_registration = models.DateTimeField(verbose_name="Date de création", editable=False)
     inscrit_newsletter = models.BooleanField(verbose_name="J'accepte de recevoir des emails", default=False)
     accepter_conditions = models.BooleanField(verbose_name="J'ai lu et j'accepte les conditions d'utilisation du site", default=False, null=False)
+
+    statut_adhesion = models.IntegerField(choices=Choix.statut_adhesion, default="0")
 
     def __str__(self):
         return self.username

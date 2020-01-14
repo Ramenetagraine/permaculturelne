@@ -87,9 +87,14 @@
 				<ul class="sidebar-nav">
         {% block sidebar %}
 					<li><a href="{% url 'organisation' %}">Informations</a></li>
+                     {% if not request.user.is_authenticated or not request.user.is_benevole %}
+                    {% if  request.user.statut_adhesion != 2  %}
+					    <li><a href="{% url 'benevoles' %}">Devenir bénévole</a></li>
+                    {%endif%}
+                    {%endif%}
+
+					    <li><a href="{% url 'exposants' %}">Exposants</a></li>
 					<li><a href="{% url 'forum' %}">Forum</a></li>
-					<li><a href="{% url 'benevoles' %}">Bénévoles</a></li>
-					<li><a href="{% url 'exposants' %}">Exposants</a></li>
 					<li><a href="{% url 'contact' %}">Contact</a></li>
         {%endblock%}
 
@@ -98,7 +103,7 @@
                     {% else %}
 					    <li><a href="https://permaculturelne.herokuapp.com/login/">{% fontawesome_icon 'user' %} Connexion</a></li>
                     {% endif %}
-                     {% if request.user.is_superuser %}
+                     {% if request.user.is_superuser or request.user.statut_adhesion == 2%}
                     {% load admin_urls %}
                     <li><a class="nav-link" href="{% url 'admin:index' %}">Admin</a></li>
                     <li><a class="nav-link" href="{% url 'voir_inscrits' %}">Voir inscrits</a></li>

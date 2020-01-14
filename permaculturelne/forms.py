@@ -47,7 +47,7 @@ class ProfilChangeForm(UserChangeForm):
 
     class Meta:
         model = Profil
-        fields = ['username', 'email', 'first_name', 'last_name',  'description', 'code_postal', 'commune', 'inscrit_newsletter']
+        fields = ['username', 'email', 'first_name', 'last_name',  'description', 'code_postal', 'commune', 'statut_adhesion', 'inscrit_newsletter']
 
 
 class ProfilChangeForm_admin(UserChangeForm):
@@ -67,7 +67,7 @@ class ProfilChangeForm_admin(UserChangeForm):
 
     class Meta:
         model = Profil
-        fields = ['username', 'first_name', 'last_name', 'email', 'description', 'code_postal', 'commune', 'inscrit_newsletter']
+        fields = ['username', 'first_name', 'last_name', 'email', 'description', 'code_postal', 'commune',  'statut_adhesion','inscrit_newsletter']
 
 
     def __init__(self, *args, **kwargs):
