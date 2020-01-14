@@ -1,0 +1,69 @@
+<table class="table table-condensed">
+			{% if not nomuser or i.user == request.get.user %}
+			<thead>
+				 <th colspan="2">Inscription en tant que bénévole
+        <a href="{{i.get_update_url}}">
+            <button type="button" class="btn btn-sm btn-warning">
+                &nbsp;Modifier
+            </button>
+        </a>
+                 </th>
+			</thead>
+			{% endif %}
+			<tbody  class="textleft">
+			{% if nomuser %}
+				<tr>
+					<td colspan="2" class="textcenter">Bénévole : <a href="{% url 'profil' user.id %}">{{nomuser}}</a>
+					</td>
+				</tr>
+			{% endif %}
+				<tr>
+					<td class="nomProprieteProduit">
+						Date d'inscription :
+					</td>
+					<td class="proprieteProduit">
+						{{i.date_inscription|date:"DATE_FORMAT"}}
+					</td>
+				</tr>
+				<tr>
+					<td class="nomProprieteProduit">
+                        Domaine préférentiel
+					</td>
+					<td class="proprieteProduit">
+                        {{i.get_domaine_benevole_display}}
+					</td>
+				</tr>
+				<tr>
+					<td class="nomProprieteProduit">
+                        Journées de disponibilités pendant le festival
+					</td>
+					<td class="proprieteProduit">
+                        {{i.get_jours_festival_display}}
+					</td>
+				</tr>
+				<tr>
+					<td class="nomProprieteProduit">
+                        Disponibilité pendant les journées du festival
+					</td>
+					<td class="proprieteProduit">
+{{i.get_heures_festival_display}}
+					</td>
+				</tr>
+				<tr>
+					<td class="nomProprieteProduit">
+Disponibilité avant le festival
+					</td>
+					<td class="proprieteProduit">
+{{i.dispo_avantfestival}}
+					</td>
+				</tr>
+				<tr>
+					<td class="nomProprieteProduit">
+Informations complémentaires
+					</td>
+					<td class="proprieteProduit">
+{{i.description|safe}}
+					</td>
+				</tr>
+			</tbody>
+		</table>

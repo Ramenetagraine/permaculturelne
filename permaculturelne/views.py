@@ -13,7 +13,7 @@ from .forms import ProfilCreationForm, ContactForm, ProfilChangeForm, MessageFor
 from .models import Profil, Message, InscriptionNewsletter, InscriptionBenevole, InscriptionExposant
 from django.views.generic import ListView, UpdateView, DeleteView
 CharField.register_lookup(Lower, "lower")
-
+from django.shortcuts import get_object_or_404
 
 def handler404(request, template_name="404.html"):  #page not found
     response = render(request, "404.html")
@@ -89,6 +89,7 @@ class profil_modifier(UpdateView):
 
     def get_object(self):
         return Profil.objects.get(id=self.request.user.id)
+
 
 
 class profil_supprimer(DeleteView):
@@ -246,7 +247,7 @@ def inscription_benevole(request):
         inscription = form.save(commit=False)
         inscription.user = request.user
         inscription.save()
-        return render(request, 'merci.html', {'msg' :"Votre inscription en tant que bénévole a bien été enregistrée. Vous serez contacté dès que possible. "})
+        return render(request, 'merci.html', {'msg' :"Votre inscription en tant que bénévole a bien été enregistrée.", "msg2":" Vous serez contacté dès que possible. "})
 
     return render(request, 'permaculturelne/inscription_benevole.html', {'form':form})
 
@@ -262,11 +263,38 @@ def inscription_exposant(request):
         inscription = form.save(commit=False)
         inscription.user = request.user
         inscription.save()
-        return render(request, 'merci.html', {'msg' :"Votre inscription a bien été enregistrée. Vous serez contacté dès que possible. "})
+        return render(request, 'merci.html', {'msg' :"L'inscription de votre stand a bien été enregistrée", "msg2":" Vous pouvez le compléter ou le modifier à tout moment sur votre profil. Vous serez contacté dès que possible. "})
     return render(request, 'permaculturelne/inscription_exposant.html', {'form':form})
+
+
+
+@login_required
+def inscription_benevole_modifier(request, id):
+    inscription = get_object_or_404(InscriptionBenevole, id=id)
+
+    form = InscriptionBenevoleForm(request.POST or None, instance=inscription)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect('profil_courant')
+    return render(request, 'permaculturelne/inscription_benevole.html', {'form':form})
+
+
+@login_required
+def inscription_exposant_modifier(request, id):
+    inscription = get_object_or_404(InscriptionExposant, id=id)
+
+    form = InscriptionExposantForm(request.POST or None, instance=inscription)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect('profil_courant')
+    return render(request, 'permaculturelne/inscription_exposant.html', {'form':form})
+
 
 def organisation(request, ):
     return render(request, 'permaculturelne/organisation.html')
+
 
 
 def inscription_newsletter(request):

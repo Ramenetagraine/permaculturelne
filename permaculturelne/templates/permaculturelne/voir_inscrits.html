@@ -43,8 +43,8 @@
     <div class="container-fluid">
         <h3>Bénévoles</h3>
         <ul>
-            {% for n in benevoles %}
-        <li> <a href="{{n.get_absolute_url}}">{{n|safe}}</a>  </li>
+            {% for i in benevoles %}
+            {% include "registration/template_benevole.html" with nomuser=i.user %}
         {% endfor %}
         </ul>
     </div></div>
@@ -53,10 +53,11 @@
     <div class="container-fluid">
         <h3>Exposants</h3>
         <ul>
-            {% for n in exposants %}
-        <li> <a href="{{n.get_absolute_url}}">{{n|safe}}</a>  </li>
+            {% for i in exposants %}
+            {% include "registration/template_exposant.html" with nomuser=i.user %}
         {% endfor %}
         </ul>
-    </div></div>
+    </div>
+</div>
 
 {% endblock %}

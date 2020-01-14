@@ -25,45 +25,52 @@
 </div>
 
 
-                <div class="container-fluid">
-<div class="contenu conversation" id="idConversation">
-{% for mess in messages_echanges %}
-    {% ifchanged %}
-    <div class="row msg-date textcenter">
-        <div class="col-sm-12">
-            <p class="infos">{{ mess.date_creation|date:"l d F" }}</p>
-        </div>
-    </div>
-    {% endifchanged %}
-    <div class="row {% ifequal mess.auteur.id request.user.id %} msg-auteur  {%else%} msg-destinataire{%endifequal%} ">
-        <div class="col-sm-2 col-md-3 col-lg-1">
-            <p class="infos  textepetit ">
-                {{ mess.date_creation|date:"G:i" }}{% ifchanged %}, <a href="{% url 'profil' mess.auteur.id %}"> {{mess.auteur}}</a>{% endifchanged %} </p>
-        </div>
-        <div class=" col-sm-8 col-md-9 col-lg-10 message ">
-                <p>{{ mess.message|safe|url }}</p>
-        </div>
-    </div>
-{% endfor %}
-</div>
+<div class="section">
+      <div class="container">
+        <div class="section row text-center">
+                <div class="col-md-10 col-md-offset-1 col-sm-12">
+                <div class="contenu conversation" id="idConversation">
+                {% for mess in messages_echanges %}
+                    {% ifchanged %}
+                    <div class="row msg-date textcenter">
+                        <div class="col-sm-12">
+                            <p class="infos">{{ mess.date_creation|date:"l d F" }}</p>
+                        </div>
+                    </div>
+                    {% endifchanged %}
+                    <div class="row {% ifequal mess.auteur.id request.user.id %} msg-auteur  {%else%} msg-destinataire{%endifequal%} ">
+                        <div class="col-sm-4 col-md-3 col-lg-3">
+                            <p class="infos  textepetit ">
+                                {{ mess.date_creation|date:"G:i" }}{% ifchanged %}, <a href="{% url 'profil' mess.auteur.id %}"> {{mess.auteur}}</a>{% endifchanged %} </p>
+                        </div>
+                        <div class=" col-sm-8 col-md-9 col-lg-9 message ">
+                                <p>{{ mess.message|safe|url }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
     <script>
     var messageBody = document.querySelector('#idConversation');
     messageBody.scrollTop = idConversation.scrollHeight - idConversation.clientHeight;
 </script>
 <hr>
 
-<div>
-    <input type="hidden" name="Nouveau Message" value="{{ message }}">
+<div class="row justify-content-center">
+    <div class="col-sm-12 ">
+    <form method="post">
+      {% csrf_token %}
+      {% include 'form_template2.html' %}
 
-<div>
-<form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <input type="hidden" name="Nouveau Message" value="{{ message_defaut }}">
-    {% include 'form_template3.html' with boutonAnnuler=False %}
-</form>
+      <button type="submit" class="btn btn-primary">{% if nomBouton %}{{nomBouton}}{% else %}Envoyer le message{% endif %}</button>
+    </form>
+    </div>
+</div>
+
 </div>
 </div>
 </div>
+
+        <hr class="hr1">
 
 
 {% endblock %}

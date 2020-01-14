@@ -91,14 +91,14 @@ class ContactAnonymeForm(forms.Form):
                                  )
 
 class MessageForm(forms.ModelForm):
-    message = forms.CharField(label="Laisser un commentaire...",)
 
     class Meta:
         model = Message
         exclude = ['auteur', 'date_creation', 'valide']
 
         widgets = {
-                'message': forms.Textarea(attrs={'rows': 2}),
+                #'message': forms.Textarea(attrs={'rows': 2}),
+                'message': SummernoteWidget(),
             }
 
     def __init__(self, request, message=None, *args, **kwargs):

@@ -53,6 +53,21 @@ class Profil(AbstractUser):
     def inscrit_newsletter_str(self):
        return "oui" if self.inscrit_newsletter else "non"
 
+    @property
+    def is_benevole(self):
+        benevole = InscriptionBenevole.objects.filter(user=self)
+        return len(benevole)>0
+
+    @property
+    def is_exposant(self):
+        benevole = InscriptionExposant.objects.filter(user=self)
+        return len(benevole)>0
+
+    @property
+    def nbstands(self):
+        benevole = InscriptionExposant.objects.filter(user=self)
+        return len(benevole)
+
 class Message(models.Model):
     message = models.TextField(null=False, blank=False)
     auteur = models.ForeignKey(Profil, on_delete=models.CASCADE)
@@ -89,7 +104,7 @@ class InscriptionBenevole(models.Model):
 
     @property
     def get_update_url(self):
-        return reverse('benevoles')
+        return reverse('inscription_benevole_modifier', kwargs={'id':self.id})
 
     @property
     def get_absolute_url(self):
@@ -128,7 +143,7 @@ class InscriptionExposant(models.Model):
 
     @property
     def get_update_url(self):
-        return reverse('benevoles')
+        return reverse('inscription_exposant_modifier', kwargs={'id':self.id})
 
     @property
     def get_absolute_url(self):

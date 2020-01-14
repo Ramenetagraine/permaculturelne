@@ -32,9 +32,14 @@
 
 <section class="section smallpad cac text-center paddingbot">
     {% if not user.is_authenticated %}
-    <a href="{% url 'senregistrer' %}?next={% url 'inscription_benevole' %}"><h3>Je souhaite devenir bénévole : je crée mon compte et je m'enregistre ici</h3></a>
+        <a href="{% url 'senregistrer' %}?next={% url 'inscription_benevole' %}"><h3>Je souhaite devenir bénévole : je crée mon compte et je m'enregistre ici</h3></a>
     {% else %}
-    <a href="{% url 'inscription_benevole' %}"><h3>Je souhaite devenir bénévole : je m'enregistre ici</h3></a>
+        {% if not user.is_benevole %}
+            <a href="{% url 'inscription_benevole' %}"><h3>Je souhaite devenir bénévole : je m'enregistre ici</h3></a>
+        {% else %}
+            <h3>Vous etes inscrit en tant que bénévole, merci ! </h3>
+            <p>(vous pouvez <a href="{%url 'profil_courant' %}">modifier votre inscription sur votre profil)</a></p>
+        {% endif %}
     {% endif %}
 </section>
 

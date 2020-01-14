@@ -2420,9 +2420,9 @@ body.barber_version .dev-list .widget:hover .hover-br .social-up-hover .footer-s
 
 
 .conversation{
-	overflow: auto;
-	width: 100%;
-	height: 400px;
+	width: 98%;
+	min-height: 200px;
+	max-height: 400px;
 }
 .msg-destinataire{
     /*indent:30px;*/

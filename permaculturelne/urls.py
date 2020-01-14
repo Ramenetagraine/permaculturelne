@@ -44,12 +44,15 @@ urlpatterns = [
     url(r'^profil/(?P<user_username>[-\w.]+)/$', login_required(views.profil_nom), name='profil_nom', ),
     url(r'^profile/$', login_required(views.profil_courant), name='profil_courant', ),
     url(r'^profil_modifier/$', login_required(views.profil_modifier.as_view()), name='profil_modifier',),
-    url(r'^profil_supprimer/$', login_required(views.profil_supprimer.as_view()), name='profil_supprimer',),
+   url(r'^profil_supprimer/$', login_required(views.profil_supprimer.as_view()), name='profil_supprimer',),
 
     url(r'^benevoles/$', views.benevoles, name='benevoles', ),
     url(r'^exposants/$', views.exposants, name='exposants', ),
     url(r'^benevoles/inscription_benevole/$', views.inscription_benevole, name='inscription_benevole', ),
+    url(r'^benevoles/inscription_benevole_modifier/(?P<id>[0-9]+)$', views.inscription_benevole_modifier, name='inscription_benevole_modifier', ),
     url(r'^exposants/inscription_exposant/$', views.inscription_exposant, name='inscription_exposant', ),
+    url(r'^exposants/inscription_exposant_modifier/(?P<id>[0-9]+)$', views.inscription_exposant_modifier, name='inscription_exposant_modifier', ),
+
     url(r'^contact/$', views.contact, name='contact', ),
     url(r'^organisation/$', views.organisation, name='organisation', ),
     url(r'^forum/$', views.forum, name='forum', ),
