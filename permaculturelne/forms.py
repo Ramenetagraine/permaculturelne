@@ -108,11 +108,12 @@ class MessageForm(forms.ModelForm):
 
 
 class InscriptionBenevoleForm(forms.ModelForm):
-
     class Meta:
         model = InscriptionBenevole
-        fields = ['domaine_benevole', 'description']
-        widgets = {'description': SummernoteWidget()}
+        fields = ['domaine_benevole', 'jours_festival', 'heures_festival', 'dispo_avantfestival', 'description']
+        widgets = {'description': SummernoteWidget(),
+                   'dispo_avantfestival': SummernoteWidget()
+                   }
 
     def __init__(self, request, message=None, *args, **kwargs):
         super(InscriptionBenevoleForm, self).__init__(request, *args, **kwargs)
@@ -120,13 +121,16 @@ class InscriptionBenevoleForm(forms.ModelForm):
            self.fields['description'].initial = message
 
 
-
 class InscriptionExposantForm(forms.ModelForm):
+    nom_structure = forms.CharField(label="Nom de la structure, association, autre")
 
     class Meta:
         model = InscriptionExposant
-        fields = ['domaine_exposant', 'description']
-        widgets = {'description': SummernoteWidget()}
+        fields = ['nom_structure', 'type_exposant', 'domaine_exposant',  'description', 'nombre_tables', 'telephone', 'plaque', 'is_tombola', 'lot_tombola' ]
+        widgets = {
+            'description': SummernoteWidget(),
+            'lot_tombola': SummernoteWidget(),
+        }
 
     def __init__(self, request, message=None, *args, **kwargs):
         super(InscriptionExposantForm, self).__init__(request, *args, **kwargs)
