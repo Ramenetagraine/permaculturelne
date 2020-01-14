@@ -31,7 +31,7 @@ try:
     LOCALL = False
     SECRET_KEY = os.environ['SECRET_KEY']
     ALLOWED_HOSTS = ['permaculturelne.herokuapp.com']
-    DEBUG=True
+    DEBUG=False
 except:
     LOCALL  = True
     SECRET_KEY = 'aersd68fgsfdgsdvcbvcb563873gbgfthhfhdjd'
@@ -116,7 +116,7 @@ if LOCALL:
     }
 else:
     DATABASES = dict()
-    DATABASES['default'] = dj_database_url.config(conn_max_age=600)
+    DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 
 
@@ -223,18 +223,30 @@ BASE_URL = "https://permaculturelne.herokuapp.com"
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL = '/static/'
 
-# Extra places for collectstatic to find static files.
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'permaculturelne/static_files'),
-)
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_files/')
+#STATICFILES_DIRS = (os.path.join(BASE_DIR, 'staticfiles'), )
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.normpath(os.path.join(BASE_DIR, '/media/'))
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+#STATIC_URL = '/static/'
+
+# Extra places for collectstatic to find static files.
+#STATICFILES_DIRS = (
+#    os.path.join(BASE_DIR, 'permaculturelne/static_files'),
+#)
+
+#MEDIA_URL = '/media/'
+#MEDIA_ROOT = os.path.normpath(os.path.join(BASE_DIR, '/media/'))
+
+#
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 #STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 # LOCATION_FIELD = {
@@ -366,13 +378,13 @@ SUMMERNOTE_CONFIG = {
 }
 
 if not LOCALL:
-    SECURE_HSTS_SECONDS = 518400
+    #SECURE_HSTS_SECONDS = 518400
     SECURE_CONTENT_TYPE_NOSNIFF = True
-    SECURE_BROWSER_XSS_FILTER = True
-    SECURE_SSL_REDIRECT  = True
-    SESSION_COOKIE_SECURE  = True
-    CSRF_COOKIE_SECURE = True
-    SESSION_EXPIRE_AT_BROWSER_CLOSE=True
+    #SECURE_BROWSER_XSS_FILTER = True
+    #SECURE_SSL_REDIRECT  = True
+    #SESSION_COOKIE_SECURE  = True
+    #CSRF_COOKIE_SECURE = True
+    SESSION_EXPIRE_AT_BROWSER_CLOSE=False
 
 
 #if not LOCALL:
