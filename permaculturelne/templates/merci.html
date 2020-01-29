@@ -6,7 +6,9 @@
     <div class="container-fluid">
         <div class="section-title row text-center">
         <h2 class="text-center">Merci ! {{msg}}</h2>
+            {% if msg2 %}
             <p>{{msg2}}</p>
+            {%endif%}
             <p>Vous pouvez aussi régulièrement consulter le <a href="{% url 'forum' %}">forum</a> pour avoir des nouvelles... </p>
         </div>
     </div>
