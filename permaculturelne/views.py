@@ -210,6 +210,7 @@ def send_mass_html_mail(datatuple, fail_silently=False, user=None, password=None
     return connection.send_messages(messages)
 
 def contact_benevoles(request):
+    benevoles = list(set(InscriptionBenevole.objects.all().values_list('user__email', flat=True)))
     if request.method == 'POST':
         form = ContactForm(request.POST or None, )
         if form.is_valid():
@@ -217,7 +218,6 @@ def contact_benevoles(request):
             message_txt = request.user.username + "("+ request.user.email+") : " + form.cleaned_data['msg']
             message_html = "<p>"+request.user.username + "("+ request.user.email+"): </p><p>" + form.cleaned_data['msg']+"</p>"
             try:
-                benevoles = list(set(InscriptionBenevole.objects.all().values_list('user__email', flat=True)))
                 send_mass_html_mail([(sujet, message_txt, message_html, request.user.email, benevoles),],)
 
 
@@ -233,10 +233,11 @@ def contact_benevoles(request):
             return render(request, 'erreur.html', {'msg':"Désolé, une ereur s'est produite"})
     else:
         form = ContactForm()
-    return render(request, 'contact.html', {'form': form, "isContactProducteur":False, "msg":"Contacter les bénévoles"})
+    return render(request, 'contact.html', {'form': form, "isContactProducteur":False, "msg":"Contacter les bénévoles (" + ", ".join(benevoles)+")"})
 
 
 def contact_exposants(request):
+    benevoles = list(set(InscriptionExposant.objects.all().values_list('user__email', flat=True)))
     if request.method == 'POST':
         form = ContactForm(request.POST or None, )
         if form.is_valid():
@@ -244,7 +245,6 @@ def contact_exposants(request):
             message_txt = request.user.username + "("+ request.user.email+") : " + form.cleaned_data['msg']
             message_html = "<p>"+request.user.username + "("+ request.user.email+"): </p><p>" + form.cleaned_data['msg']+"</p>"
             try:
-                benevoles = list(set(InscriptionExposant.objects.all().values_list('user__email', flat=True)))
                 send_mass_html_mail([(sujet, message_txt, message_html, request.user.email, benevoles),],)
 
 
@@ -260,7 +260,8 @@ def contact_exposants(request):
             return render(request, 'erreur.html', {'msg':"Désolé, une ereur s'est produite"})
     else:
         form = ContactForm()
-    return render(request, 'contact.html', {'form': form, "isContactProducteur":False, "msg":"Contacter les exposants"})
+
+    return render(request, 'contact.html', {'form': form, "isContactProducteur":False, "msg":"Contacter les exposants (" + ", ".join(benevoles)+")"})
 
 
 def liens(request):
