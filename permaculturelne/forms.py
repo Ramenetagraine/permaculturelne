@@ -110,7 +110,7 @@ class MessageForm(forms.ModelForm):
 class InscriptionBenevoleForm(forms.ModelForm):
     class Meta:
         model = InscriptionBenevole
-        fields = ['domaine_benevole', 'jours_festival', 'heures_festival', 'dispo_avantfestival', 'description']
+        fields = ['domaine_benevole', 'jours_festival', 'heures_festival', 'description']
         widgets = {'description': SummernoteWidget(),
                    'dispo_avantfestival': SummernoteWidget()
                    }
