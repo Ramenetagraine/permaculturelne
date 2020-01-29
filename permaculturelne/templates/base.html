@@ -103,9 +103,11 @@
                     {% else %}
 					    <li><a href="https://permaculturelne.herokuapp.com/login/">{% fontawesome_icon 'user' %} Connexion</a></li>
                     {% endif %}
-                     {% if request.user.is_superuser or request.user.statut_adhesion == 2%}
+                     {% if request.user.is_superuser%}
                     {% load admin_urls %}
                     <li><a class="nav-link" href="{% url 'admin:index' %}">Admin</a></li>
+                    {% endif %}
+                     {% if request.user.is_rtg%}
                     <li><a class="nav-link" href="{% url 'voir_inscrits' %}">Voir inscrits</a></li>
                     {% endif %}
 				</ul>

@@ -76,6 +76,12 @@ class Profil(AbstractUser):
         benevole = InscriptionExposant.objects.filter(user=self)
         return len(benevole)
 
+    @property
+    def is_rtg(self):
+        if self.statut_adhesion == 2:
+            return True
+        else:
+            return False
 class Message(models.Model):
     message = models.TextField(null=False, blank=False)
     auteur = models.ForeignKey(Profil, on_delete=models.CASCADE)

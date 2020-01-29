@@ -307,6 +307,8 @@ def inscription_newsletter(request):
 
 
 def voir_inscrits(request):
+    if not request.user.is_rtg:
+        return render(request, 'erreur.html', {'msg' :"Désolé vous n'êtes pas enregistré comme membre de RameneTaGraine, inscrivez vous ou contactez les administrateurs..."})
     newsletter = InscriptionNewsletter.objects.all()
     news_inscrits = Profil.objects.filter(inscrit_newsletter=True)
     inscription_exposant = InscriptionExposant.objects.all()
