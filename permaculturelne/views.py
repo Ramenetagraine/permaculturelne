@@ -226,7 +226,7 @@ def contact_benevoles(request):
 
                 return render(request, 'message_envoye.html', {'sujet': sujet, 'msg': message_html,
                                                        'envoyeur': request.user.username + " (" + request.user.email + ")",
-                                                       "destinataire": "administrateurs "})
+                                                       "destinataire": "bénévoles "})
             except BadHeaderError:
                 return render(request, 'erreur.html', {'msg':'Invalid header found.'})
 
