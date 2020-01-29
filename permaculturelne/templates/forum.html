@@ -41,7 +41,7 @@
                     <div class="row {% ifequal mess.auteur.id request.user.id %} msg-auteur  {%else%} msg-destinataire{%endifequal%} ">
                         <div class="col-sm-4 col-md-3 col-lg-3">
                             <p class="infos  textepetit ">
-                                {{ mess.date_creation|date:"G:i" }}{% ifchanged %}, <a href="{% url 'profil' mess.auteur.id %}"> {{mess.auteur}}</a>{% endifchanged %} </p>
+                                {% ifchanged %}<a href="{% url 'profil' mess.auteur.id %}"> {{mess.auteur}}</a>, {% endifchanged %} ({{ mess.date_creation|date:"G:i" }}) </p>
                         </div>
                         <div class=" col-sm-8 col-md-9 col-lg-9 message ">
                                 <p>{{ mess.message|safe|url }}</p>
