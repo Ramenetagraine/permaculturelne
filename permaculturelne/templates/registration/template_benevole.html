@@ -13,7 +13,7 @@
 			<tbody  class="textleft">
 			{% if nomuser %}
 				<tr>
-					<td colspan="2" class="textcenter">Bénévole : <a href="{% url 'profil' user.id %}">{{nomuser}}</a>
+					<td colspan="2" class="textcenter">Bénévole : <a href="{% url 'profil_nom' nomuser %}">{{nomuser}}</a>
 					</td>
 				</tr>
 			{% endif %}

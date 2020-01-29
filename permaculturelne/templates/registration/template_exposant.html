@@ -14,7 +14,7 @@
 			{% if nomuser %}
 				<tr>
 					<td colspan="2" class="textcenter">
-						Stand demandé par <a href="{% url 'profil' user.id %}">{{nomuser}}</a>
+						Stand demandé par <a href="{% url 'profil_nom' nomuser %}">{{nomuser}}</a>
 					</td>
 				</tr>
 			{% endif %}
