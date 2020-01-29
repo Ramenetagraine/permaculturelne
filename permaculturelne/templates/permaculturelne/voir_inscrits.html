@@ -27,16 +27,13 @@
     <div class="container-fluid">
         <h3>Inscris à la newsletter</h3>
         <div class="row">
-
-                <div class="col-sm-11" id="news1">{% for n in newsletter %}{{n|safe}}{% if not forloop.last %}, {% endif %}{% endfor %}
-                </div>
+                <div class="col-sm-11" id="news1">{% for n in newsletter %}{{n|safe}}{% if not forloop.last %}, {% endif %}{% endfor %}</div>
     <div class="col-sm-1">  <button onclick="copyToClipboard('#news1')">Copier</button>
  </div>
  </div>
         <h3>Inscris au site et à la newsletter</h3>
         <div class="row">
-        <div class="col-sm-11" id="news2">{% for n in news_inscrits %}<a href="{{n.get_absolute_url}}">{{n.email}} </a>{% if not forloop.last %}, {% endif %}{% endfor %}
-                </div>
+        <div class="col-sm-11" id="news2">{% for n in news_inscrits %}<a href="{{n.get_absolute_url}}">{{n.email}}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</div>
     <div class="col-sm-1">  <button onclick="copyToClipboard('#news2')">Copier</button>
 
     </div>
