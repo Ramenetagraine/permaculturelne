@@ -126,16 +126,15 @@ def contact(request):
             form = ContactAnonymeForm(request.POST or None, )
         if form.is_valid():
             sujet = form.cleaned_data['sujet']
+            message_txt = request.user.username + "(" + request.user.email + ") a envoyé le message suivant : "+ form.cleaned_data[
+                'msg']
+            message_html = "<p>" + request.user.username + "(" + request.user.email + "): </p><p>" + form.cleaned_data[
+                'msg'] + "</p>"
 
             if request.user.is_authenticated:
-                message_txt = request.user.username + "("+ request.user.email +") a envoyé le message suivant : "
-                message_html = "("+ request.user.username + " " + request.user.email +")\n" + form.cleaned_data['msg']
                 email = request.user.email
                 nom = request.user.username
             else:
-                message_txt = form.cleaned_data['nom'] + " a envoyé le message suivant : "
-                message_html = "(nom : " + form.cleaned_data['nom'] + "; email : " + form.cleaned_data['email'] + ")\n"
-                message_html += form.cleaned_data['msg']
                 email = form.cleaned_data['email']
                 nom = form.cleaned_data['nom']
 
@@ -162,13 +161,14 @@ def contact(request):
 
 
 
+
 def contact_admins(request):
     if request.method == 'POST':
         form = ContactForm(request.POST or None, )
         if form.is_valid():
             sujet = form.cleaned_data['sujet']
-            message_txt = request.user.username + " a envoyé le message suivant : "
-            message_html = form.cleaned_data['msg']
+            message_txt = request.user.username + "("+ request.user.email+") : " + form.cleaned_data['msg']
+            message_html = "<p>"+request.user.username + "("+ request.user.email+"): </p><p>" + form.cleaned_data['msg']+"</p>"
             try:
                 mail_admins(sujet, message_txt, html_message=message_html)
                 if form.cleaned_data['renvoi']:
@@ -184,6 +184,83 @@ def contact_admins(request):
     else:
         form = ContactForm()
     return render(request, 'contact.html', {'form': form, "isContactProducteur":False})
+
+from django.core.mail import get_connection, EmailMultiAlternatives
+
+def send_mass_html_mail(datatuple, fail_silently=False, user=None, password=None,
+                        connection=None):
+    """
+    Given a datatuple of (subject, text_content, html_content, from_email,
+    recipient_list), sends each message to each recipient list. Returns the
+    number of emails sent.
+
+    If from_email is None, the DEFAULT_FROM_EMAIL setting is used.
+    If auth_user and auth_password are set, they're used to log in.
+    If auth_user is None, the EMAIL_HOST_USER setting is used.
+    If auth_password is None, the EMAIL_HOST_PASSWORD setting is used.
+
+    """
+    connection = connection or get_connection(
+        username=user, password=password, fail_silently=fail_silently)
+    messages = []
+    for subject, text, html, from_email, recipient in datatuple:
+        message = EmailMultiAlternatives(subject, text, from_email, recipient)
+        message.attach_alternative(html, 'text/html')
+        messages.append(message)
+    return connection.send_messages(messages)
+
+def contact_benevoles(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST or None, )
+        if form.is_valid():
+            sujet = form.cleaned_data['sujet']
+            message_txt = request.user.username + "("+ request.user.email+") : " + form.cleaned_data['msg']
+            message_html = "<p>"+request.user.username + "("+ request.user.email+"): </p><p>" + form.cleaned_data['msg']+"</p>"
+            try:
+                benevoles = list(set(InscriptionBenevole.objects.all().values_list('user__email', flat=True)))
+                send_mass_html_mail([(sujet, message_txt, message_html, request.user.email, benevoles),],)
+
+
+                if form.cleaned_data['renvoi']:
+                    send_mail(sujet, message_txt, request.user.email, request.user.email, fail_silently=False, html_message=message_html)
+
+                return render(request, 'message_envoye.html', {'sujet': sujet, 'msg': message_html,
+                                                       'envoyeur': request.user.username + " (" + request.user.email + ")",
+                                                       "destinataire": "administrateurs "})
+            except BadHeaderError:
+                return render(request, 'erreur.html', {'msg':'Invalid header found.'})
+
+            return render(request, 'erreur.html', {'msg':"Désolé, une ereur s'est produite"})
+    else:
+        form = ContactForm()
+    return render(request, 'contact.html', {'form': form, "isContactProducteur":False, "msg":"Contacter les bénévoles"})
+
+
+def contact_exposants(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST or None, )
+        if form.is_valid():
+            sujet = form.cleaned_data['sujet']
+            message_txt = request.user.username + "("+ request.user.email+") : " + form.cleaned_data['msg']
+            message_html = "<p>"+request.user.username + "("+ request.user.email+"): </p><p>" + form.cleaned_data['msg']+"</p>"
+            try:
+                benevoles = list(set(InscriptionExposant.objects.all().values_list('user__email', flat=True)))
+                send_mass_html_mail([(sujet, message_txt, message_html, request.user.email, benevoles),],)
+
+
+                if form.cleaned_data['renvoi']:
+                    send_mail(sujet, message_txt, request.user.email, request.user.email, fail_silently=False, html_message=message_html)
+
+                return render(request, 'message_envoye.html', {'sujet': sujet, 'msg': message_html,
+                                                       'envoyeur': request.user.username + " (" + request.user.email + ")",
+                                                       "destinataire": "Exposants "})
+            except BadHeaderError:
+                return render(request, 'erreur.html', {'msg':'Invalid header found.'})
+
+            return render(request, 'erreur.html', {'msg':"Désolé, une ereur s'est produite"})
+    else:
+        form = ContactForm()
+    return render(request, 'contact.html', {'form': form, "isContactProducteur":False, "msg":"Contacter les exposants"})
 
 
 def liens(request):

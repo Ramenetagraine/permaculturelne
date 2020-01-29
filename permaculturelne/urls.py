@@ -66,6 +66,8 @@ urlpatterns = [
     url(r'^password/change/$', views.change_password, name='change_password'),
     path('', include('django.contrib.auth.urls')),
     url(r'^contact_admins/$', views.contact_admins, name='contact_admins',),
+    url(r'^contact_benevoles/$', views.contact_benevoles, name='contact_benevoles',),
+    url(r'^contact_exposants/$', views.contact_exposants, name='contact_exposants',),
 
 ]
 urlpatterns += [

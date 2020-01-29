@@ -42,17 +42,22 @@
 
 <div class="section wb">
     <div class="container-fluid">
-        <h3>Bénévoles</h3>
+        <h3>Bénévoles :         <a href="{% url 'contact_benevoles' %}"  type="button" class="btn btn-sm btn-success">
+                <span class="glyphicon glyphicon-email"></span>&nbsp;Contacter les bénévoles
+        </a></h3>
         <ul>
             {% for i in benevoles %}
             {% include "registration/template_benevole.html" with nomuser=i.user %}
         {% endfor %}
         </ul>
-    </div></div>
+    </div>
+</div>
 
 <div class="section wb">
     <div class="container-fluid">
-        <h3>Exposants</h3>
+        <h3>Exposants <a href="{% url 'contact_exposants' %}"  type="button" class="btn btn-sm btn-success">
+                <span class="glyphicon glyphicon-email"></span>&nbsp;Contacter les exposants
+        </a></h3>
         <ul>
             {% for i in exposants %}
             {% include "registration/template_exposant.html" with nomuser=i.user %}

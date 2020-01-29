@@ -14,7 +14,11 @@
                 <small></small>
                 <h3>Contact</h3>
                 <hr class="grd1">
+                    {% if msg %}
+                <p class="lead">{{msg}}</p>
+                    {% else%}
                 <p class="lead">Pour toute question/suggestion/remarque/insulte, veuillez remplir le formulaire suivant</p>
+                    {% endif%}
                 </div>
             </div><!-- end title -->
 
