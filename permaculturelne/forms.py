@@ -126,7 +126,7 @@ class InscriptionExposantForm(forms.ModelForm):
 
     class Meta:
         model = InscriptionExposant
-        fields = ['nom_structure', 'type_exposant', 'domaine_exposant',  'description', 'nombre_tables', 'telephone', 'plaque', 'is_tombola', 'lot_tombola' ]
+        fields = ['nom_structure', 'type_exposant', 'domaine_exposant',  'description', 'jours_festival', 'nombre_tables', 'telephone', 'plaque', 'is_tombola', 'lot_tombola' ]
         widgets = {
             'description': SummernoteWidget(),
             'lot_tombola': SummernoteWidget(),

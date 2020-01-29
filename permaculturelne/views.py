@@ -128,13 +128,13 @@ def contact(request):
             sujet = form.cleaned_data['sujet']
 
             if request.user.is_authenticated:
-                message_txt = request.user.username + " a envoyé le message suivant : "
-                message_html = form.cleaned_data['msg']
+                message_txt = request.user.username + "("+ request.user.email +") a envoyé le message suivant : "
+                message_html = "("+ request.user.username + " " + request.user.email +")\n" + form.cleaned_data['msg']
                 email = request.user.email
                 nom = request.user.username
             else:
                 message_txt = form.cleaned_data['nom'] + " a envoyé le message suivant : "
-                message_html = "(nom : " + form.cleaned_data['nom'] + "; email : " + form.cleaned_data['email'] + ")\\n"
+                message_html = "(nom : " + form.cleaned_data['nom'] + "; email : " + form.cleaned_data['email'] + ")\n"
                 message_html += form.cleaned_data['msg']
                 email = form.cleaned_data['email']
                 nom = form.cleaned_data['nom']
