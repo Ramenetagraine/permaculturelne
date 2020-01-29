@@ -31,7 +31,7 @@ try:
     LOCALL = False
     SECRET_KEY = os.environ['SECRET_KEY']
     ALLOWED_HOSTS = ['permaculturelne.herokuapp.com']
-    DEBUG=True
+    DEBUG=False
 except:
     LOCALL  = True
     SECRET_KEY = 'aersd68fgsfdgsdvcbvcb563873gbgfthhfhdjd'
@@ -181,7 +181,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 GMAIL_SMTP_USER = 'festival.permaculturelne@gmail.com'
-EMAIL_SUBJECT_PREFIX = "[permaculturelne]"
+EMAIL_SUBJECT_PREFIX = "[Permaculturelne]"
 try:
     GMAIL_SMTP_PASSWORD = os.environ['EMAIL_ADMIN_PWD']
 except:
