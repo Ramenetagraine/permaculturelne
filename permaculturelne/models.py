@@ -95,13 +95,13 @@ class InscriptionBenevole(models.Model):
         choices=(Choix.type_benevole),
         default='0', verbose_name="Domaine préférentiel du bénévolat")
     jours_festival =models.CharField(max_length=10,
-        choices=(('0', '----------'), ('1', 'Samedi'), ('2', "Dimanche"), ('3', "Samedi et dimanche"), ('4', "Pas de bénévolat pendant le festival (mais avant ou après)")),
-        default='0', verbose_name="Quel(s) jour(s) du festival seriez-vous disponible")
+        choices=(('0', '----------'), ('1', 'Samedi'), ('2', "Dimanche"), ('3', "Samedi et dimanche"), ('4', "Dans la semaine avant pour préparer"), ('5', "Dans la semaine après pour ranger")),
+        default='0', verbose_name="Quel(s) jour(s) du festival seriez-vous disponible ?")
     heures_festival =models.CharField(max_length=10,
         choices=(('0', '----------'),('1', "2h dans la journée"), ('2', "Le matin"), ('3', "L'après midi"), ('4', "Toute la journée")),
-        default='0', verbose_name="Combien d'heures")
+        default='0', verbose_name="Combien d'heures ?")
     dispo_avantfestival = models.TextField(null=False, blank=True, verbose_name="Quelle est votre disponibilité pour venir aider à la mise en place du festival (les jours précédant le festival) ?")
-    description = models.TextField(null=False, blank=True, verbose_name="Vous pouvez expliciter ici ce que vous préférez faire, vos disponibilités, etc")
+    description = models.TextField(null=False, blank=True, verbose_name="Remarques, suggestions, infos complémentaires :")
     date_inscription = models.DateTimeField(verbose_name="Date d'inscription", editable=False, auto_now_add=True)
 
     def __unicode__(self):
