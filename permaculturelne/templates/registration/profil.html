@@ -85,11 +85,11 @@
         {% endif %}
             <tr>
                 <td style="width:250px">Inscrit en tant que bénévole : </td>
-                <td>{%if user.is_benevole %} Oui {%else%} Non</td>
+                <td>{%if user.is_benevole %} oui {%else%} non {%endif%}</td>
             </tr>
             <tr>
                 <td style="width:250px">Inscrit en tant qu'exposant : </td>
-                <td>{%if user.is_exposant %} Oui {%else%} Non</td>
+                <td>{%if user.is_exposant %} oui {%else%} non{%endif%}</td>
             </tr>
       </tbody>
       </table>
