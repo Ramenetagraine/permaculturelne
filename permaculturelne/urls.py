@@ -50,8 +50,12 @@ urlpatterns = [
     url(r'^exposants/$', views.exposants, name='exposants', ),
     url(r'^benevoles/inscription_benevole/$', views.inscription_benevole, name='inscription_benevole', ),
     url(r'^benevoles/inscription_benevole_modifier/(?P<id>[0-9]+)$', views.inscription_benevole_modifier, name='inscription_benevole_modifier', ),
+    url(r'^benevoles/inscription_benevole_annuler/(?P<id>[0-9]+)$', views.inscription_benevole_annuler, name='inscription_benevole_annuler', ),
+    url(r'^benevoles/inscription_benevole_desannuler/(?P<id>[0-9]+)$', views.inscription_benevole_desannuler, name='inscription_benevole_desannuler', ),
     url(r'^exposants/inscription_exposant/$', views.inscription_exposant, name='inscription_exposant', ),
     url(r'^exposants/inscription_exposant_modifier/(?P<id>[0-9]+)$', views.inscription_exposant_modifier, name='inscription_exposant_modifier', ),
+    url(r'^exposants/inscription_exposant_annuler/(?P<id>[0-9]+)$', views.inscription_exposant_annuler, name='inscription_exposant_annuler', ),
+    url(r'^exposants/inscription_exposant_desannuler/(?P<id>[0-9]+)$', views.inscription_exposant_desannuler, name='inscription_exposant_desannuler', ),
 
     url(r'^contact/$', views.contact, name='contact', ),
     url(r'^organisation/$', views.organisation, name='organisation', ),

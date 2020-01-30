@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 from django.utils.timezone import now
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse
 from django.core.validators import RegexValidator
 from django.contrib.auth.models import AbstractUser
-import decimal, math
-import os
-import requests
-from django.template.defaultfilters import slugify
+from django.db.models import Q
+
 
 DEGTORAD=3.141592654/180
 
@@ -65,18 +63,18 @@ class Profil(AbstractUser):
 
     @property
     def is_benevole(self):
-        benevole = InscriptionBenevole.objects.filter(user=self)
+        benevole = InscriptionBenevole.objects.filter(Q(user=self) & ~Q(statut_benevole=4))
         return len(benevole)>0
 
     @property
     def is_exposant(self):
-        benevole = InscriptionExposant.objects.filter(user=self)
+        benevole = InscriptionExposant.objects.filter(Q(user=self) & ~Q(statut_exposant=4))
         return len(benevole)>0
 
     @property
     def nbstands(self):
-        benevole = InscriptionExposant.objects.filter(user=self)
-        return len(benevole)
+        exposant = InscriptionExposant.objects.filter(Q(user=self) & ~Q(statut_exposant=4))
+        return len(exposant)
 
     @property
     def is_rtg(self):
@@ -127,6 +125,14 @@ class InscriptionBenevole(models.Model):
         return reverse('inscription_benevole_modifier', kwargs={'id':self.id})
 
     @property
+    def get_cancel_url(self):
+        return reverse('inscription_benevole_annuler', kwargs={'id':self.id})
+
+    @property
+    def get_undocancel_url(self):
+        return reverse('inscription_benevole_desannuler', kwargs={'id':self.id})
+
+    @property
     def get_absolute_url(self):
         return reverse('profil', kwargs={'user_id':self.user.id})
     
@@ -172,6 +178,14 @@ class InscriptionExposant(models.Model):
     @property
     def get_update_url(self):
         return reverse('inscription_exposant_modifier', kwargs={'id':self.id})
+
+    @property
+    def get_cancel_url(self):
+        return reverse('inscription_exposant_annuler', kwargs={'id':self.id})
+
+    @property
+    def get_undocancel_url(self):
+        return reverse('inscription_exposant_desannuler', kwargs={'id':self.id})
 
     @property
     def get_absolute_url(self):

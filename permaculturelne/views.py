@@ -301,7 +301,9 @@ def profil_courant(request, ):
 def profil(request, user_id):
     try:
         user = Profil.objects.get(id=user_id)
-        return render(request, 'registration/profil.html', {'user': user})
+        inscriptions_benevole = InscriptionBenevole.objects.filter(user=user)
+        inscriptions_exposants = InscriptionExposant.objects.filter(user=user)
+        return render(request, 'registration/profil.html', {'user': user, 'inscriptions_benevole':inscriptions_benevole, 'inscriptions_exposants':inscriptions_exposants})
     except User.DoesNotExist:
             return render(request, 'registration/profil_inconnu.html', {'userid': user_id})
 
@@ -309,7 +311,9 @@ def profil(request, user_id):
 def profil_nom(request, user_username):
     try:
         user = Profil.objects.get(username=user_username)
-        return render(request, 'registration/profil.html', {'user': user, })
+        inscriptions_benevole = InscriptionBenevole.objects.filter(user=user)
+        inscriptions_exposants = InscriptionExposant.objects.filter(user=user)
+        return render(request, 'registration/profil.html', {'user': user, 'inscriptions_benevole':inscriptions_benevole, 'inscriptions_exposants':inscriptions_exposants})
     except User.DoesNotExist:
         return render(request, 'registration/profil_inconnu.html', {'userid': user_username})
 
@@ -357,6 +361,19 @@ def inscription_benevole_modifier(request, id):
             return redirect('profil_courant')
     return render(request, 'permaculturelne/inscription_benevole.html', {'form':form})
 
+@login_required
+def inscription_benevole_annuler(request, id):
+    inscription = get_object_or_404(InscriptionBenevole, id=id)
+    inscription.statut_benevole = '4'
+    inscription.save()
+    return redirect('profil_courant')
+
+@login_required
+def inscription_benevole_desannuler(request, id):
+    inscription = get_object_or_404(InscriptionBenevole, id=id)
+    inscription.statut_benevole = '0'
+    inscription.save()
+    return redirect('profil_courant')
 
 @login_required
 def inscription_exposant_modifier(request, id):
@@ -369,6 +386,20 @@ def inscription_exposant_modifier(request, id):
             return redirect('profil_courant')
     return render(request, 'permaculturelne/inscription_exposant.html', {'form':form})
 
+
+@login_required
+def inscription_exposant_annuler(request, id):
+    inscription = get_object_or_404(InscriptionExposant, id=id)
+    inscription.statut_exposant = '4'
+    inscription.save()
+    return redirect('profil_courant')
+
+@login_required
+def inscription_exposant_desannuler(request, id):
+    inscription = get_object_or_404(InscriptionExposant, id=id)
+    inscription.statut_exposant = '0'
+    inscription.save()
+    return redirect('profil_courant')
 
 def organisation(request, ):
     return render(request, 'permaculturelne/organisation.html')

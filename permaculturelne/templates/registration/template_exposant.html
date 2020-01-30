@@ -4,10 +4,24 @@
 
 
 			{% if i.user == request.user %}
+				{% if i.statut_exposant == '4'%}Inscription ANNULEE
+				<a href="{{i.get_undocancel_url}}">
+					<button type="button" class="btn btn-sm btn-warning">
+						&nbsp;Rétablir
+					</button>
+				</a>
+				{%else%}Inscription en cours
 				<a href="{{ i.get_update_url }}" type="button" class="btn btn-sm btn-warning">
 						&nbsp;Modifier
 				</a>
-					 {% endif%}
+
+				<a href="{{i.get_cancel_url}}">
+					<button type="button" class="btn btn-sm btn-danger">
+						&nbsp;Annuler
+					</button>
+				</a>
+				 {% endif%}
+			 {% endif%}
                  </th>
 			</thead>
 			<tbody  class="textleft">
