@@ -33,6 +33,8 @@ class Profil(AbstractUser):
     description = models.TextField(null=True, blank=True)
     code_postal = models.CharField(max_length=5, blank=True, null=True, default="66000")
     commune = models.CharField(max_length=50, blank=True, null=True, default="Perpignan")
+    phone_regex = RegexValidator(regex=r'^\d{9,10}$', message="Le numero de telephone doit contenir 10 chiffres")
+    telephone = models.CharField(validators=[phone_regex,], max_length=10, blank=True)  # validators should be a list
     date_registration = models.DateTimeField(verbose_name="Date de création", editable=False)
     inscrit_newsletter = models.BooleanField(verbose_name="J'accepte de recevoir des emails", default=False)
     accepter_conditions = models.BooleanField(verbose_name="J'ai lu et j'accepte les conditions d'utilisation du site", default=False, null=False)

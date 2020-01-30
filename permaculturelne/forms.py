@@ -23,7 +23,7 @@ class ProfilCreationForm(UserCreationForm):
 
     class Meta(UserCreationForm):
         model = Profil
-        fields = ['username', 'email', 'password1',  'password2', 'first_name', 'last_name', 'code_postal', 'commune', 'inscrit_newsletter', 'accepter_conditions']
+        fields = ['username', 'email', 'password1',  'password2', 'first_name', 'last_name', 'telephone', 'code_postal', 'commune', 'inscrit_newsletter', 'accepter_conditions']
         exclude = ['slug', ]
 
     def save(self, commit = True, is_active=False):
@@ -47,7 +47,7 @@ class ProfilChangeForm(UserChangeForm):
 
     class Meta:
         model = Profil
-        fields = ['username', 'email', 'first_name', 'last_name',  'description', 'code_postal', 'commune', 'statut_adhesion', 'inscrit_newsletter']
+        fields = ['username', 'email', 'telephone', 'first_name', 'last_name',  'description', 'code_postal', 'commune', 'statut_adhesion', 'inscrit_newsletter']
 
 
 class ProfilChangeForm_admin(UserChangeForm):
