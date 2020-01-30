@@ -26,6 +26,8 @@ class Choix():
                      (1, ("Je suis déjà adhérent de l'asso 'Ramene Ta graine', ma cotisation est à jour")),
                     (2, ("Je suis déjà adhérent et 'membre équipe' de l'asso 'Ramene Ta graine'"))
                        )
+    statut_exposant = (('0', 'Inscription déposée'), ('1', 'Inscription incomplète ou en cours de validation'), ('2', 'Inscription validée'), ('3', 'Inscription refusée'), ('4', 'Inscription annulée'),)
+    statut_benevole = (('0', 'Inscription déposée'), ('1', 'Inscription en cours de validation'), ('2', 'Inscription validée'), ('3', 'Inscription refusée'), ('4', 'Inscription annulée'),)
 
 
 
@@ -110,6 +112,10 @@ class InscriptionBenevole(models.Model):
     description = models.TextField(null=False, blank=True, verbose_name="Remarques, suggestions, infos complémentaires :")
     date_inscription = models.DateTimeField(verbose_name="Date d'inscription", editable=False, auto_now_add=True)
 
+    statut_benevole = models.CharField(max_length=10,
+        choices=(Choix.statut_benevole),
+        default='0', verbose_name="Statut")
+
     def __unicode__(self):
         return self.__str()
 
@@ -152,6 +158,10 @@ class InscriptionExposant(models.Model):
                                       choices=(('0', '----------'), ('1', 'Samedi'), ('2', "Dimanche"),
                                                ('3', "Samedi et dimanche"),),
                                       default='0', verbose_name="Quel(s) jour(s) du festival seriez-vous présent ?")
+
+    statut_exposant = models.CharField(max_length=10,
+        choices=(Choix.statut_exposant),
+        default='0', verbose_name="Statut")
 
     def __unicode__(self):
         return self.__str()

@@ -14,10 +14,18 @@
 			{% if nomuser %}
 				<tr>
 					<td colspan="2" class="textcenter">
-						Stand demandé par <a href="{% url 'profil_nom' nomuser %}">{{nomuser}}</a>
+						Stand demandé par <a href="{% url 'profil_nom' nomuser %}">{{nomuser}} ({{emailuser}})</a>
 					</td>
 				</tr>
 			{% endif %}
+				<tr>
+					<td class="nomProprieteProduit">
+						Statut :
+					</td>
+					<td class="proprieteProduit">
+						{{i.get_statut_exposant_display}}
+					</td>
+				</tr>
 				<tr>
 					<td class="nomProprieteProduit">
 						Date d'inscription :
@@ -104,7 +112,11 @@ Plaque minéralogique pour l'accès du matériel du stand au festival
 Participe à la tombola
                     </td>
 					<td class="proprieteProduit">
-{{i.is_tombola}}
+{% if i.is_tombola %}
+oui
+{% else %}
+						non
+{% endif %}
 					</td>
 				</tr>
 
