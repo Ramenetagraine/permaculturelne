@@ -90,14 +90,6 @@ Téléphone (joignable pendant le festival)
 				</tr>
 				<tr>
 					<td class="nomProprieteProduit">
-Plaque minéralogique pour l'accès du matériel du stand au festival
-					</td>
-					<td class="proprieteProduit">
-{{i.plaque}}
-					</td>
-				</tr>
-				<tr>
-					<td class="nomProprieteProduit">
 Description du stand
 					</td>
 					<td class="proprieteProduit">
@@ -140,7 +132,7 @@ oui
 Lot(s) pour la tombola
                     </td>
 					<td class="proprieteProduit">
-{{i.lot_tombola}}
+{{i.lot_tombola|safe}}
 					</td>
 				</tr>
 {% endif %}

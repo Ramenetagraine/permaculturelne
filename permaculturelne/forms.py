@@ -43,11 +43,12 @@ class ProfilChangeForm(UserChangeForm):
     code_postal = forms.CharField(label="Code postal*", )
     commune = forms.CharField(label="Commune*", )
     inscrit_newsletter = forms.BooleanField(required=False, label="J'accepte de recevoir la newsletter")
+    is_equipe = forms.BooleanField(required=False, label="Equipe")
     password=None
 
     class Meta:
         model = Profil
-        fields = ['username', 'email', 'telephone', 'first_name', 'last_name',  'description', 'code_postal', 'commune', 'statut_adhesion', 'inscrit_newsletter']
+        fields = ['username', 'email', 'telephone', 'first_name', 'last_name',  'description', 'code_postal', 'commune', 'statut_adhesion', 'inscrit_newsletter','is_equipe']
 
 
 class ProfilChangeForm_admin(UserChangeForm):
@@ -63,11 +64,12 @@ class ProfilChangeForm_admin(UserChangeForm):
     inscrit_newsletter = forms.BooleanField(required=False)
     accepter_annuaire = forms.BooleanField(required=False)
     a_signe = forms.BooleanField(required=False)
+    is_equipe = forms.BooleanField(required=False)
     password = None
 
     class Meta:
         model = Profil
-        fields = ['username', 'first_name', 'last_name', 'email', 'description', 'code_postal', 'commune',  'statut_adhesion','inscrit_newsletter']
+        fields = ['username', 'first_name', 'last_name', 'email', 'description', 'code_postal', 'commune',  'statut_adhesion','inscrit_newsletter','is_equipe']
 
 
     def __init__(self, *args, **kwargs):
@@ -110,9 +112,8 @@ class MessageForm(forms.ModelForm):
 class InscriptionBenevoleForm(forms.ModelForm):
     class Meta:
         model = InscriptionBenevole
-        fields = ['domaine_benevole', 'jours_festival', 'heures_festival', 'description']
+        fields = ['domaine_benevole', 'jour_mer', 'jour_jeu', 'jour_ven', 'jour_sam', 'jour_dim', 'jour_lun', 'description']
         widgets = {'description': SummernoteWidget(),
-                   'dispo_avantfestival': SummernoteWidget()
                    }
 
     def __init__(self, request, message=None, *args, **kwargs):

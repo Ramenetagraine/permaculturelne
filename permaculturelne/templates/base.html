@@ -107,7 +107,7 @@
                     {% load admin_urls %}
                     <li><a class="nav-link" href="{% url 'admin:index' %}">Admin</a></li>
                     {% endif %}
-                     {% if request.user.is_rtg%}
+                     {% if request.user.is_equipe%}
                     <li><a class="nav-link" href="{% url 'voir_inscrits' %}">Voir inscrits</a></li>
                     {% endif %}
 				</ul>

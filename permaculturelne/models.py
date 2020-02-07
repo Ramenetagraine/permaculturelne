@@ -38,7 +38,7 @@ class Profil(AbstractUser):
     date_registration = models.DateTimeField(verbose_name="Date de création", editable=False)
     inscrit_newsletter = models.BooleanField(verbose_name="J'accepte de recevoir des emails", default=False)
     accepter_conditions = models.BooleanField(verbose_name="J'ai lu et j'accepte les conditions d'utilisation du site", default=False, null=False)
-
+    is_equipe = models.BooleanField(verbose_name="Membre equipe", default=False)
     statut_adhesion = models.IntegerField(choices=Choix.statut_adhesion, default="0")
 
     def __str__(self):
@@ -102,19 +102,22 @@ class InscriptionBenevole(models.Model):
     domaine_benevole = models.CharField(max_length=10,
         choices=(Choix.type_benevole),
         default='0', verbose_name="Domaine préférentiel du bénévolat")
-    jours_festival = models.CharField(max_length=10,
-        choices=(('0', '----------'), ('1', 'Samedi'), ('2', "Dimanche"), ('3', "Samedi et dimanche"), ('4', "Dans la semaine avant pour préparer"), ('5', "Dans la semaine après pour ranger")),
-        default='0', verbose_name="Quel(s) jour(s) du festival seriez-vous disponible ?")
-    heures_festival = models.CharField(max_length=10,
-        choices=(('0', '----------'),('1', "2h dans la journée"), ('2', "Le matin"), ('3', "L'après midi"), ('4', "Toute la journée")),
-        default='0', verbose_name="Combien d'heures ?")
+
     dispo_avantfestival = models.TextField(null=False, blank=True, verbose_name="Quelle est votre disponibilité pour venir aider à la mise en place du festival (les jours précédant le festival) ?")
     description = models.TextField(null=False, blank=True, verbose_name="Remarques, suggestions, infos complémentaires :")
     date_inscription = models.DateTimeField(verbose_name="Date d'inscription", editable=False, auto_now_add=True)
 
+
     statut_benevole = models.CharField(max_length=10,
         choices=(Choix.statut_benevole),
         default='0', verbose_name="Statut")
+
+    jour_mer = models.BooleanField(verbose_name="Dispo le Mercredi", default=False)
+    jour_jeu = models.BooleanField(verbose_name="Dispo le Jeudi", default=False)
+    jour_ven = models.BooleanField(verbose_name="Dispo le Vendredi", default=False)
+    jour_sam = models.BooleanField(verbose_name="Dispo le Samedi", default=False)
+    jour_dim = models.BooleanField(verbose_name="Dispo le Dimanche", default=False)
+    jour_lun = models.BooleanField(verbose_name="Dispo le Lundi", default=False)
 
     def __unicode__(self):
         return self.__str()

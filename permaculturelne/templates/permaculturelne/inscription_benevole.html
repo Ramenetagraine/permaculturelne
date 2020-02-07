@@ -23,7 +23,12 @@
             <small></small>
             <h3>Bénévole </h3>
             <hr class="grd1">
+                {% if request.user.is_authenticated and request.user.is_benevole %}
+            <p class="lead">Vous pouvez modifier votre inscription en tant que bénévole ici.</p>
+
+                {%else%}
             <p class="lead">Inscrivez-vous ici pour devenir bénévole du festival (et recevoir notre gratitude éternelle)</p>
+                {%endif%}
             </div>
         </div><!-- end title -->
     </div>
@@ -31,7 +36,7 @@
 
 <div class="section wb">
     <div class="container-fluid">
-        {% include 'form_template.html' with nomBouton="je m'inscris" %}
+                    {% include 'form_template.html' with nomBouton="je m'inscris" %}
         <hr class="hr1">
 
     </div><!-- end container -->

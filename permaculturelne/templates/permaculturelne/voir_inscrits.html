@@ -42,17 +42,86 @@
 
 <div class="section wb">
     <div class="container-fluid">
-        <h3>Bénévoles :    {% comment %}      <a href="{% url 'contact_benevoles' %}"  type="button" class="btn btn-sm btn-success">
-                <span class="glyphicon glyphicon-email"></span>&nbsp;Contacter les bénévoles
-        </a>{% endcomment %}
-        </h3>
-        <ul>
-            {% for i in benevoles %}
-            {% include "registration/template_benevole.html" with nomuser=i.user emailuser=i.user.email %}
-        {% endfor %}
-        </ul>
-    </div>
-</div>
+
+        <table class="table table-condensed">
+			<tbody  class="textleft">
+			{% if nomuser %}
+				<tr>
+					<td colspan="2" class="textcenter">Bénévole : <a href="{% url 'profil_nom' nomuser %}">{{nomuser}} ({{emailuser}})</a>
+					</td>
+				</tr>
+			{% endif %}
+				<tr>
+					<td class="nomProprieteProduit">
+						Mercredi :
+					</td>
+					<td class="proprieteProduit">
+						 {% for i in benevoles %}
+            {% if i.jour_mer %}
+                {% include "registration/template_benevole_tab.html" with nomuser=i.user emailuser=i.user.email %}
+            {% endif%} {% endfor%}
+					</td>
+				</tr>
+				<tr>
+					<td class="nomProprieteProduit">
+						Jeudi :
+					</td>
+					<td class="proprieteProduit">
+						 {% for i in benevoles %}
+            {% if i.jour_jeu %}
+                {% include "registration/template_benevole_tab.html" with nomuser=i.user emailuser=i.user.email %}
+            {% endif%} {% endfor%}
+					</td>
+				</tr>
+				<tr>
+					<td class="nomProprieteProduit">
+						Vendredi :
+					</td>
+					<td class="proprieteProduit">
+						 {% for i in benevoles %}
+            {% if i.jour_ven %}
+                {% include "registration/template_benevole_tab.html" with nomuser=i.user emailuser=i.user.email %}
+            {% endif%} {% endfor%}
+					</td>
+				</tr>
+				<tr>
+					<td class="nomProprieteProduit">
+						Samedi :
+					</td>
+					<td class="proprieteProduit">
+						 {% for i in benevoles %}
+            {% if i.jour_sam %}
+                {% include "registration/template_benevole_tab.html" with nomuser=i.user emailuser=i.user.email %}
+            {% endif%} {% endfor%}
+					</td>
+				</tr>
+				<tr>
+					<td class="nomProprieteProduit">
+						Dimanche :
+					</td>
+					<td class="proprieteProduit">
+						 {% for i in benevoles %}
+            {% if i.jour_dim %}
+                {% include "registration/template_benevole_tab.html" with nomuser=i.user emailuser=i.user.email %}
+            {% endif%} {% endfor%}
+					</td>
+				</tr>
+				<tr>
+					<td class="nomProprieteProduit">
+						Lundi :
+					</td>
+					<td class="proprieteProduit">
+						 {% for i in benevoles %}
+            {% if i.jour_lun %}
+                {% include "registration/template_benevole_tab.html" with nomuser=i.user emailuser=i.user.email %}
+            {% endif%} {% endfor%}
+					</td>
+				</tr>
+
+            </tbody></table>
+
+  </div>
+  </div>
 
 <div class="section wb">
     <div class="container-fluid">
