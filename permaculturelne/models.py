@@ -112,12 +112,12 @@ class InscriptionBenevole(models.Model):
         choices=(Choix.statut_benevole),
         default='0', verbose_name="Statut")
 
-    jour_mer = models.BooleanField(verbose_name="Dispo le Mercredi", default=False)
-    jour_jeu = models.BooleanField(verbose_name="Dispo le Jeudi", default=False)
-    jour_ven = models.BooleanField(verbose_name="Dispo le Vendredi", default=False)
-    jour_sam = models.BooleanField(verbose_name="Dispo le Samedi", default=False)
-    jour_dim = models.BooleanField(verbose_name="Dispo le Dimanche", default=False)
-    jour_lun = models.BooleanField(verbose_name="Dispo le Lundi", default=False)
+    jour_mer = models.BooleanField(verbose_name="Disponible le Mercredi 27 mai", default=False)
+    jour_jeu = models.BooleanField(verbose_name="Disponible le Jeudi 28 mai", default=False)
+    jour_ven = models.BooleanField(verbose_name="Disponible le Vendredi 29 mai", default=False)
+    jour_sam = models.BooleanField(verbose_name="Disponible le Samedi 30 mai", default=False)
+    jour_dim = models.BooleanField(verbose_name="Disponible le Dimanche 31 mai", default=False)
+    jour_lun = models.BooleanField(verbose_name="Disponible le Lundi 01 juin", default=False)
 
     def __unicode__(self):
         return self.__str()
