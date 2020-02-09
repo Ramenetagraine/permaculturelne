@@ -24,10 +24,9 @@
             <h3>Bénévole </h3>
             <hr class="grd1">
                 {% if request.user.is_authenticated and request.user.is_benevole %}
-            <p class="lead">Vous pouvez modifier votre inscription en tant que bénévole ici.</p>
-
+                    <p class="lead">Vous pouvez modifier votre inscription en tant que bénévole ici.</p>
                 {%else%}
-            <p class="lead">Inscrivez-vous ici pour devenir bénévole du festival (et recevoir notre gratitude éternelle)</p>
+                     <p class="lead">Inscrivez-vous ici pour devenir bénévole du festival (et recevoir notre gratitude éternelle)</p>
                 {%endif%}
             </div>
         </div><!-- end title -->
