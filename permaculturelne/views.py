@@ -14,6 +14,7 @@ from .models import Profil, Message, InscriptionNewsletter, InscriptionBenevole,
 from django.views.generic import ListView, UpdateView, DeleteView
 CharField.register_lookup(Lower, "lower")
 from django.shortcuts import get_object_or_404
+from django.db.models import Q
 
 def handler404(request, template_name="404.html"):  #page not found
     response = render(request, "404.html")
@@ -421,7 +422,7 @@ def voir_inscrits(request):
     newsletter = InscriptionNewsletter.objects.all()
     news_inscrits = Profil.objects.filter(inscrit_newsletter=True)
     inscription_exposant = InscriptionExposant.objects.all()
-    inscription_benevole = InscriptionBenevole.objects.all()
+    inscription_benevole = InscriptionBenevole.objects.filter(~Q(statut_benevole = "4"))
 
 
     return render(request, 'permaculturelne/voir_inscrits.html', {'newsletter':newsletter, 'news_inscrits':news_inscrits, 'benevoles':inscription_benevole, 'exposants':inscription_exposant})
