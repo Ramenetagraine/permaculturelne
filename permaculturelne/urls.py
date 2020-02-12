@@ -60,6 +60,8 @@ urlpatterns = [
     url(r'^contact/$', views.contact, name='contact', ),
     url(r'^organisation/$', views.organisation, name='organisation', ),
     url(r'^forum/$', views.forum, name='forum', ),
+
+    url(r'^modifierMessage/(?P<id>[0-9]+)$', login_required(views.ModifierMessage.as_view(), login_url='/auth/login/'), name='modifierMessage'),
     url(r'^inscription_newsletter/$', views.inscription_newsletter, name='inscription_newsletter', ),
     url(r'^voir_inscrits/$', views.voir_inscrits, name='voir_inscrits', ),
 

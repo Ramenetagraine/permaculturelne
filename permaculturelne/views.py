@@ -2,19 +2,20 @@ from django.shortcuts import render, redirect
 from django.db.models import CharField
 from django.db.models.functions import Lower
 from django.views.decorators.debug import sensitive_variables
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse_lazy
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import Group, User
+from django.contrib.auth.models import User
 from django.core.mail import mail_admins, send_mail, BadHeaderError
-from .forms import ProfilCreationForm, ContactForm, ProfilChangeForm, MessageForm, InscriptionBenevoleForm, InscriptionExposantForm, ContactAnonymeForm, InscriptionNewsletterForm
+from .forms import ProfilCreationForm, ContactForm, ProfilChangeForm, MessageForm, InscriptionBenevoleForm, InscriptionExposantForm, ContactAnonymeForm, InscriptionNewsletterForm, MessageChangeForm
 from .models import Profil, Message, InscriptionNewsletter, InscriptionBenevole, InscriptionExposant
-from django.views.generic import ListView, UpdateView, DeleteView
+from django.views.generic import UpdateView, DeleteView
 CharField.register_lookup(Lower, "lower")
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, HttpResponseRedirect
 from django.db.models import Q
+from django.utils.timezone import now
 
 def handler404(request, template_name="404.html"):  #page not found
     response = render(request, "404.html")
@@ -39,7 +40,6 @@ def handler400(request, template_name="400.html"):   #requete invalide
 def bienvenue(request):
     return render(request, 'index.html',)
 
-
 def presentation_site(request):
     return render(request, 'presentation_site.html')
 
@@ -51,7 +51,6 @@ def faq(request):
 
 def cgu(request):
     return render(request, 'cgu.html')
-
 
 def fairedon(request):
     return render(request, 'fairedon.html', )
@@ -288,6 +287,25 @@ def forum(request, ):
         message.save()
         return redirect(request.path)
     return render(request, 'forum.html', {'form': form, 'messages_echanges': messages})
+
+
+class ModifierMessage(UpdateView):
+    model = Message
+    form_class = MessageChangeForm
+    template_name = 'modifierCommentaire.html'
+
+    def get_object(self):
+        return Message.objects.get(id=self.kwargs['id'])
+
+    def form_valid(self, form):
+        self.object = form.save()
+        if self.object.message and self.object.message !='<br>':
+            self.object.date_modification = now()
+            self.object.save()
+        else:
+            self.object.delete()
+        return redirect("forum")
+
 
 
 

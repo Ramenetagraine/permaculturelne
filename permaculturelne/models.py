@@ -97,6 +97,10 @@ class Message(models.Model):
         return "(" + str(self.id) + ") " + str(self.auteur) + " " + str(self.date_creation)
 
 
+    @property
+    def get_edit_url(self):
+        return reverse('modifierMessage',  kwargs={'id':self.id})
+
 class InscriptionBenevole(models.Model):
     user = models.ForeignKey(Profil, on_delete=models.CASCADE)
     domaine_benevole = models.CharField(max_length=10,

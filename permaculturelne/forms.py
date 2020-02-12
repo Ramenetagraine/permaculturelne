@@ -109,6 +109,15 @@ class MessageForm(forms.ModelForm):
            self.fields['message'].initial = message
 
 
+class MessageChangeForm(forms.ModelForm):
+
+    class Meta:
+        model = Message
+        exclude = ['auteur',  'valide']
+
+
+        widgets = {'message': SummernoteWidget(),     }
+
 class InscriptionBenevoleForm(forms.ModelForm):
     class Meta:
         model = InscriptionBenevole

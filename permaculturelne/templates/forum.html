@@ -42,9 +42,12 @@
                         <div class="col-sm-4 col-md-3 col-lg-3">
                             <p class="infos  textepetit ">
                                 {% ifchanged %}<a href="{% url 'profil' mess.auteur.id %}"> {{mess.auteur}}</a>, {% endifchanged %} ({{ mess.date_creation|date:"G:i" }}) </p>
+                            {% if request.user == mess.auteur  or request.user.is_superuser%}
+                                <a class="boutonediter" href="{{ mess.get_edit_url  }}" role="button" alt="éditer"><i class="fa fa-edit"></i></a>
+                            {% endif %}
                         </div>
                         <div class=" col-sm-8 col-md-9 col-lg-9 message ">
-                                <p>{{ mess.message|safe|url }}</p>
+                                <p>{{ mess.message|safe }}</p>
                         </div>
                     </div>
                 {% endfor %}
