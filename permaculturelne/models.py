@@ -152,8 +152,7 @@ class InscriptionExposant(models.Model):
     phone_regex = RegexValidator(regex=r'^\d{9,10}$', message="Le numéro de téléphone doit contenir 10 chiffres")
     telephone = models.CharField(verbose_name="Numéro de téléphone de la personne joignable pendant le festival",validators=[phone_regex,], max_length=10, blank=True)  # validators should be a list
 
-    plaque_regex = RegexValidator(regex=r'^[A-Za-z]{2}[0-9]{3}[A-Za-z]{2}$', message="Le numéro de la plaque minéralogique doit etre au format AA123BB")
-    plaque = models.CharField(verbose_name="Numéro de la plaque minéralogique du véhicule utilisé pour le transport du matériel",validators=[plaque_regex,], max_length=10, blank=True)  # validators should be a list
+    plaque = models.CharField(verbose_name="Numéro de la plaque minéralogique du véhicule utilisé pour le transport du matériel", max_length=10, blank=True)  # validators should be a list
 
     type_exposant = models.CharField(max_length=10,
         choices=(Choix.type_exposant),
