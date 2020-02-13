@@ -364,7 +364,7 @@ def inscription_exposant(request):
         inscription = form.save(commit=False)
         inscription.user = request.user
         inscription.save()
-        return render(request, 'merci.html', {'msg' :"L'inscription de votre stand a bien été enregistrée", "msg2":"<p>Vous pouvez le compléter ou le modifier à tout moment sur votre profil. Vous serez contacté dès que possible.</p><p> Pour valider votre inscription, vous devez maintenant envoyer <b>un chèque de caution de 50 euros adressé à Ramene Ta Graine à l'adresse suivante : </p><p class='textcenter'>'7 rue Saint Roch, 66200 Elne'</b>. </p><p>Si vous n'êtes pas adhérent, il faut aussi adhérer à l'association (cela coûte 5 euros)).</p><p> Merci !</p>"})
+        return render(request, 'merci.html', {'msg' :"L'inscription de votre stand a bien été enregistrée", "msg2":"<p>Vous pouvez le compléter ou le modifier à tout moment sur votre profil. Vous serez contacté dès que possible.</p><p> Pour valider votre inscription, vous devez maintenant envoyer <b>un chèque de caution de 50 euros (qui ne sera pas encaissé sauf désistement) adressé à Ramene Ta Graine à l'adresse suivante : </p><p class='textcenter'>'7 rue Saint Roch, 66200 Elne'</b>. </p><p>Si vous n'êtes pas adhérent, il faut aussi adhérer à l'association en envoyant un deuxème chèque de 5 euros à la même adresse.</p><p> Merci !</p>"})
     return render(request, 'permaculturelne/inscription_exposant.html', {'form':form})
 
 
@@ -435,7 +435,7 @@ def inscription_newsletter(request):
 
 
 def voir_inscrits(request):
-    if not request.user.is_equipe:
+    if not request.user.is_authenticated or not request.user.is_equipe:
         return render(request, 'erreur.html', {'msg' :"Désolé vous n'êtes pas enregistré comme membre equipe de Ramene Ta Graine, contactez les administrateurs..."})
     newsletter = InscriptionNewsletter.objects.all()
     news_inscrits = Profil.objects.filter(inscrit_newsletter=True)

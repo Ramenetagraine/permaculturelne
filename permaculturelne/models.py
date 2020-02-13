@@ -16,7 +16,7 @@ class Choix():
     type_message = ('0','Commentaire'), ("1","Coquille"), ('2','Réflexion')
     type_article = ('0','intro'), ("1","constat"), ('2','preconisations'), ('3','charte'), ('4','liens'), ('5','accueil')
     type_benevole = ('0','Accueil'), ("1","Bar"), ('2','Internet'), ('3','Logistique'), ('4','Concert'), ('5', 'Sécurité'), ('6',"N'importe...")
-    type_exposant = ('0','Association'), ("1","Particulier"), ('2','Institution'), ('3','Commerçant'), ('4','Nourriture sur place'), ('5','Conférence'), ('6', 'Atelier'), ('7', "autre")
+    type_exposant = ('0','Association'), ("1","Particulier"), ('2','Institution'), ('3','Commerçant'), ('4','Nourriture sur place'), ('5', 'Entreprise de services'), ('6','Conférence'), ('7', 'Atelier'), ('7', "autre")
     type_domaine_exposant = ('0','Agriculture'), ("1","Alimentaire"), ('2','Artisanat'), ('3','Bien être'), ('4','Habitat'), ('5','Informations'), ('6', 'Jeux'), ('7', "autre")
 
     statut_adhesion = (('', '-----------'),
