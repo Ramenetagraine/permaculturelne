@@ -434,8 +434,9 @@ def inscription_newsletter(request):
     return render(request, 'inscription_newsletter.html', {'form':form})
 
 
+@login_required
 def voir_inscrits(request):
-    if not request.user.is_authenticated or not request.user.is_equipe:
+    if not request.user.is_equipe:
         return render(request, 'erreur.html', {'msg' :"Désolé vous n'êtes pas enregistré comme membre equipe de Ramene Ta Graine, contactez les administrateurs..."})
     newsletter = InscriptionNewsletter.objects.all()
     news_inscrits = Profil.objects.filter(inscrit_newsletter=True)
