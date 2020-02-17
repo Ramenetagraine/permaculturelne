@@ -3,7 +3,11 @@
 		<thead>
 			 <th colspan="2">
 				{% if i.statut_benevole == '4'%}Inscription ANNULEE en tant que bénévole
-
+					<a href="{{i.get_undocancel_url}}">
+						<button type="button" class="btn btn-sm btn-warning">
+							&nbsp;Rétablir
+						</button>
+					</a>
 				{%else%}Inscription en tant que bénévole
 				<a href="{{i.get_update_url}}">
 					<button type="button" class="btn btn-sm btn-warning">
