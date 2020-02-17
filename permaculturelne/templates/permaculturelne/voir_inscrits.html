@@ -25,7 +25,7 @@
 
 <div class="section wb">
     <div class="container-fluid">
-        <h3>Inscrits à la newsletter</h3>
+        <h3>Inscrits à la newsletter ({{ news_inscrits|length }})</h3>
         <div class="row">
                 <div class="col-sm-11" id="news1">{% for n in newsletter %}{{n|safe}}{% if not forloop.last %}, {% endif %}{% endfor %}</div>
     <div class="col-sm-1">  <button onclick="copyToClipboard('#news1')">Copier</button>
@@ -42,7 +42,7 @@
 
 <div class="section wb">
     <div class="container-fluid">
-        <h3>Bénévoles</h3>
+        <h3>Bénévoles  ({{ benevoles|length }})</h3>
         <ul>
         <table class="table table-condensed">
 			<tbody  class="textleft">
@@ -131,6 +131,7 @@
         <h3>Exposants {% comment %}<a href="{% url 'contact_exposants' %}"  type="button" class="btn btn-sm btn-success">
                 <span class="glyphicon glyphicon-email"></span>&nbsp;Contacter les exposants
         </a>{% endcomment %}
+            ({{ exposants|length }})
         </h3>
 
         <ul>
