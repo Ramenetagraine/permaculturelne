@@ -267,6 +267,7 @@ def contact_exposants(request):
 def liens(request):
     liens = [
         'https://www.facebook.com/ramenetagraine/',
+        'https://www.facebook.com/permamap66/',
         'https://www.facebook.com/permapat/',
         'https://www.permapat.com/',
         'http://www.perma.cat',
@@ -364,7 +365,8 @@ def inscription_exposant(request):
         inscription = form.save(commit=False)
         inscription.user = request.user
         inscription.save()
-        return render(request, 'merci.html', {'msg' :"L'inscription de votre stand a bien été enregistrée", "msg2":"<p>Vous pouvez le compléter ou le modifier à tout moment sur votre profil. Vous serez contacté dès que possible.</p><p> Pour valider votre inscription, vous devez maintenant envoyer <b>un chèque de caution de 50 euros (qui ne sera pas encaissé sauf désistement) adressé à Ramene Ta Graine à l'adresse suivante : </p><p class='textcenter'>'7 rue Saint Roch, 66200 Elne'</b>. </p><p>Si vous n'êtes pas adhérent, il faut aussi adhérer à l'association en envoyant un deuxème chèque de 5 euros à la même adresse.</p><p> Merci !</p>"})
+        return render(request, 'merci.html', {'msg' :"L'inscription de votre stand a bien été enregistrée", "msg2":"p>Vous pouvez le compléter ou le modifier à tout moment sur votre profil. Vous serez contacté dès que possible.</p><p> Pour valider votre inscription, vous devez maintenant envoyer <b>un chèque de caution de 50 euros (qui ne sera pas encaissé sauf désistement) adressé à Ramene Ta Graine à l'adresse suivante : </p><p class='textcenter'>'7 rue Saint Roch, 66200 Elne'</b>. </p><p>Si vous n'êtes pas adhérent, il faut aussi adhérer à l'association en envoyant un deuxème chèque de 5 euros à la même adresse.</p><p> Merci !</p>"
+                                                                                                                   ""})
     return render(request, 'permaculturelne/inscription_exposant.html', {'form':form})
 
 

@@ -133,10 +133,11 @@ class InscriptionBenevoleForm(forms.ModelForm):
 
 class InscriptionExposantForm(forms.ModelForm):
     nom_structure = forms.CharField(label="Nom de la structure, association, autre")
+    procedure_lue = forms.BooleanField(label="J'ai lu et compris la procédure d'inscription (en haut de la page)", required=True)
 
     class Meta:
         model = InscriptionExposant
-        fields = ['nom_structure', 'type_exposant', 'domaine_exposant',  'description', 'jours_festival', 'nombre_tables', 'telephone', 'plaque', 'is_tombola', 'lot_tombola' ]
+        fields = ['nom_structure', 'type_exposant', 'domaine_exposant',  'description', 'jours_festival', 'nombre_tables', 'telephone', 'plaque', 'is_tombola', 'lot_tombola' , 'procedure_lue' ]
         widgets = {
             'description': SummernoteWidget(),
             'lot_tombola': SummernoteWidget(),
