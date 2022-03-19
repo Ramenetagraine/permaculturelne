@@ -56,7 +56,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'django.contrib.sites',
     'permaculturelne',
-    'bootstrap','fontawesome','cookielaw',
+    'bootstrap','fontawesome','cookielaw_local',
     'model_utils',
     'django_extensions',
     'django_filters',
