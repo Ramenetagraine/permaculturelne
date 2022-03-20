@@ -14,7 +14,7 @@ no_space_validator = RegexValidator(
 
 
 class ProfilCreationForm(UserCreationForm):
-    username = forms.CharField(label="Pseudonyme*", help_text="Attention les majuscules sont importantes...", validators=[no_space_validator,])
+    username = forms.CharField(label="Pseudonyme/identifiant*", help_text="Attention les majuscules sont importantes...", validators=[no_space_validator,])
     code_postal = forms.CharField(label="Code postal*", )
     commune = forms.CharField(label="Commune*", )
     email= forms.EmailField(label="Email*",)
@@ -38,7 +38,7 @@ class ProfilChangeForm(UserChangeForm):
     password hash display field.
     """
     email = forms.EmailField(label="Email")
-    username = forms.CharField(label="Pseudonyme", validators=[no_space_validator,])
+    username = forms.CharField(label="Pseudonyme/identifiant", validators=[no_space_validator,])
     description = forms.CharField(label="Description", help_text="Une description de vous-même", required=False)
     code_postal = forms.CharField(label="Code postal*", )
     commune = forms.CharField(label="Commune*", )
@@ -57,7 +57,7 @@ class ProfilChangeForm_admin(UserChangeForm):
     password hash display field.
     """
     email = forms.EmailField(label="Email")
-    username = forms.CharField(label="Pseudonyme", validators=[no_space_validator,])
+    username = forms.CharField(label="Pseudonyme/identifiant", validators=[no_space_validator,])
     description = forms.CharField(label="Description", initial="Une description de vous même (facultatif)", widget=forms.Textarea)
     code_postal = forms.CharField(label="Code postal*", )
     commune = forms.CharField(label="Commune*", )
