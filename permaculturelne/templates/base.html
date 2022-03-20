@@ -76,6 +76,8 @@
     </div><!-- end loader -->
     <!-- END LOADER -->
 
+{%block place_cookielaw %}
+{%endblock %}
     <div id="wrapper">
 
         <!-- Sidebar-wrapper -->
@@ -89,12 +91,14 @@
 					<li><a href="{% url 'organisation' %}">Informations</a></li>
                      {% if not request.user.is_authenticated or not request.user.is_benevole %}
                     {% if  request.user.statut_adhesion != 2  %}
-					    <li><a href="{% url 'benevoles' %}">Devenir bénévole</a></li>
+					    <li><a href="{% url 'benevoles' %}">Espace bénévole</a></li>
                     {%endif%}
                     {%endif%}
 
-					    <li><a href="{% url 'exposants' %}">Exposants</a></li>
-					<li><a href="{% url 'forum' %}">Forum</a></li>
+					    <li><a href="{% url 'exposants' %}">Espace Exposants</a></li>
+                     {% if request.user.is_authenticated %}
+					<li><a href="{% url 'forum' %}">Chat'</a></li>
+                    {%endif%}
 					<li><a href="{% url 'contact' %}">Contact</a></li>
         {%endblock%}
 
@@ -405,6 +409,7 @@
             </div><!-- end section -->
 
     {%endcomment%}
+
             {%endblock%}
 
         </div>
@@ -412,8 +417,6 @@
             {%block footer%}
             <div class="copyrights">
                 <div class="container-fluid">
-{%block place_cookielaw %}
-{%endblock %}
                     <div class="footer-distributed">
                         <div class="footer-left">
                             <p class="footer-links">
