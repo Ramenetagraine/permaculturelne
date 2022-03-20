@@ -121,7 +121,7 @@ class MessageChangeForm(forms.ModelForm):
 class InscriptionBenevoleForm(forms.ModelForm):
     class Meta:
         model = InscriptionBenevole
-        fields = ['domaine_benevole', 'jour_mer', 'jour_jeu', 'jour_ven', 'jour_sam', 'jour_dim', 'jour_lun', 'description']
+        fields = ['domaine_benevole', 'jour_mer', 'jour_jeu', 'jour_ven', 'jour_sam', 'description']
         widgets = {'description': SummernoteWidget(),
                    }
 
@@ -137,7 +137,7 @@ class InscriptionExposantForm(forms.ModelForm):
 
     class Meta:
         model = InscriptionExposant
-        fields = ['nom_structure', 'type_exposant', 'domaine_exposant',  'description', 'jours_festival', 'nombre_tables', 'telephone', 'plaque', 'is_tombola', 'lot_tombola' , 'procedure_lue' ]
+        fields = ['nom_structure', 'type_exposant', 'domaine_exposant',  'description', 'nombre_tables', 'telephone', 'is_tombola', 'lot_tombola' , 'procedure_lue' ]
         widgets = {
             'description': SummernoteWidget(),
             'lot_tombola': SummernoteWidget(),

@@ -16,7 +16,7 @@ class Choix():
     type_message = ('0','Commentaire'), ("1","Coquille"), ('2','Réflexion')
     type_article = ('0','intro'), ("1","constat"), ('2','preconisations'), ('3','charte'), ('4','liens'), ('5','accueil')
     type_benevole = ('0','Accueil'), ("1","Bar"), ('2','Internet'), ('3','Logistique'), ('4','Concert'), ('5', 'Sécurité'), ('6',"N'importe...")
-    type_exposant = ('0','Association'), ("1","Particulier"), ('2','Institution'), ('3','Commerçant'), ('4','Nourriture sur place'), ('5', 'Entreprise de services'), ('6','Conférence'), ('7', 'Atelier'), ('7', "autre")
+    type_exposant = ('0','Association'), ("1","Particulier"), ('2','Institution'), ('3','Commerçant'), ('4','Restauration'), ('5', 'Entreprise de services'), ('6','Conférence'), ('7', 'Atelier'), ('8', "autre"),
     type_domaine_exposant = ('0','Agriculture'), ("1","Alimentaire"), ('2','Artisanat'), ('3','Bien être'), ('4','Habitat'), ('5','Informations'), ('6', 'Jeux'), ('7', "autre")
 
     statut_adhesion = (('', '-----------'),
@@ -24,7 +24,7 @@ class Choix():
                      (1, ("Je suis déjà adhérent de l'asso 'Ramene Ta graine', ma cotisation est à jour")),
                     (2, ("Je suis déjà adhérent et 'membre équipe' de l'asso 'Ramene Ta graine'"))
                        )
-    statut_exposant = (('0', 'Inscription déposée'), ('1', 'Inscription incomplète ou en cours de validation'), ('2', 'Inscription validée'), ('3', 'Inscription refusée'), ('4', 'Inscription annulée'),)
+    statut_exposant = (('0', 'Inscription déposée'), ('1', 'Inscription incomplète ou en cours de validation'), ('5', 'Inscription valide mais en attente du cheque de caution'), ('2', 'Inscription validée'), ('3', 'Inscription refusée'), ('4', 'Inscription annulée'),)
     statut_benevole = (('0', 'Inscription déposée'), ('1', 'Inscription en cours de validation'), ('2', 'Inscription validée'), ('3', 'Inscription refusée'), ('4', 'Inscription annulée'),)
 
 
@@ -116,12 +116,10 @@ class InscriptionBenevole(models.Model):
         choices=(Choix.statut_benevole),
         default='0', verbose_name="Statut")
 
-    jour_mer = models.BooleanField(verbose_name="Disponible le Mercredi 27 mai", default=False)
-    jour_jeu = models.BooleanField(verbose_name="Disponible le Jeudi 28 mai", default=False)
-    jour_ven = models.BooleanField(verbose_name="Disponible le Vendredi 29 mai", default=False)
-    jour_sam = models.BooleanField(verbose_name="Disponible le Samedi 30 mai", default=False)
-    jour_dim = models.BooleanField(verbose_name="Disponible le Dimanche 31 mai", default=False)
-    jour_lun = models.BooleanField(verbose_name="Disponible le Lundi 01 juin", default=False)
+    jour_mer = models.BooleanField(verbose_name="Disponible le Mercredi 12 octobre", default=False)
+    jour_jeu = models.BooleanField(verbose_name="Disponible le Jeudi 13 octobre", default=False)
+    jour_ven = models.BooleanField(verbose_name="Disponible le Vendredi 14 octobre", default=False)
+    jour_sam = models.BooleanField(verbose_name="Disponible le Samedi 15 octobre", default=False)
 
     def __unicode__(self):
         return self.__str()
@@ -152,8 +150,6 @@ class InscriptionExposant(models.Model):
     phone_regex = RegexValidator(regex=r'^\d{9,10}$', message="Le numéro de téléphone doit contenir 10 chiffres")
     telephone = models.CharField(verbose_name="Numéro de téléphone de la personne joignable pendant le festival",validators=[phone_regex,], max_length=10, blank=True)  # validators should be a list
 
-    plaque = models.CharField(verbose_name="Numéro de la plaque minéralogique du véhicule utilisé pour le transport du matériel", max_length=10, blank=True)  # validators should be a list
-
     type_exposant = models.CharField(max_length=10,
         choices=(Choix.type_exposant),
         default='0', verbose_name="Type de la structure")
@@ -168,10 +164,6 @@ class InscriptionExposant(models.Model):
     lot_tombola = models.TextField(null=True, blank=True, verbose_name="Si oui, quel(s) lot(s) proposez vous pour la tombola?")
 
     date_inscription = models.DateTimeField(verbose_name="Date d'inscrition", editable=False, auto_now_add=True)
-    jours_festival = models.CharField(max_length=10,
-                                      choices=(('0', '----------'), ('1', 'Samedi'), ('2', "Dimanche"),
-                                               ('3', "Samedi et dimanche"),),
-                                      default='0', verbose_name="Quel(s) jour(s) du festival seriez-vous présent ?")
 
     statut_exposant = models.CharField(max_length=10,
         choices=(Choix.statut_exposant),
