@@ -19,7 +19,7 @@ class ProfilCreationForm(UserCreationForm):
     commune = forms.CharField(label="Commune*", )
     email= forms.EmailField(label="Email*",)
     accepter_conditions = forms.BooleanField(required=True, label="J'ai lu et j'accepte les Conditions Générales d'Utilisation du site",  )
-    captcha = CaptchaField()
+    #captcha = CaptchaField()
 
     class Meta(UserCreationForm):
         model = Profil

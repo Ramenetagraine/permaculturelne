@@ -33,7 +33,7 @@ admin.sites.site_title ="Admin Permacat"
 urlpatterns = [
     path('gestion/', admin.site.urls),
     url(r'^summernote/', include('django_summernote.urls')),
-    url(r'^captcha/', include('captcha.urls')),
+    #url(r'^captcha/', include('captcha.urls')),
     url(r'^$', views.bienvenue, name='bienvenue'),
     url(r'^faq/$', views.faq, name='faq'),
     url(r'^contact/$', views.contact, name='contact', ),
