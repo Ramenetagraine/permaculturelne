@@ -31,13 +31,15 @@ class Choix():
 
 class Profil(AbstractUser):
     code_postal = models.CharField(max_length=5, blank=True, null=True, default="66000")
-    phone_regex = RegexValidator(regex=r'^\d{9,10}$', message="Le numero de telephone doit contenir 10 chiffres")
-    telephone = models.CharField(validators=[phone_regex,], max_length=10, blank=True)  # validators should be a list
+    telephone = models.CharField(max_length=15, blank=True)  # validators should be a list
     date_registration = models.DateTimeField(verbose_name="Date de création", editable=False)
     inscrit_newsletter = models.BooleanField(verbose_name="J'accepte de recevoir des emails", default=False)
     accepter_conditions = models.BooleanField(verbose_name="J'ai lu et j'accepte les conditions d'utilisation du site", default=False, null=False)
     is_equipe = models.BooleanField(verbose_name="Membre equipe", default=False)
     statut_adhesion = models.IntegerField(choices=Choix.statut_adhesion, default="0")
+    last_name = models.CharField(verbose_name='Nom', max_length=150, blank=True)
+    first_name = models.CharField(verbose_name='Prénom', max_length=30, blank=True)
+    email = models.EmailField(verbose_name='Asresse email', blank=False)
 
     def __str__(self):
         return self.username
@@ -144,9 +146,7 @@ class InscriptionBenevole(models.Model):
 class InscriptionExposant(models.Model):
     user = models.ForeignKey(Profil, on_delete=models.CASCADE)
     nom_structure = models.TextField(null=False, blank=True, verbose_name="Nom de la structure, association, autre")
-
-    phone_regex = RegexValidator(regex=r'^\d{9,10}$', message="Le numéro de téléphone doit contenir 10 chiffres")
-    telephone = models.CharField(verbose_name="Numéro de téléphone de la personne joignable pendant le festival",validators=[phone_regex,], max_length=10, blank=True)  # validators should be a list
+    telephone = models.CharField(verbose_name="Numéro de téléphone de la personne joignable pendant la journée", max_length=15, blank=True)  # validators should be a list
 
     #type_exposant = models.CharField(max_length=10,
     #    choices=(Choix.type_exposant),
@@ -159,7 +159,7 @@ class InscriptionExposant(models.Model):
         choices=((0, '----------'), ('1', 'pas de table'), ('2', "1 table"), ('3', "2 tables")),
         default='0', verbose_name="Combien de tables voulez vous réserver ?")
     nombre_chaises =models.CharField(max_length=2,
-        choices=((0, '----------'), ('1', '1 chaise'), ('2', "2 chaises"), ('3', "3 tables"), ('4', "5 chaises"), ('5', "5 chaises")),
+        choices=((0, '----------'), ('1', '1 chaise'), ('2', "2 chaises"), ('3', "3 chaises"), ('4', "4 chaises"), ('5', "5 chaises")),
         default='0', verbose_name="Combien de chaises voulez vous réserver ?")
     nombre_grilles =models.CharField(max_length=2,
         choices=((0, '----------'), ('1', 'pas de grille'), ('2', "2 grilles"), ('3', "4 grilles")),

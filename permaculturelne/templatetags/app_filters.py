@@ -6,7 +6,7 @@ import re
 
 register = template.Library()
 
-typesAvecEntete = ['Select', " NumberInput", "DateInput", "SummernoteWidget", 'TextInput',]
+typesAvecEntete = ['Select', " NumberInput", "DateInput", "SummernoteWidget", 'TextInput', 'TextInput','EmailInput','PasswordInput',]
 
 @register.filter(is_safe=True)
 def is_numeric(value):

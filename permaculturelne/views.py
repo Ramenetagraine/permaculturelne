@@ -65,7 +65,10 @@ def register(request):
     if form_profil.is_valid():
         profil_courant = form_profil.save(commit=False, is_active=True)
         profil_courant.save()
-        return render(request, 'userenattente.html')
+        if "next" in request.GET:
+            return redirect(request.GET['next'])
+        else:
+            return render(request, 'userenattente.html')
 
     return render(request, 'registration/register.html', { "form_profil": form_profil, })
 
