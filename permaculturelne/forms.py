@@ -2,7 +2,6 @@ from django import forms
 from django.core.validators import RegexValidator
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import Profil, Message, InscriptionBenevole, InscriptionExposant, InscriptionNewsletter
-#from captcha.fields import CaptchaField
 from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 
 no_space_validator = RegexValidator(
