@@ -13,16 +13,14 @@ no_space_validator = RegexValidator(
 
 
 class ProfilCreationForm(UserCreationForm):
-    username = forms.CharField(label="Pseudonyme/identifiant*", help_text="Attention les majuscules sont importantes...", validators=[no_space_validator,])
+    username = forms.CharField(label="Pseudonyme/identifiant*", help_text="Attention, pas d'espace et les majuscules sont importantes...", validators=[no_space_validator,])
     code_postal = forms.CharField(label="Code postal*", )
-    commune = forms.CharField(label="Commune*", )
     email= forms.EmailField(label="Email*",)
     accepter_conditions = forms.BooleanField(required=True, label="J'ai lu et j'accepte les Conditions Générales d'Utilisation du site",  )
-    #captcha = CaptchaField()
 
     class Meta(UserCreationForm):
         model = Profil
-        fields = ['username', 'email', 'password1',  'password2', 'first_name', 'last_name', 'telephone', 'code_postal', 'commune', 'inscrit_newsletter', 'accepter_conditions']
+        fields = ['username', 'email', 'password1',  'password2', 'first_name', 'last_name', 'telephone', 'code_postal', 'accepter_conditions']
         exclude = ['slug', ]
 
     def save(self, commit = True, is_active=False):
@@ -40,14 +38,13 @@ class ProfilChangeForm(UserChangeForm):
     username = forms.CharField(label="Pseudonyme/identifiant", validators=[no_space_validator,])
     description = forms.CharField(label="Description", help_text="Une description de vous-même", required=False)
     code_postal = forms.CharField(label="Code postal*", )
-    commune = forms.CharField(label="Commune*", )
     inscrit_newsletter = forms.BooleanField(required=False, label="J'accepte de recevoir la newsletter")
     is_equipe = forms.BooleanField(required=False, label="Equipe")
     password=None
 
     class Meta:
         model = Profil
-        fields = ['username', 'email', 'telephone', 'first_name', 'last_name',  'description', 'code_postal', 'commune', 'statut_adhesion', 'inscrit_newsletter','is_equipe']
+        fields = ['username', 'email', 'telephone', 'first_name', 'last_name', 'code_postal', 'statut_adhesion', 'inscrit_newsletter','is_equipe']
 
 
 class ProfilChangeForm_admin(UserChangeForm):
@@ -59,16 +56,14 @@ class ProfilChangeForm_admin(UserChangeForm):
     username = forms.CharField(label="Pseudonyme/identifiant", validators=[no_space_validator,])
     description = forms.CharField(label="Description", initial="Une description de vous même (facultatif)", widget=forms.Textarea)
     code_postal = forms.CharField(label="Code postal*", )
-    commune = forms.CharField(label="Commune*", )
     inscrit_newsletter = forms.BooleanField(required=False)
-    accepter_annuaire = forms.BooleanField(required=False)
     a_signe = forms.BooleanField(required=False)
     is_equipe = forms.BooleanField(required=False)
     password = None
 
     class Meta:
         model = Profil
-        fields = ['username', 'first_name', 'last_name', 'email', 'description', 'code_postal', 'commune',  'statut_adhesion','inscrit_newsletter','is_equipe']
+        fields = ['username', 'first_name', 'last_name', 'email', 'code_postal',  'statut_adhesion','inscrit_newsletter','is_equipe']
 
 
     def __init__(self, *args, **kwargs):
