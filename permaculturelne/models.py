@@ -150,18 +150,22 @@ class InscriptionExposant(models.Model):
     phone_regex = RegexValidator(regex=r'^\d{9,10}$', message="Le numéro de téléphone doit contenir 10 chiffres")
     telephone = models.CharField(verbose_name="Numéro de téléphone de la personne joignable pendant le festival",validators=[phone_regex,], max_length=10, blank=True)  # validators should be a list
 
-    type_exposant = models.CharField(max_length=10,
-        choices=(Choix.type_exposant),
-        default='0', verbose_name="Type de la structure")
-    domaine_exposant = models.CharField(max_length=10,
-        choices=(Choix.type_domaine_exposant),
-        default='0', verbose_name="Domaine principal")
+    #type_exposant = models.CharField(max_length=10,
+    #    choices=(Choix.type_exposant),
+    #"    default='0', verbose_name="Type de la structure")
+    #domaine_exposant = models.CharField(max_length=10,
+    #    choices=(Choix.type_domaine_exposant),
+     #   default='0', verbose_name="Domaine principal")
     description = models.TextField(null=False, blank=True, verbose_name="Description (brève) du stand que vous voulez tenir")
-    nombre_tables =models.CharField(max_length=10,
+    nombre_tables =models.CharField(max_length=2,
         choices=((0, '----------'), ('1', 'pas de table'), ('2', "1 table"), ('3', "2 tables")),
         default='0', verbose_name="Combien de tables voulez vous réserver ?")
-    is_tombola = models.BooleanField(verbose_name="Je souhaite offrir un lot pour la tombola", default=False)
-    lot_tombola = models.TextField(null=True, blank=True, verbose_name="Si oui, quel(s) lot(s) proposez vous pour la tombola?")
+    nombre_chaises =models.CharField(max_length=2,
+        choices=((0, '----------'), ('1', '1 chaise'), ('2', "2 chaises"), ('3', "3 tables"), ('4', "5 chaises"), ('5', "5 chaises")),
+        default='0', verbose_name="Combien de chaises voulez vous réserver ?")
+    nombre_grilles =models.CharField(max_length=2,
+        choices=((0, '----------'), ('1', 'pas de grille'), ('2', "2 grilles"), ('3', "4 grilles")),
+        default='0', verbose_name="Combien de grilles voulez vous réserver (par paire) ?")
 
     date_inscription = models.DateTimeField(verbose_name="Date d'inscrition", editable=False, auto_now_add=True)
 

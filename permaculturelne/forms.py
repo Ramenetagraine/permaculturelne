@@ -2,7 +2,7 @@ from django import forms
 from django.core.validators import RegexValidator
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import Profil, Message, InscriptionBenevole, InscriptionExposant, InscriptionNewsletter
-from captcha.fields import CaptchaField
+#from captcha.fields import CaptchaField
 from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 
 no_space_validator = RegexValidator(
@@ -133,14 +133,14 @@ class InscriptionBenevoleForm(forms.ModelForm):
 
 class InscriptionExposantForm(forms.ModelForm):
     nom_structure = forms.CharField(label="Nom de la structure, association, autre")
-    procedure_lue = forms.BooleanField(label="J'ai lu et compris la procédure d'inscription (en haut de la page)", required=True)
+    #procedure_lue = forms.BooleanField(label="J'ai lu et compris la procédure d'inscription (en haut de la page)", required=True)
 
     class Meta:
         model = InscriptionExposant
-        fields = ['nom_structure', 'type_exposant', 'domaine_exposant',  'description', 'nombre_tables', 'telephone', 'is_tombola', 'lot_tombola' , 'procedure_lue' ]
+        fields = ['nom_structure', 'description', 'nombre_tables', 'telephone', ]
         widgets = {
             'description': SummernoteWidget(),
-            'lot_tombola': SummernoteWidget(),
+            #'lot_tombola': SummernoteWidget(),
         }
 
     def __init__(self, request, message=None, *args, **kwargs):

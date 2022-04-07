@@ -58,30 +58,6 @@
 				</tr>
 				<tr>
 					<td class="nomProprieteProduit">
-                        Type de la structure
-					</td>
-					<td class="proprieteProduit">
-                        {{i.get_type_exposant_display}}
-					</td>
-				</tr>
-				<tr>
-					<td class="nomProprieteProduit">
-                        Domaine du stand
-					</td>
-					<td class="proprieteProduit">
-{{i.get_domaine_exposant_display}}
-					</td>
-				</tr>
-				<tr>
-					<td class="nomProprieteProduit">
-                        Journées de présence
-					</td>
-					<td class="proprieteProduit">
-                        {{i.get_jours_festival_display}}
-					</td>
-				</tr>
-				<tr>
-					<td class="nomProprieteProduit">
 Téléphone (joignable pendant le festival)
 					</td>
 					<td class="proprieteProduit">
@@ -106,37 +82,19 @@ Nombre de tables nécessaires
 				</tr>
 				<tr>
 					<td class="nomProprieteProduit">
-Plaque minéralogique pour l'accès du matériel du stand au festival
+Nombre de chaises nécessaires
 					</td>
 					<td class="proprieteProduit">
-{{i.plaque}}
+{{i.get_nombre_chaises_display}}
 					</td>
 				</tr>
-
 				<tr>
 					<td class="nomProprieteProduit">
-Participe à la tombola
-                    </td>
+Nombre de grilles nécessaires
+					</td>
 					<td class="proprieteProduit">
-{% if i.is_tombola %}
-oui
-{% else %}
-						non
-{% endif %}
+{{i.get_nombre_grilles_display}}
 					</td>
 				</tr>
-
-{% if i.is_tombola %}
-				<tr>
-					<td class="nomProprieteProduit">
-Lot(s) pour la tombola
-                    </td>
-					<td class="proprieteProduit">
-{{i.lot_tombola|safe}}
-					</td>
-				</tr>
-{% endif %}
-
-
 			</tbody>
 		</table>
