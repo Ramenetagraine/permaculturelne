@@ -48,3 +48,9 @@ def url(value):
         newurlstring = "<a href='" +url_string+"'>"+url_string+"</a>"
         newvalue = newvalue.replace(url_string, newurlstring)
     return newvalue
+
+
+@register.filter(is_safe=True)
+def to_numeric(value):
+    return str(value).replace(',', '.')
+

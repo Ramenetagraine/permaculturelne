@@ -426,7 +426,8 @@ def inscription_exposant_desannuler(request, id):
     return redirect('profil_courant')
 
 def organisation(request, ):
-    return render(request, 'permaculturelne/organisation.html')
+    lieu = {"lat":42.595248, "lon":2.971639}
+    return render(request, 'permaculturelne/organisation.html', {"lieu":lieu})
 
 
 

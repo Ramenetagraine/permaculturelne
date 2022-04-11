@@ -61,7 +61,7 @@ INSTALLED_APPS = (
     'django_extensions',
     'django_filters',
     'widget_tweaks',
-    #'leaflet',
+    'leaflet',
     #'captcha',
     'django_summernote',
 )

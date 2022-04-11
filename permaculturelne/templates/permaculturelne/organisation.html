@@ -1,7 +1,15 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load i18n %}
+{% load staticfiles %}
 {% load fontawesome %}
+{% load leaflet_tags %}
+{% load app_filters %}
+
+{% block header %}
+{% leaflet_js %}
+{% leaflet_css %}
+{%endblock%}
 
 {% block sidebar %}
     <li><a class="active" href="{% url 'organisation' %}">Informations</a></li>
@@ -39,6 +47,59 @@
                 </div>
                 <div class="tab-pane fade" id="tab_b">
                     <p>Le festival se passera au Parc del rec de la torre, <a href="https://goo.gl/maps/PS9ReyyqQLmLBNoX9" target="_blank">32 Rue du Salita, 66200 Elne (GPS : 42.595248, 2.971639)</a></p>
+
+<div class="row" style="min-height:200px;">
+  <div class="col-md-12" >
+      <style>
+
+    .leaflet-container {  /* all maps */
+        width:  90%;
+        height: 100%;
+    }
+    </style>
+      <script type="text/javascript">
+
+        function map_init_basic (map, options) {
+          var leafIcon = L.icon({
+            iconUrl: '{% static 'img/leafgreen.png' %}',
+            shadowUrl: '{% static 'img/leafshadow.png' %}',
+
+            iconSize:     [38, 95], // size of the icon
+            shadowSize:   [50, 64], // size of the shadow
+            iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+            shadowAnchor: [4, 62],  // the same for the shadow
+            popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+        });
+
+          var greenIcon = L.icon({
+              iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+              shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+              iconSize: [25, 41],
+              iconAnchor: [12, 41],
+              popupAnchor: [1, -34],
+              shadowSize: [41, 41]
+        });
+
+            try{
+                var lat = {{lieu.lat|to_numeric}};
+                var lon = {{lieu.lon|to_numeric}};
+                {% block markers %}
+                  var marker = L.marker([lat, lon], {icon: greenIcon}).bindPopup(' <b>Espace Salitar - FestiGraines </b>');
+                  marker.addTo(map);
+                {% endblock %}
+            }
+            catch(err){ ;
+            }
+        {% if lieux|length >= 1 %}
+        map.panTo(new L.LatLng(lat, lon));
+        {%else%}
+        map.panTo(new L.LatLng(42.62914, 2.49939));
+        {%endif%}
+    }
+</script>
+{% leaflet_map "yourmap" callback="window.map_init_basic" %}
+</div>
+</div>
                 </div>
             </div><!-- tab content -->
         </div>
