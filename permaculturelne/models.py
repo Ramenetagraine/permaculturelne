@@ -175,7 +175,7 @@ class InscriptionExposant(models.Model):
         return self.__str()
 
     def __str__(self):
-        return "(" + str(self.id) + ") " + str(self.user) + " " + str(self.date_inscription) + " " + str(self.domaine_exposant) + " " + str(self.description)
+        return "(" + str(self.id) + ") " + str(self.user) + " " + str(self.date_inscription)  + " " + str(self.description)
 
     @property
     def get_update_url(self):

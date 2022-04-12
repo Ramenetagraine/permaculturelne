@@ -60,12 +60,7 @@
                         <td>{{ user.description|safe }}</td>
                     </tr>
               {% endif %}
-        {%if user.commune %}
-            <tr>
-                <td style="width:250px">Commune :</td>
-                <td>{{ user.commune }}</td>
-            </tr>
-            {% endif %}
+
             {%if user.code_postal %}
             <tr>
                 <td style="width:250px">Code postal :</td>
