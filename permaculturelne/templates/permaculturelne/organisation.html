@@ -13,9 +13,8 @@
 
 {% block sidebar %}
     <li><a class="active" href="{% url 'organisation' %}">Informations</a></li>
-    <li><a href="{% url 'forum' %}">Chat'</a></li>
-    <li><a href="{% url 'benevoles' %}">Espace Bénévoles</a></li>
-    <li><a href="{% url 'exposants' %}">Espace Exposants</a></li>
+    <li><a href="{% url 'benevoles' %}">Bénévoles</a></li>
+    <li><a href="{% url 'exposants' %}">Exposants</a></li>
     <li><a href="{% url 'contact' %}">Contact</a></li>
 {%endblock%}
 
@@ -41,7 +40,7 @@
             </ul>
             <div class="tab-content">
                 <div class="tab-pane fade in active" id="tab_a">
-                    <p>Le programme n'est pas encore boucle, mais il y aura des ateliers autour de la semence, des projections, des animations, des trocs, des conférences...</p>
+                    <p>Le programme n'est pas encore bouclé, mais il y aura des ateliers autour de la graine, des jeux, des projections, des animations, des trocs, des conférences...</p>
                     <h4>Venez nombreux et nombreuses !</h4>
                     <p>Suivez-nous sur <a href="https://www.facebook.com/ramenetagraine/">https://www.facebook.com/ramenetagraine/</a></p>
                 </div>
@@ -51,7 +50,6 @@
 <div class="row" style="min-height:200px;">
   <div class="col-md-12" >
       <style>
-
     .leaflet-container {  /* all maps */
         width:  95%;
         height: 100%;
